@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../models/rank_user.dart';
 import '../widgets/rank_item.dart';
+import '../widgets/team_rank_item.dart';
 import '../widgets/top_rankers.dart';
+import '../widgets/top_teams.dart';
 import '../widgets/bottom_navigation.dart';
 
 class RankScreen extends StatefulWidget {
@@ -205,6 +207,103 @@ class _RankScreenState extends State<RankScreen> {
       tierColor: 'B',
       avatarUrl: '',
     ),
+    RankUser(
+      rank: 4,
+      name: 'Team Delta',
+      affiliation: '이화여자대학교',
+      tier: 'G',
+      tierColor: 'G',
+      avatarUrl: '',
+      isCurrentUser: true,
+    ),
+    RankUser(
+      rank: 5,
+      name: 'Team Epsilon',
+      affiliation: '넥슨',
+      tier: 'S',
+      tierColor: 'S',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 6,
+      name: 'Team Zeta',
+      affiliation: '카카오',
+      tier: 'P',
+      tierColor: 'P',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 7,
+      name: 'Team Eta',
+      affiliation: '네이버',
+      tier: 'M',
+      tierColor: 'M',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 8,
+      name: 'Team Theta',
+      affiliation: '쿠팡',
+      tier: 'G',
+      tierColor: 'G',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 9,
+      name: 'Team Iota',
+      affiliation: '배달의민족',
+      tier: 'B',
+      tierColor: 'B',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 10,
+      name: 'Team Kappa',
+      affiliation: '삼성SDS',
+      tier: 'S',
+      tierColor: 'S',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 11,
+      name: 'Team Lambda',
+      affiliation: 'KT',
+      tier: 'B',
+      tierColor: 'B',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 12,
+      name: 'Team Mu',
+      affiliation: 'SK하이닉스',
+      tier: 'B',
+      tierColor: 'B',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 13,
+      name: 'Team Nu',
+      affiliation: '토스',
+      tier: 'C',
+      tierColor: 'C',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 14,
+      name: 'Team Xi',
+      affiliation: '당근마켓',
+      tier: 'B',
+      tierColor: 'B',
+      avatarUrl: '',
+    ),
+    RankUser(
+      rank: 15,
+      name: 'Team Omicron',
+      affiliation: '라인',
+      tier: 'S',
+      tierColor: 'S',
+      avatarUrl: '',
+    ),
   ];
 
   @override
@@ -294,8 +393,11 @@ class _RankScreenState extends State<RankScreen> {
               ),
             ),
 
-            // 상위 3명
-            if (_selectedTabIndex == 0) TopRankers(topUsers: topUsers),
+            // 상위 3명/3팀
+            if (_selectedTabIndex == 0)
+              TopRankers(topUsers: topUsers)
+            else
+              TopTeams(topTeams: topUsers),
 
             // 배경색이 있는 영역
             Expanded(
@@ -309,17 +411,25 @@ class _RankScreenState extends State<RankScreen> {
                 ),
                 child: Column(
                   children: [
-                    // 현재 사용자 순위 (개인 탭에서만)
-                    if (_selectedTabIndex == 0 && otherUsers.isNotEmpty)
+                    // 현재 사용자/팀 순위
+                    if (otherUsers.isNotEmpty)
                       Container(
                         margin: const EdgeInsets.fromLTRB(16, 24, 16, 16),
-                        child: RankItem(
-                          user: otherUsers.firstWhere(
-                            (user) => user.isCurrentUser,
-                            orElse: () => otherUsers.first,
-                          ),
-                          isCurrentUser: true,
-                        ),
+                        child: _selectedTabIndex == 0
+                            ? RankItem(
+                                user: otherUsers.firstWhere(
+                                  (user) => user.isCurrentUser,
+                                  orElse: () => otherUsers.first,
+                                ),
+                                isCurrentUser: true,
+                              )
+                            : TeamRankItem(
+                                team: otherUsers.firstWhere(
+                                  (team) => team.isCurrentUser,
+                                  orElse: () => otherUsers.first,
+                                ),
+                                isCurrentTeam: true,
+                              ),
                       ),
 
                     // 나머지 순위 목록
@@ -329,10 +439,15 @@ class _RankScreenState extends State<RankScreen> {
                         itemCount: otherUsers.length,
                         itemBuilder: (context, index) {
                           final user = otherUsers[index];
-                          return RankItem(
-                            user: user,
-                            isCurrentUser: user.isCurrentUser,
-                          );
+                          return _selectedTabIndex == 0
+                              ? RankItem(
+                                  user: user,
+                                  isCurrentUser: user.isCurrentUser,
+                                )
+                              : TeamRankItem(
+                                  team: user,
+                                  isCurrentTeam: user.isCurrentUser,
+                                );
                         },
                       ),
                     ),
