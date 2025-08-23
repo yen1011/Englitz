@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/bottom_navigation.dart';
 import 'home_screen.dart';
 import 'rank_screen.dart';
+import 'review_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = [
     const RankScreen(),
     const HomeScreen(),
-    const Placeholder(), // 리뷰 화면 (추후 구현)
+    const ReviewScreen(),
   ];
 
   @override
