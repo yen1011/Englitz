@@ -13,137 +13,138 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  final List<RecentMatch> _recentMatches = generateDummyMatches();
+  List<RecentMatch> _recentMatches = generateRecentMatches();
   final GlobalKey<UserProfileHeaderState> _profileHeaderKey = GlobalKey<UserProfileHeaderState>();
   final GlobalKey<StatsCardState> _statsCardKey = GlobalKey<StatsCardState>();
+
+  void updateRecentMatches() {
+    setState(() {
+      _recentMatches = generateRecentMatches();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6FA),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // 상단 배경 사각형 영역
-              Stack(
-                children: [
-                  // 배경 사각형 (최상단부터 프로필 이미지 중간까지)
-                  Container(
-                    height: 280, // 높이를 늘려서 상단까지 확장
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF788CC3), // 기본 배경색
-                      image: const DecorationImage(
-                        image: AssetImage(
-                          'assets/images/default_avatar.png', // 배경 이미지 경로
-                        ),
-                        fit: BoxFit.cover,
-                        opacity: 0.4, // 투명도 조절
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 상단 배경 사각형 영역 (상태바 영역까지 포함)
+            Stack(
+              children: [
+                // 배경 사각형 (최상단부터 프로필 이미지 중간까지)
+                Container(
+                  height: 280 + MediaQuery.of(context).padding.top, // 상태바 영역까지 포함
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white, // 흰색 배경
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0x1A000000), // 10% 투명도의 검은색
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                        spreadRadius: 0,
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0x1A000000), // 10% 투명도의 검은색
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
-                          spreadRadius: 0,
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // 상단 콘텐츠
-                  Column(
-                    children: [
-                      // 상단 설정 버튼과 프로필 수정 버튼
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            // 프로필 수정 버튼
-                            IconButton(
-                              onPressed: () {
-                                _showProfileEditDialog();
-                              },
-                              icon: const Icon(
-                                Icons.edit,
-                                color: Color(0xFF666666),
-                                size: 24,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            // 설정 버튼
-                            IconButton(
-                              onPressed: () {
-                                // 설정 화면으로 이동
-                              },
-                              icon: const Icon(
-                                Icons.settings,
-                                color: Color(0xFF666666),
-                                size: 24,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                                          // 사용자 프로필 헤더
-                    Center(child: UserProfileHeader(key: _profileHeaderKey)),
                     ],
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 32),
-
-              // 게임 모드 버튼들
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: GameModeButtons(),
-              ),
-
-              const SizedBox(height: 40),
-
-              // 승률 통계 카드부터 그라데이션 배경 적용
-              Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFFAEB4D8),
-                      Color(0xFFB8BEDE),
-                      Color(0xFFC8D0E5),
-                      Color(0xFFE8ECF4),
-                      Color(0xFFF8F9FF),
-                      Colors.white,
-                    ],
-                    stops: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],
-                  ),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
                   ),
                 ),
-                child: Column(
+
+                // 상단 콘텐츠
+                Column(
                   children: [
-                    // 승률 통계 카드
+                    // 상태바 영역을 위한 패딩
+                    SizedBox(height: MediaQuery.of(context).padding.top),
+                    // 상단 설정 버튼과 프로필 수정 버튼
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                      child: StatsCard(key: _statsCardKey),
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // 프로필 수정 버튼
+                          IconButton(
+                            onPressed: () {
+                              _showProfileEditDialog();
+                            },
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Color(0xFF666666),
+                              size: 24,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          // 설정 버튼
+                          IconButton(
+                            onPressed: () {
+                              // 설정 화면으로 이동
+                            },
+                            icon: const Icon(
+                              Icons.settings,
+                              color: Color(0xFF666666),
+                              size: 24,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
 
-                    const SizedBox(height: 40),
-
-                    // 최근 전적 섹션
-                    _buildRecentMatchesSection(),
+                    // 사용자 프로필 헤더
+                    Center(child: UserProfileHeader(key: _profileHeaderKey)),
                   ],
                 ),
+              ],
+            ),
+
+            const SizedBox(height: 32),
+
+            // 게임 모드 버튼들
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              child: GameModeButtons(),
+            ),
+
+            const SizedBox(height: 40),
+
+            // 승률 통계 카드부터 그라데이션 배경 적용
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFFAEB4D8),
+                    Color(0xFFB8BEDE),
+                    Color(0xFFC8D0E5),
+                    Color(0xFFE8ECF4),
+                    Color(0xFFF8F9FF),
+                    Colors.white,
+                  ],
+                  stops: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],
+                ),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
               ),
-            ],
-          ),
+              child: Column(
+                children: [
+                  // 승률 통계 카드
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: StatsCard(key: _statsCardKey),
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // 최근 전적 섹션
+                  _buildRecentMatchesSection(),
+
+                  const SizedBox(height: 40),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -297,7 +297,16 @@ class _NormalGameScreenState extends State<NormalGameScreen>
 
     // 게임 결과 기록
     final questionStats = _calculateQuestionStats();
-    UserService.recordGameResult(_isPlayerWon, questionStats);
+    UserService.recordGameResult(
+      _isPlayerWon, 
+      questionStats,
+      opponentName: _opponent.name,
+      opponentTier: _opponent.tier,
+      opponentRank: 999, // 기본값
+      opponentOrganization: 'Unknown', // 기본값
+      myCorrectAnswers: _player.score,
+      totalQuestions: _questions.length,
+    );
 
     // 팝업 표시
     setState(() {

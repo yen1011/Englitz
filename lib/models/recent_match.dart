@@ -24,84 +24,25 @@ class RecentMatch {
   double get correctRate => myCorrectAnswers / totalQuestions;
 }
 
-// 더미 데이터 생성 함수
-List<RecentMatch> generateDummyMatches() {
-  // UserService에서 현재 사용자 정보 가져오기
-  final userInfo = UserService.getCurrentUserInfo();
-  final currentUserName = userInfo['name'] as String;
-  final currentUserOrg = userInfo['organization'] as String;
-  final currentUserTier = userInfo['tier'] as String;
+// 실제 데이터 생성 함수
+List<RecentMatch> generateRecentMatches() {
+  final recentMatchesData = UserService.recentMatches;
   
-  return [
-    RecentMatch(
-      opponentName: '김영희',
-      opponentTier: 'GOLD 4',
-      opponentRank: 135,
-      opponentOrganization: '서울대학교',
-      myCorrectAnswers: 26,
-      totalQuestions: 30,
-      isWin: true,
-      matchDate: DateTime.now().subtract(const Duration(hours: 2)),
-    ),
-    RecentMatch(
-      opponentName: '박철수',
-      opponentTier: 'SILVER 2',
-      opponentRank: 267,
-      opponentOrganization: '삼성전자',
-      myCorrectAnswers: 22,
-      totalQuestions: 30,
-      isWin: false,
-      matchDate: DateTime.now().subtract(const Duration(hours: 5)),
-    ),
-    RecentMatch(
-      opponentName: '이지민',
-      opponentTier: 'PLATINUM 1',
-      opponentRank: 89,
-      opponentOrganization: '연세대학교',
-      myCorrectAnswers: 28,
-      totalQuestions: 30,
-      isWin: true,
-      matchDate: DateTime.now().subtract(const Duration(days: 1)),
-    ),
-    RecentMatch(
-      opponentName: '최수진',
-      opponentTier: 'GOLD 2',
-      opponentRank: 156,
-      opponentOrganization: 'LG화학',
-      myCorrectAnswers: 18,
-      totalQuestions: 30,
-      isWin: false,
-      matchDate: DateTime.now().subtract(const Duration(days: 1, hours: 3)),
-    ),
-    RecentMatch(
-      opponentName: '한승우',
-      opponentTier: 'SILVER 1',
-      opponentRank: 201,
-      opponentOrganization: '고려대학교',
-      myCorrectAnswers: 25,
-      totalQuestions: 30,
-      isWin: true,
-      matchDate: DateTime.now().subtract(const Duration(days: 2)),
-    ),
-    RecentMatch(
-      opponentName: '윤하늘',
-      opponentTier: 'DIAMOND 3',
-      opponentRank: 45,
-      opponentOrganization: 'SK하이닉스',
-      myCorrectAnswers: 20,
-      totalQuestions: 30,
-      isWin: false,
-      matchDate: DateTime.now().subtract(const Duration(days: 2, hours: 8)),
-    ),
-    RecentMatch(
-      opponentName: '정민석',
-      opponentTier: 'GOLD 1',
-      opponentRank: 123,
-      opponentOrganization: 'KAIST',
-      myCorrectAnswers: 27,
-      totalQuestions: 30,
-      isWin: true,
-      matchDate: DateTime.now().subtract(const Duration(days: 3)),
-    ),
-  ];
+  if (recentMatchesData.isEmpty) {
+    // 실제 데이터가 없으면 빈 리스트 반환
+    return [];
+  }
+  
+  return recentMatchesData.map((matchData) {
+    return RecentMatch(
+      opponentName: matchData['opponentName'] as String,
+      opponentTier: matchData['opponentTier'] as String,
+      opponentRank: matchData['opponentRank'] as int,
+      opponentOrganization: matchData['opponentOrganization'] as String,
+      myCorrectAnswers: matchData['myCorrectAnswers'] as int,
+      totalQuestions: matchData['totalQuestions'] as int,
+      isWin: matchData['isWin'] as bool,
+      matchDate: matchData['matchDate'] as DateTime,
+    );
+  }).toList();
 }

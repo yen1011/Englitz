@@ -425,7 +425,16 @@ class _RankGameScreenState extends State<RankGameScreen>
 
     // 게임 결과 기록
     final questionStats = _calculateQuestionStats();
-    UserService.recordGameResult(_isPlayerWon, questionStats);
+    UserService.recordGameResult(
+      _isPlayerWon, 
+      questionStats,
+      opponentName: _opponent.name,
+      opponentTier: _opponent.tier,
+      opponentRank: 999, // 기본값
+      opponentOrganization: 'Unknown', // 기본값
+      myCorrectAnswers: _playerLives,
+      totalQuestions: _currentQuestionIndex,
+    );
 
     // 승리/패배에 따른 티어 진행률 변경
     if (_isPlayerWon) {

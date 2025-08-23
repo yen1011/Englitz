@@ -56,6 +56,12 @@ class UserService {
   static bool get hasNewGameResult => _hasNewGameResult;
   static set hasNewGameResult(bool value) => _hasNewGameResult = value;
 
+  // 실제 게임 결과 저장
+  static List<Map<String, dynamic>> _recentMatches = [];
+
+  // 최근 게임 결과 getter
+  static List<Map<String, dynamic>> get recentMatches => List.from(_recentMatches);
+
   // 승률 계산
   static double get winRate {
     final total = _totalWins + _totalLosses;
@@ -64,7 +70,14 @@ class UserService {
   }
 
   // 게임 결과 기록
-  static void recordGameResult(bool isWin, Map<String, int> questionStats) {
+  static void recordGameResult(bool isWin, Map<String, int> questionStats, {
+    String? opponentName,
+    String? opponentTier,
+    int? opponentRank,
+    String? opponentOrganization,
+    int? myCorrectAnswers,
+    int? totalQuestions,
+  }) {
     if (isWin) {
       _totalWins++;
     } else {
@@ -75,6 +88,27 @@ class UserService {
     _grammarCorrect += questionStats['grammar'] ?? 0;
     _dialogCorrect += questionStats['dialog'] ?? 0;
     
+    // 실제 게임 결과를 최근 전적에 추가
+    if (opponentName != null && myCorrectAnswers != null && totalQuestions != null) {
+      final matchResult = {
+        'opponentName': opponentName,
+        'opponentTier': opponentTier ?? 'UNKNOWN',
+        'opponentRank': opponentRank ?? 999,
+        'opponentOrganization': opponentOrganization ?? 'Unknown',
+        'myCorrectAnswers': myCorrectAnswers,
+        'totalQuestions': totalQuestions,
+        'isWin': isWin,
+        'matchDate': DateTime.now(),
+      };
+      
+      _recentMatches.insert(0, matchResult); // 최신 결과를 맨 앞에 추가
+      
+      // 최대 10개의 최근 전적만 유지
+      if (_recentMatches.length > 10) {
+        _recentMatches = _recentMatches.take(10).toList();
+      }
+    }
+    
     // 새로운 게임 결과가 있음을 표시
     _hasNewGameResult = true;
     
@@ -82,6 +116,7 @@ class UserService {
     print('UserService: Game result recorded - Win: $isWin, Stats: $questionStats');
     print('UserService: Total wins: $_totalWins, Total losses: $_totalLosses');
     print('UserService: Word correct: $_wordCorrect, Grammar correct: $_grammarCorrect, Dialog correct: $_dialogCorrect');
+    print('UserService: Recent matches count: ${_recentMatches.length}');
   }
 
   // 티어 하락 (패배 시)

@@ -68,6 +68,7 @@ class MainScreenState extends State<MainScreen> {
             Future.delayed(const Duration(milliseconds: 100), () {
               if (mounted) {
                 _homeScreenKey.currentState?.setState(() {});
+                _homeScreenKey.currentState?.updateRecentMatches();
                 
                 // 새로운 게임 결과가 있을 때만 티어 업데이트
                 if (UserService.hasNewGameResult) {
