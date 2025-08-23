@@ -8,10 +8,10 @@ class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainScreen> createState() => MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> {
   int _currentNavIndex = 1; // 홈 탭이 기본
 
   final List<Widget> _screens = [
@@ -19,6 +19,33 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreen(),
     const ReviewScreen(),
   ];
+
+  // 리뷰 탭으로 이동하는 메서드
+  void navigateToReview() {
+    setState(() {
+      _currentNavIndex = 2; // 리뷰 탭 인덱스
+    });
+  }
+
+  // 전역 접근을 위한 static 변수
+  static MainScreenState? _instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _instance = this;
+  }
+
+  @override
+  void dispose() {
+    _instance = null;
+    super.dispose();
+  }
+
+  // 전역에서 접근할 수 있는 메서드
+  static void navigateToReviewTab() {
+    _instance?.navigateToReview();
+  }
 
   @override
   Widget build(BuildContext context) {

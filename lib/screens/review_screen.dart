@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/review_word.dart';
+import '../services/review_service.dart';
 
 class ReviewScreen extends StatefulWidget {
   const ReviewScreen({Key? key}) : super(key: key);
@@ -10,70 +11,19 @@ class ReviewScreen extends StatefulWidget {
 
 class _ReviewScreenState extends State<ReviewScreen> {
   int _selectedTabIndex = 0; // 0: 단어, 1: 문법
+  List<ReviewWord> _words = [];
 
-  // 샘플 데이터
-  final List<ReviewWord> _words = [
-    ReviewWord(
-      english: 'Beautiful',
-      korean: '아름다운',
-      status: ReviewStatus.mastered,
-      lastReviewed: DateTime.now().subtract(const Duration(days: 2)),
-    ),
-    ReviewWord(
-      english: 'Confidence',
-      korean: '자신감',
-      status: ReviewStatus.needsReview,
-      lastReviewed: DateTime.now().subtract(const Duration(days: 5)),
-    ),
-    ReviewWord(
-      english: 'Determination',
-      korean: '결심',
-      status: ReviewStatus.urgent,
-      lastReviewed: DateTime.now().subtract(const Duration(days: 10)),
-    ),
-    ReviewWord(
-      english: 'Elegant',
-      korean: '우아한',
-      status: ReviewStatus.mastered,
-      lastReviewed: DateTime.now().subtract(const Duration(days: 1)),
-    ),
-    ReviewWord(
-      english: 'Fascinating',
-      korean: '매혹적인',
-      status: ReviewStatus.needsReview,
-      lastReviewed: DateTime.now().subtract(const Duration(days: 7)),
-    ),
-    ReviewWord(
-      english: 'Gratitude',
-      korean: '감사',
-      status: ReviewStatus.urgent,
-      lastReviewed: DateTime.now().subtract(const Duration(days: 15)),
-    ),
-    ReviewWord(
-      english: 'Harmony',
-      korean: '조화',
-      status: ReviewStatus.mastered,
-      lastReviewed: DateTime.now().subtract(const Duration(hours: 12)),
-    ),
-    ReviewWord(
-      english: 'Innovation',
-      korean: '혁신',
-      status: ReviewStatus.needsReview,
-      lastReviewed: DateTime.now().subtract(const Duration(days: 3)),
-    ),
-    ReviewWord(
-      english: 'Journey',
-      korean: '여행',
-      status: ReviewStatus.urgent,
-      lastReviewed: DateTime.now().subtract(const Duration(days: 20)),
-    ),
-    ReviewWord(
-      english: 'Knowledge',
-      korean: '지식',
-      status: ReviewStatus.mastered,
-      lastReviewed: DateTime.now().subtract(const Duration(days: 1)),
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _loadWords();
+  }
+
+  void _loadWords() {
+    setState(() {
+      _words = ReviewService.getAllWrongWords();
+    });
+  }
 
   Color _getStatusColor(ReviewStatus status) {
     switch (status) {

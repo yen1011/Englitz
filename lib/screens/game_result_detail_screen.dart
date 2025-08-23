@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/game_result.dart';
 import '../models/game_question.dart';
+import 'main_screen.dart';
 
 class GameResultDetailScreen extends StatefulWidget {
   final GameResult gameResult;
@@ -49,7 +50,10 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
               ],
             ),
             child: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                // 홈으로 돌아가기 (메인 화면으로)
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
               icon: const Icon(Icons.close, size: 20, color: Color(0xFF666666)),
             ),
           ),
@@ -483,9 +487,12 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
       child: Center(
         child: ElevatedButton(
           onPressed: () {
-            // 복습 페이지로 이동
-            Navigator.pop(context);
-            // TODO: 복습 페이지로 이동하는 로직 추가
+            // 홈으로 돌아가고 리뷰 탭으로 이동
+            Navigator.of(context).popUntil((route) => route.isFirst);
+            // 잠시 후 리뷰 탭으로 이동 (메인 화면이 로드된 후)
+            Future.delayed(const Duration(milliseconds: 100), () {
+              MainScreenState.navigateToReviewTab();
+            });
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF788CC3),
