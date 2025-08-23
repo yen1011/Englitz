@@ -311,7 +311,7 @@ class _RankScreenState extends State<RankScreen> {
     final otherUsers = currentUsers.skip(3).toList();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Column(
           children: [
@@ -319,8 +319,10 @@ class _RankScreenState extends State<RankScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
+                  SizedBox(
+                    width: 92,
                     child: GestureDetector(
                       onTap: () => setState(() => _selectedTabIndex = 0),
                       child: Container(
@@ -328,15 +330,17 @@ class _RankScreenState extends State<RankScreen> {
                         decoration: BoxDecoration(
                           color: _selectedTabIndex == 0
                               ? const Color(0xFF788CC3)
-                              : Colors.white,
+                              : const Color(0xFFF5F5F5),
                           borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
+                          boxShadow: _selectedTabIndex == 0
+                              ? [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ]
+                              : null,
                         ),
                         child: Center(
                           child: Text(
@@ -354,7 +358,8 @@ class _RankScreenState extends State<RankScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Expanded(
+                  SizedBox(
+                    width: 92,
                     child: GestureDetector(
                       onTap: () => setState(() => _selectedTabIndex = 1),
                       child: Container(
@@ -362,15 +367,17 @@ class _RankScreenState extends State<RankScreen> {
                         decoration: BoxDecoration(
                           color: _selectedTabIndex == 1
                               ? const Color(0xFF788CC3)
-                              : Colors.white,
+                              : const Color(0xFFF5F5F5),
                           borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
+                          boxShadow: _selectedTabIndex == 1
+                              ? [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ]
+                              : null,
                         ),
                         child: Center(
                           child: Text(
