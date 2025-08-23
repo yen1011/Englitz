@@ -32,7 +32,7 @@ class TopTeams extends StatelessWidget {
 
           // 3위 (1등 기준 오른쪽 일정 간격)
           Positioned(
-            left: 280, // 1등 중앙에서 오른쪽으로 190px
+            left: 283, // 1등 중앙에서 오른쪽으로 190px
             top: 60,
             child: _buildTeam(topTeams[2], 3, isThird: true),
           ),

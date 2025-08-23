@@ -25,14 +25,14 @@ class TopRankers extends StatelessWidget {
 
           // 2위 (1등 기준 왼쪽 일정 간격)
           Positioned(
-            left: 20, // 1등 중앙에서 왼쪽으로 190px
+            left: 23, // 1등 중앙에서 왼쪽으로 190px
             top: 60,
             child: _buildRanker(topUsers[1], 2, isSecond: true),
           ),
 
           // 3위 (1등 기준 오른쪽 일정 간격)
           Positioned(
-            left: 270, // 1등 중앙에서 오른쪽으로 190px
+            left: 275, // 1등 중앙에서 오른쪽으로 190px
             top: 60,
             child: _buildRanker(topUsers[2], 3, isThird: true),
           ),
