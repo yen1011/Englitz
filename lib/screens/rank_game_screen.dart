@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../models/game_question.dart';
 import '../models/game_result.dart';
+
 import '../services/question_service.dart';
 import '../services/review_service.dart';
+import '../widgets/game_result_popup.dart';
 import 'game_result_detail_screen.dart';
 
 class RankGameScreen extends StatefulWidget {
@@ -26,6 +28,9 @@ class _RankGameScreenState extends State<RankGameScreen>
   GamePlayer _player = GamePlayer(name: '서연수', tier: 'Gold 2', score: 0);
   GamePlayer _opponent = GamePlayer(name: '김명수', tier: 'Gold 1', score: 0);
 
+  // 팝업 표시 상태
+  bool _showResultPopup = false;
+
   // 목숨
   int _playerLives = 3;
   int _opponentLives = 3;
@@ -46,6 +51,10 @@ class _RankGameScreenState extends State<RankGameScreen>
   String _userAnswer = '';
   bool _isAnswered = false;
   bool _isCorrect = false;
+
+  // 문제 유형 (객관식/주관식)
+  bool _isMultipleChoice = false;
+  int? _selectedOptionIndex;
 
   // 애니메이션
   late AnimationController _questionAnimationController;
@@ -140,10 +149,21 @@ class _RankGameScreenState extends State<RankGameScreen>
       );
 
       if (questions.isNotEmpty) {
-        _currentQuestion = questions.first;
+        // 첫 번째 문제는 주관식, 두 번째부터는 랜덤하게 객관식/주관식 결정
+        if (_currentQuestionIndex == 0) {
+          _isMultipleChoice = false;
+          _currentQuestion = questions.first;
+        } else {
+          // 이전 문제와 동일한 유형 유지 (공정성)
+          _currentQuestion = _isMultipleChoice
+              ? QuestionService.generateMultipleChoiceQuestion(questions.first)
+              : questions.first;
+        }
+
         _timeLeft = _maxTime;
         _isAnswered = false;
         _userAnswer = '';
+        _selectedOptionIndex = null;
         _answerController.clear();
 
         _questionAnimationController.reset();
@@ -224,7 +244,11 @@ class _RankGameScreenState extends State<RankGameScreen>
 
   void _handleTimeout() {
     if (!_isAnswered && _isPlayerTurn) {
-      _submitAnswer(''); // 빈 답안으로 제출
+      if (_isMultipleChoice && _selectedOptionIndex != null) {
+        _submitAnswer(_currentQuestion!.options[_selectedOptionIndex!]);
+      } else {
+        _submitAnswer(''); // 빈 답안으로 제출
+      }
     }
   }
 
@@ -370,7 +394,11 @@ class _RankGameScreenState extends State<RankGameScreen>
     _isPlayerWon = _opponentLives <= 0;
     _timer?.cancel();
     _opponentTimer?.cancel();
-    setState(() {});
+
+    // 팝업 표시
+    setState(() {
+      _showResultPopup = true;
+    });
   }
 
   void _showResultDetail() {
@@ -381,6 +409,7 @@ class _RankGameScreenState extends State<RankGameScreen>
       playerResults: _playerResults,
       opponentResults: _opponentResults,
       totalQuestions: _currentQuestionIndex,
+      gameMode: GameMode.rank,
     );
 
     Navigator.push(
@@ -389,6 +418,14 @@ class _RankGameScreenState extends State<RankGameScreen>
         builder: (context) => GameResultDetailScreen(gameResult: gameResult),
       ),
     );
+  }
+
+  void _onPopupClose() {
+    setState(() {
+      _showResultPopup = false;
+    });
+    // 팝업이 사라진 후 결과 상세 화면으로 이동
+    _showResultDetail();
   }
 
   @override
@@ -401,99 +438,134 @@ class _RankGameScreenState extends State<RankGameScreen>
       );
     }
 
-    if (_isGameFinished) {
-      return _buildGameResultScreen();
-    }
-
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FF),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildHeader(),
-            _buildPlayerInfo(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: AnimatedBuilder(
-                  animation: _questionAnimation,
-                  builder: (context, child) {
-                    return Transform.scale(
-                      scale: 0.8 + (_questionAnimation.value * 0.2),
-                      child: Opacity(
-                        opacity: _questionAnimation.value,
-                        child: Column(
-                          children: [_buildQuestionArea(), _buildAnswerInput()],
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: const Color(0xFFF8F9FF),
+          body: SafeArea(
+            child: _isGameFinished
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const CircularProgressIndicator(
+                          color: Color(0xFF788CC3),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          '결과를 확인하는 중...',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Column(
+                    children: [
+                      _buildHeader(),
+                      _buildPlayerInfo(),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: AnimatedBuilder(
+                            animation: _questionAnimation,
+                            builder: (context, child) {
+                              return Transform.scale(
+                                scale: 0.8 + (_questionAnimation.value * 0.2),
+                                child: Opacity(
+                                  opacity: _questionAnimation.value,
+                                  child: Column(
+                                    children: [
+                                      _buildQuestionArea(),
+                                      _buildAnswerInput(),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            if (_isPlayerTurn) _buildTimer(),
-          ],
+                      if (_isPlayerTurn) _buildTimer(),
+                    ],
+                  ),
+          ),
         ),
-      ),
+        // 게임 결과 팝업
+        if (_showResultPopup)
+          GameResultPopup(
+            player: _player,
+            opponent: _opponent,
+            playerScore: _playerLives,
+            opponentScore: _opponentLives,
+            totalQuestions: _currentQuestionIndex,
+            isRankGame: true,
+            onClose: _onPopupClose,
+          ),
+      ],
     );
   }
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color(0xFFF8F9FF),
+            const Color(0xFFF8F9FF).withOpacity(0.8),
+          ],
+        ),
+      ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFF6B6B),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      Icons.emoji_events,
-                      color: Colors.white,
-                      size: 16,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      '랭크 배틀',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
+          // 귀여운 배틀 아이콘과 제목
           Container(
-            height: 6,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(3),
-            ),
-            child: FractionallySizedBox(
-              alignment: Alignment.centerLeft,
-              widthFactor: _currentQuestionIndex / 20, // 예상 최대 문제 수
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFFFF6B6B), Color(0xFFFF5252)],
-                  ),
-                  borderRadius: BorderRadius.circular(3),
-                ),
+              gradient: const LinearGradient(
+                colors: [Color(0xFFFF6B6B), Color(0xFFFF8E8E)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
+              borderRadius: BorderRadius.circular(25),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFFFF6B6B).withOpacity(0.3),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(
+                    Icons.emoji_events,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                const Text(
+                  '랭크 배틀',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -504,7 +576,7 @@ class _RankGameScreenState extends State<RankGameScreen>
   Widget _buildPlayerInfo() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -526,13 +598,19 @@ class _RankGameScreenState extends State<RankGameScreen>
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF788CC3), Color(0xFF6A7BB8)],
+                    gradient: LinearGradient(
+                      colors: _isPlayerTurn
+                          ? [const Color(0xFF788CC3), const Color(0xFF6A7BB8)]
+                          : [Colors.grey[400]!, Colors.grey[500]!],
                     ),
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF788CC3).withOpacity(0.3),
+                        color:
+                            (_isPlayerTurn
+                                    ? const Color(0xFF788CC3)
+                                    : Colors.grey[400]!)
+                                .withOpacity(0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 4),
                       ),
@@ -551,11 +629,14 @@ class _RankGameScreenState extends State<RankGameScreen>
                     children: [
                       Text(
                         _player.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF333333),
+                          color: _isPlayerTurn
+                              ? const Color(0xFF333333)
+                              : Colors.grey[600],
                         ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         _player.tier,
@@ -563,21 +644,26 @@ class _RankGameScreenState extends State<RankGameScreen>
                           fontSize: 12,
                           color: Color(0xFF999999),
                         ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(width: 8),
                 // 목숨 표시
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: List.generate(3, (index) {
-                    return Container(
-                      margin: const EdgeInsets.only(left: 4),
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 2),
                       child: Icon(
                         Icons.favorite,
                         color: index < _playerLives
-                            ? const Color(0xFFFF6B6B)
+                            ? (_isPlayerTurn
+                                  ? const Color(0xFFFF6B6B)
+                                  : Colors.grey[600])
                             : Colors.grey[300],
-                        size: 20,
+                        size: 18,
                       ),
                     );
                   }),
@@ -590,34 +676,41 @@ class _RankGameScreenState extends State<RankGameScreen>
           // 상대방 정보
           Expanded(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 // 목숨 표시
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: List.generate(3, (index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 4),
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 2),
                       child: Icon(
                         Icons.favorite,
                         color: index < _opponentLives
-                            ? const Color(0xFFFF6B6B)
+                            ? (!_isPlayerTurn
+                                  ? const Color(0xFFFF6B6B)
+                                  : Colors.grey[600])
                             : Colors.grey[300],
-                        size: 20,
+                        size: 18,
                       ),
                     );
                   }),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
                         _opponent.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF333333),
+                          color: !_isPlayerTurn
+                              ? const Color(0xFF333333)
+                              : Colors.grey[600],
                         ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         _opponent.tier,
@@ -625,28 +718,36 @@ class _RankGameScreenState extends State<RankGameScreen>
                           fontSize: 12,
                           color: Color(0xFF999999),
                         ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(width: 12),
                 Container(
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFFFF6B6B), Color(0xFFFF5252)],
+                    gradient: LinearGradient(
+                      colors: !_isPlayerTurn
+                          ? [const Color(0xFFFF6B6B), const Color(0xFFFF5252)]
+                          : [Colors.grey[400]!, Colors.grey[500]!],
                     ),
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFFFF6B6B).withOpacity(0.3),
+                        color:
+                            (!_isPlayerTurn
+                                    ? const Color(0xFFFF6B6B)
+                                    : Colors.grey[400]!)
+                                .withOpacity(0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 4),
                       ),
                     ],
                   ),
                   child: const Icon(
-                    Icons.person,
+                    Icons.computer,
                     color: Colors.white,
                     size: 24,
                   ),
@@ -664,102 +765,62 @@ class _RankGameScreenState extends State<RankGameScreen>
 
     return Container(
       margin: const EdgeInsets.all(20),
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 25,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
       child: Column(
         children: [
-          // 턴 표시
-          AnimatedBuilder(
-            animation: _turnAnimation,
-            builder: (context, child) {
-              return Transform.scale(
-                scale: 0.8 + (_turnAnimation.value * 0.2),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: _isPlayerTurn
-                        ? const Color(0xFF788CC3).withOpacity(0.1)
-                        : const Color(0xFFFF6B6B).withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: _isPlayerTurn
-                          ? const Color(0xFF788CC3)
-                          : const Color(0xFFFF6B6B),
-                      width: 2,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        _isPlayerTurn ? Icons.person : Icons.computer,
-                        color: _isPlayerTurn
-                            ? const Color(0xFF788CC3)
-                            : const Color(0xFFFF6B6B),
-                        size: 16,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        _isPlayerTurn ? '내 턴' : '상대 턴',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: _isPlayerTurn
-                              ? const Color(0xFF788CC3)
-                              : const Color(0xFFFF6B6B),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 20),
-
-          // 문제 유형
+          // 간단한 턴 표시
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: _getQuestionTypeColor(
-                _currentQuestion!.type,
-              ).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(20),
+              color: _isPlayerTurn
+                  ? const Color(0xFF788CC3).withOpacity(0.1)
+                  : const Color(0xFFFF6B6B).withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: _isPlayerTurn
+                    ? const Color(0xFF788CC3)
+                    : const Color(0xFFFF6B6B),
+                width: 1,
+              ),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  _getQuestionTypeIcon(_currentQuestion!.type),
-                  color: _getQuestionTypeColor(_currentQuestion!.type),
+                  _isPlayerTurn ? Icons.person : Icons.computer,
+                  color: _isPlayerTurn
+                      ? const Color(0xFF788CC3)
+                      : const Color(0xFFFF6B6B),
                   size: 16,
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  _getQuestionTypeText(_currentQuestion!.type),
+                  _isPlayerTurn ? '내 턴' : '상대 턴',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: _getQuestionTypeColor(_currentQuestion!.type),
+                    color: _isPlayerTurn
+                        ? const Color(0xFF788CC3)
+                        : const Color(0xFFFF6B6B),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
+
+          const SizedBox(height: 16),
 
           // 문제 내용
           Text(
@@ -768,6 +829,7 @@ class _RankGameScreenState extends State<RankGameScreen>
               fontSize: 20,
               fontWeight: FontWeight.w600,
               color: Color(0xFF333333),
+              height: 1.4,
             ),
             textAlign: TextAlign.center,
           ),
@@ -780,51 +842,78 @@ class _RankGameScreenState extends State<RankGameScreen>
     if (!_isPlayerTurn) {
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 15,
-              offset: const Offset(0, 5),
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
             ),
           ],
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: Color(0xFFFF6B6B),
-                  ),
+            // 상대방 상태 표시
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFF6B6B).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: const Color(0xFFFF6B6B).withOpacity(0.3),
+                  width: 1,
                 ),
-                const SizedBox(width: 12),
-                Text(
-                  _isOpponentThinking ? '상대방이 답안을 입력하고 있습니다...' : '상대방 턴입니다',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF666666),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFF6B6B).withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Color(0xFFFF6B6B),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      _isOpponentThinking
+                          ? '상대방이 답안을 입력하고 있습니다...'
+                          : '상대방 턴입니다',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF666666),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
             ),
+
+            // 상대방 답안 결과 표시
             if (_isAnswered) ...[
               const SizedBox(height: 16),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: _isCorrect
                       ? const Color(0xFF4CAF50).withOpacity(0.1)
                       : const Color(0xFFF44336).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: _isCorrect
                         ? const Color(0xFF4CAF50)
@@ -837,14 +926,25 @@ class _RankGameScreenState extends State<RankGameScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          _isCorrect ? Icons.check_circle : Icons.cancel,
-                          color: _isCorrect
-                              ? const Color(0xFF4CAF50)
-                              : const Color(0xFFF44336),
-                          size: 24,
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color:
+                                (_isCorrect
+                                        ? const Color(0xFF4CAF50)
+                                        : const Color(0xFFF44336))
+                                    .withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            _isCorrect ? Icons.check_circle : Icons.cancel,
+                            color: _isCorrect
+                                ? const Color(0xFF4CAF50)
+                                : const Color(0xFFF44336),
+                            size: 24,
+                          ),
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 12),
                         Text(
                           _isCorrect ? '상대방 정답!' : '상대방 오답',
                           style: TextStyle(
@@ -857,14 +957,49 @@ class _RankGameScreenState extends State<RankGameScreen>
                         ),
                       ],
                     ),
+                    if (_userAnswer.isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          '상대방 답안: $_userAnswer',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF666666),
+                          ),
+                        ),
+                      ),
+                    ],
                     if (!_isCorrect) ...[
-                      const SizedBox(height: 8),
-                      Text(
-                        '정답: ${_currentQuestion?.options[_currentQuestion!.correctAnswerIndex]}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF333333),
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF4CAF50).withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: const Color(0xFF4CAF50).withOpacity(0.3),
+                            width: 1,
+                          ),
+                        ),
+                        child: Text(
+                          '정답: ${_currentQuestion?.options[_currentQuestion!.correctAnswerIndex]}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF4CAF50),
+                          ),
                         ),
                       ),
                     ],
@@ -879,90 +1014,199 @@ class _RankGameScreenState extends State<RankGameScreen>
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
       child: Column(
         children: [
-          TextField(
-            controller: _answerController,
-            enabled: !_isAnswered,
-            decoration: InputDecoration(
-              hintText: '답안을 입력하세요',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: _isAnswered
-                      ? (_isCorrect
-                            ? const Color(0xFF4CAF50)
-                            : const Color(0xFFF44336))
-                      : const Color(0xFFE0E0E0),
-                  width: 2,
-                ),
+          // 객관식인 경우
+          if (_isMultipleChoice) ...[
+            Text(
+              '정답을 선택하세요',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF333333),
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  color: Color(0xFF788CC3),
-                  width: 2,
-                ),
-              ),
-              filled: true,
-              fillColor: _isAnswered
-                  ? (_isCorrect
-                        ? const Color(0xFF4CAF50).withOpacity(0.1)
-                        : const Color(0xFFF44336).withOpacity(0.1))
-                  : Colors.grey[50],
             ),
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            onChanged: (value) {
-              _userAnswer = value;
-            },
-            onSubmitted: (value) {
-              if (!_isAnswered) {
-                _submitAnswer(value);
-              }
-            },
-          ),
-          const SizedBox(height: 16),
-          if (!_isAnswered)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => _submitAnswer(_userAnswer),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF788CC3),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+            const SizedBox(height: 12),
+            ...List.generate(_currentQuestion!.options.length, (index) {
+              final isCorrect = index == _currentQuestion!.correctAnswerIndex;
+              final isSelected = index == _selectedOptionIndex;
+
+              return Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                child: InkWell(
+                  onTap: _isAnswered
+                      ? null
+                      : () {
+                          setState(() {
+                            _selectedOptionIndex = index;
+                            _userAnswer = _currentQuestion!.options[index];
+                          });
+                        },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: _isAnswered
+                          ? (isCorrect
+                                ? const Color(0xFF4CAF50).withOpacity(0.1)
+                                : isSelected
+                                ? const Color(0xFFF44336).withOpacity(0.1)
+                                : Colors.white)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: _isAnswered
+                            ? (isCorrect
+                                  ? const Color(0xFF4CAF50)
+                                  : isSelected
+                                  ? const Color(0xFFF44336)
+                                  : Colors.grey[200]!)
+                            : Colors.grey[200]!,
+                        width: 1.5,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _isAnswered
+                                ? (isCorrect
+                                      ? const Color(0xFF4CAF50)
+                                      : isSelected
+                                      ? const Color(0xFFF44336)
+                                      : Colors.grey[300])
+                                : Colors.grey[300],
+                          ),
+                          child: _isAnswered
+                              ? Icon(
+                                  isCorrect
+                                      ? Icons.check
+                                      : isSelected
+                                      ? Icons.close
+                                      : null,
+                                  color: Colors.white,
+                                  size: 12,
+                                )
+                              : Text(
+                                  String.fromCharCode(65 + index), // A, B, C, D
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            _currentQuestion!.options[index],
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: _isAnswered
+                                  ? (isCorrect
+                                        ? const Color(0xFF4CAF50)
+                                        : isSelected
+                                        ? const Color(0xFFF44336)
+                                        : const Color(0xFF666666))
+                                  : const Color(0xFF333333),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  elevation: 0,
                 ),
-                child: const Text(
-                  '답안 제출',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              );
+            }),
+          ] else ...[
+            // 주관식인 경우
+            TextField(
+              controller: _answerController,
+              enabled: !_isAnswered,
+              decoration: InputDecoration(
+                hintText: '답안을 입력하세요',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(
+                    color: _isAnswered
+                        ? (_isCorrect
+                              ? const Color(0xFF4CAF50)
+                              : const Color(0xFFF44336))
+                        : const Color(0xFFE0E0E0),
+                    width: 2,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: const BorderSide(
+                    color: Color(0xFF788CC3),
+                    width: 2,
+                  ),
+                ),
+                filled: true,
+                fillColor: _isAnswered
+                    ? (_isCorrect
+                          ? const Color(0xFF4CAF50).withOpacity(0.1)
+                          : const Color(0xFFF44336).withOpacity(0.1))
+                    : Colors.grey[50],
+              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              onChanged: (value) {
+                _userAnswer = value;
+              },
+              onSubmitted: (value) {
+                if (!_isAnswered) {
+                  _submitAnswer(value);
+                }
+              },
+            ),
+            const SizedBox(height: 16),
+            if (!_isAnswered)
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => _submitAnswer(_userAnswer),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF788CC3),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    '답안 제출',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
-            ),
+          ],
           if (_isAnswered) ...[
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: _isCorrect
                     ? const Color(0xFF4CAF50).withOpacity(0.1)
                     : const Color(0xFFF44336).withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: _isCorrect
                       ? const Color(0xFF4CAF50)
@@ -975,14 +1219,25 @@ class _RankGameScreenState extends State<RankGameScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        _isCorrect ? Icons.check_circle : Icons.cancel,
-                        color: _isCorrect
-                            ? const Color(0xFF4CAF50)
-                            : const Color(0xFFF44336),
-                        size: 24,
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color:
+                              (_isCorrect
+                                      ? const Color(0xFF4CAF50)
+                                      : const Color(0xFFF44336))
+                                  .withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          _isCorrect ? Icons.check_circle : Icons.cancel,
+                          color: _isCorrect
+                              ? const Color(0xFF4CAF50)
+                              : const Color(0xFFF44336),
+                          size: 24,
+                        ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 12),
                       Text(
                         _isCorrect ? '정답입니다!' : '틀렸습니다.',
                         style: TextStyle(
@@ -996,13 +1251,27 @@ class _RankGameScreenState extends State<RankGameScreen>
                     ],
                   ),
                   if (!_isCorrect) ...[
-                    const SizedBox(height: 8),
-                    Text(
-                      '정답: ${_currentQuestion?.options[_currentQuestion!.correctAnswerIndex]}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF333333),
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF4CAF50).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: const Color(0xFF4CAF50).withOpacity(0.3),
+                          width: 1,
+                        ),
+                      ),
+                      child: Text(
+                        '정답: ${_currentQuestion?.options[_currentQuestion!.correctAnswerIndex]}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF4CAF50),
+                        ),
                       ),
                     ),
                   ],
@@ -1017,181 +1286,65 @@ class _RankGameScreenState extends State<RankGameScreen>
 
   Widget _buildTimer() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
-      child: Column(
-        children: [
-          Container(
-            height: 8,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(4),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
             ),
-            child: FractionallySizedBox(
-              alignment: Alignment.centerLeft,
-              widthFactor: _timeLeft / _maxTime,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: _timeLeft > _maxTime * 0.3
-                        ? [const Color(0xFF4CAF50), const Color(0xFF45A049)]
-                        : [const Color(0xFFFF6B6B), const Color(0xFFFF5252)],
-                  ),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            '${_timeLeft.toInt()}초',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
+          ],
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.timer,
               color: _timeLeft > _maxTime * 0.3
                   ? const Color(0xFF4CAF50)
                   : const Color(0xFFFF6B6B),
+              size: 16,
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGameResultScreen() {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FF),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 30,
-                    offset: const Offset(0, 15),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: _isPlayerWon
-                          ? const Color(0xFFFFD700).withOpacity(0.1)
-                          : Colors.grey.withOpacity(0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      _isPlayerWon
-                          ? Icons.emoji_events
-                          : Icons.sentiment_dissatisfied,
-                      size: 50,
-                      color: _isPlayerWon
-                          ? const Color(0xFFFFD700)
-                          : Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    _isPlayerWon ? '승리!' : '패배',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: _isPlayerWon
-                          ? const Color(0xFFFFD700)
-                          : Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF8F9FF),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      '${_playerLives} : ${_opponentLives}',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF333333),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildStatItem(
-                        '정답',
-                        '${_playerResults.where((r) => r.isCorrect).length}',
-                        const Color(0xFF4CAF50),
-                      ),
-                      Container(width: 1, height: 40, color: Colors.grey[200]),
-                      _buildStatItem(
-                        '오답',
-                        '${_playerResults.where((r) => !r.isCorrect).length}',
-                        const Color(0xFFF44336),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _showResultDetail,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF788CC3),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: const Text(
-                        '확인',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+            const SizedBox(width: 8),
+            Text(
+              '${_timeLeft.toInt()}초',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: _timeLeft > _maxTime * 0.3
+                    ? const Color(0xFF4CAF50)
+                    : const Color(0xFFFF6B6B),
               ),
             ),
-          ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Container(
+                height: 6,
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                child: FractionallySizedBox(
+                  alignment: Alignment.centerLeft,
+                  widthFactor: (_timeLeft / _maxTime).clamp(0.0, 1.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: _timeLeft > _maxTime * 0.3
+                          ? const Color(0xFF4CAF50)
+                          : const Color(0xFFFF6B6B),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget _buildStatItem(String label, String value, Color color) {
-    return Column(
-      children: [
-        Text(label, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
-      ],
     );
   }
 

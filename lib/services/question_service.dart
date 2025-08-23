@@ -63,6 +63,78 @@ class QuestionService {
     return questions;
   }
 
+  // 객관식 문제 생성 (주관식과 동일한 문제를 객관식으로 변환)
+  static GameQuestion generateMultipleChoiceQuestion(
+    GameQuestion originalQuestion,
+  ) {
+    final random = Random();
+
+    // 원본 문제의 정답
+    final correctAnswer =
+        originalQuestion.options[originalQuestion.correctAnswerIndex];
+
+    // 객관식 옵션 생성 (4개)
+    List<String> options = [correctAnswer];
+
+    // 오답 생성 (3개)
+    for (int i = 0; i < 3; i++) {
+      String wrongAnswer;
+      do {
+        // 간단한 오답 생성 로직
+        switch (originalQuestion.type) {
+          case QuestionType.word:
+            wrongAnswer = _generateWrongWordAnswer();
+            break;
+          case QuestionType.grammar:
+            wrongAnswer = _generateWrongGrammarAnswer();
+            break;
+          case QuestionType.dialog:
+            wrongAnswer = _generateWrongDialogAnswer();
+            break;
+        }
+      } while (options.contains(wrongAnswer));
+
+      options.add(wrongAnswer);
+    }
+
+    // 옵션 섞기
+    options.shuffle(random);
+    final correctIndex = options.indexOf(correctAnswer);
+
+    return GameQuestion(
+      question: originalQuestion.question,
+      options: options,
+      correctAnswerIndex: correctIndex,
+      type: originalQuestion.type,
+      difficulty: originalQuestion.difficulty,
+      explanation: originalQuestion.explanation,
+    );
+  }
+
+  static String _generateWrongWordAnswer() {
+    final wrongAnswers = ['잘못된 뜻', '틀린 의미', '다른 뜻', '오답', '의미 없음'];
+    return wrongAnswers[Random().nextInt(wrongAnswers.length)];
+  }
+
+  static String _generateWrongGrammarAnswer() {
+    final wrongAnswers = [
+      'am',
+      'is',
+      'are',
+      'be',
+      'go',
+      'goes',
+      'going',
+      'went',
+    ];
+    return wrongAnswers[Random().nextInt(wrongAnswers.length)];
+  }
+
+  static String _generateWrongDialogAnswer() {
+    final wrongAnswers = ['잘못된 표현', '틀린 뜻', '다른 의미', '오답'];
+    return wrongAnswers[Random().nextInt(wrongAnswers.length)];
+  }
+
   static GameQuestion _generateWordQuestion(QuestionDifficulty difficulty) {
     final random = Random();
 

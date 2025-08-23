@@ -48,12 +48,16 @@ class GameQuestion {
         return 5; // 5초
     }
   }
+
+  String get correctAnswer {
+    return options[correctAnswerIndex];
+  }
 }
 
 class GamePlayer {
   final String name;
   final String tier;
-  final int score;
+  int score;
   final String? avatarUrl;
 
   GamePlayer({

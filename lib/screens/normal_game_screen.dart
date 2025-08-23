@@ -5,6 +5,7 @@ import '../models/game_question.dart';
 import '../models/game_result.dart';
 import '../services/question_service.dart';
 import '../services/review_service.dart';
+import '../widgets/game_result_popup.dart';
 import 'game_result_detail_screen.dart';
 
 class NormalGameScreen extends StatefulWidget {
@@ -44,6 +45,9 @@ class _NormalGameScreenState extends State<NormalGameScreen>
 
   // 상대방 점수 업데이트 타이머
   Timer? _opponentScoreTimer;
+
+  // 팝업 표시 상태
+  bool _showResultPopup = false;
 
   @override
   void initState() {
@@ -246,7 +250,11 @@ class _NormalGameScreenState extends State<NormalGameScreen>
     _isGameFinished = true;
     _isPlayerWon = _player.score > _opponent.score;
     _opponentScoreTimer?.cancel();
-    setState(() {});
+
+    // 팝업 표시
+    setState(() {
+      _showResultPopup = true;
+    });
   }
 
   void _showResultDetail() {
@@ -257,6 +265,7 @@ class _NormalGameScreenState extends State<NormalGameScreen>
       playerResults: _playerResults,
       opponentResults: _opponentResults,
       totalQuestions: _questions.length,
+      gameMode: GameMode.normal,
     );
 
     Navigator.push(
@@ -265,6 +274,14 @@ class _NormalGameScreenState extends State<NormalGameScreen>
         builder: (context) => GameResultDetailScreen(gameResult: gameResult),
       ),
     );
+  }
+
+  void _onPopupClose() {
+    setState(() {
+      _showResultPopup = false;
+    });
+    // 팝업이 사라진 후 결과 상세 화면으로 이동
+    _showResultDetail();
   }
 
   void _exitGame() {
@@ -281,42 +298,72 @@ class _NormalGameScreenState extends State<NormalGameScreen>
       );
     }
 
-    if (_isGameFinished) {
-      return _buildGameResultScreen();
-    }
-
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FF),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildHeader(),
-            _buildPlayerInfo(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: AnimatedBuilder(
-                  animation: _questionAnimation,
-                  builder: (context, child) {
-                    return Transform.scale(
-                      scale: 0.8 + (_questionAnimation.value * 0.2),
-                      child: Opacity(
-                        opacity: _questionAnimation.value,
-                        child: Column(
-                          children: [
-                            _buildQuestionArea(),
-                            _buildAnswerOptions(),
-                          ],
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: const Color(0xFFF8F9FF),
+          body: SafeArea(
+            child: _isGameFinished
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const CircularProgressIndicator(
+                          color: Color(0xFF788CC3),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          '결과를 확인하는 중...',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Column(
+                    children: [
+                      _buildHeader(),
+                      _buildPlayerInfo(),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: AnimatedBuilder(
+                            animation: _questionAnimation,
+                            builder: (context, child) {
+                              return Transform.scale(
+                                scale: 0.8 + (_questionAnimation.value * 0.2),
+                                child: Opacity(
+                                  opacity: _questionAnimation.value,
+                                  child: Column(
+                                    children: [
+                                      _buildQuestionArea(),
+                                      _buildAnswerOptions(),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            _buildTimer(),
-          ],
+                      _buildTimer(),
+                    ],
+                  ),
+          ),
         ),
-      ),
+        // 게임 결과 팝업
+        if (_showResultPopup)
+          GameResultPopup(
+            player: _player,
+            opponent: _opponent,
+            playerScore: _player.score,
+            opponentScore: _opponent.score,
+            totalQuestions: _questions.length,
+            isRankGame: false,
+            onClose: _onPopupClose,
+          ),
+      ],
     );
   }
 
@@ -334,7 +381,7 @@ class _NormalGameScreenState extends State<NormalGameScreen>
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFD700),
+                  color: const Color(0xFF788CC3),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -358,26 +405,6 @@ class _NormalGameScreenState extends State<NormalGameScreen>
                 ),
               ),
             ],
-          ),
-          const SizedBox(height: 8),
-          Container(
-            height: 6,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(3),
-            ),
-            child: FractionallySizedBox(
-              alignment: Alignment.centerLeft,
-              widthFactor: (_currentQuestionIndex + 1) / 20,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
-                  ),
-                  borderRadius: BorderRadius.circular(3),
-                ),
-              ),
-            ),
           ),
         ],
       ),
@@ -688,182 +715,68 @@ class _NormalGameScreenState extends State<NormalGameScreen>
 
   Widget _buildTimer() {
     final currentQuestion = _questions[_currentQuestionIndex];
-    final progress = _timeLeft / currentQuestion.timeLimit;
+    final progress = (_timeLeft / currentQuestion.timeLimit).clamp(0.0, 1.0);
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
-      child: Column(
-        children: [
-          Container(
-            height: 8,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(4),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
             ),
-            child: FractionallySizedBox(
-              alignment: Alignment.centerLeft,
-              widthFactor: progress,
+          ],
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.timer,
+              color: _timeLeft <= 3
+                  ? const Color(0xFFFF6B6B)
+                  : const Color(0xFF4CAF50),
+              size: 16,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              '${_timeLeft.toInt()}초',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: _timeLeft <= 3
+                    ? const Color(0xFFFF6B6B)
+                    : const Color(0xFF4CAF50),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
               child: Container(
+                height: 6,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: _timeLeft <= 3
-                        ? [Colors.red, Colors.red.shade300]
-                        : [const Color(0xFF788CC3), const Color(0xFF6A7BB8)],
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                child: FractionallySizedBox(
+                  alignment: Alignment.centerLeft,
+                  widthFactor: progress,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: _timeLeft <= 3
+                          ? const Color(0xFFFF6B6B)
+                          : const Color(0xFF4CAF50),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(4),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            '${_timeLeft.toInt()}초',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: _timeLeft <= 3 ? Colors.red : const Color(0xFF666666),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGameResultScreen() {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FF),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 30,
-                    offset: const Offset(0, 15),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: _isPlayerWon
-                          ? const Color(0xFFFFD700).withOpacity(0.1)
-                          : Colors.grey.withOpacity(0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      _isPlayerWon
-                          ? Icons.emoji_events
-                          : Icons.sentiment_dissatisfied,
-                      size: 50,
-                      color: _isPlayerWon
-                          ? const Color(0xFFFFD700)
-                          : Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    _isPlayerWon ? '승리!' : '패배',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: _isPlayerWon
-                          ? const Color(0xFFFFD700)
-                          : Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF8F9FF),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      '${_player.score} : ${_opponent.score}',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF333333),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildStatItem(
-                        '정답',
-                        '$_correctAnswers',
-                        const Color(0xFF4CAF50),
-                      ),
-                      Container(width: 1, height: 40, color: Colors.grey[200]),
-                      _buildStatItem(
-                        '오답',
-                        '$_wrongAnswers',
-                        const Color(0xFFF44336),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _showResultDetail,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF788CC3),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: const Text(
-                        '확인',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget _buildStatItem(String label, String value, Color color) {
-    return Column(
-      children: [
-        Text(label, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
-      ],
     );
   }
 

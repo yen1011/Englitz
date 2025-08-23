@@ -313,7 +313,10 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
             children: [
               // 문제 번호
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFF788CC3).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
@@ -321,14 +324,17 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
                 child: Text(
                   '문제 $questionNumber',
                   style: const TextStyle(
-                    fontSize: 10,
+                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF788CC3),
                   ),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _getQuestionTypeColor(result.type).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
@@ -339,13 +345,13 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
                     Icon(
                       _getQuestionTypeIcon(result.type),
                       color: _getQuestionTypeColor(result.type),
-                      size: 12,
+                      size: 14,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       _getQuestionTypeText(result.type),
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: _getQuestionTypeColor(result.type),
                       ),
@@ -354,7 +360,10 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: result.isCorrect
                       ? const Color(0xFF4CAF50).withOpacity(0.1)
@@ -369,13 +378,13 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
                       color: result.isCorrect
                           ? const Color(0xFF4CAF50)
                           : const Color(0xFFF44336),
-                      size: 12,
+                      size: 14,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       result.isCorrect ? '정답' : '오답',
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: result.isCorrect
                             ? const Color(0xFF4CAF50)
@@ -387,25 +396,25 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
 
           // 문제 내용
           Text(
-            result.question,
+            _getCleanQuestionText(result.question),
             style: const TextStyle(
-              fontSize: 13,
+              fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Color(0xFF333333),
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 10),
 
           // 정답 (더 크게)
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: const Color(0xFF4CAF50).withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
@@ -420,16 +429,16 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
                 const Text(
                   '정답',
                   style: TextStyle(
-                    fontSize: 9,
+                    fontSize: 11,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF4CAF50),
                   ),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 4),
                 Text(
                   result.correctAnswer,
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 15,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF333333),
                   ),
@@ -440,10 +449,10 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
 
           // 사용자 답안 (오답인 경우에만 표시)
           if (!result.isCorrect && result.userAnswer != null) ...[
-            const SizedBox(height: 4),
+            const SizedBox(height: 6),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: const Color(0xFFF44336).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
@@ -458,16 +467,16 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
                   const Text(
                     '내 답안',
                     style: TextStyle(
-                      fontSize: 9,
+                      fontSize: 11,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFFF44336),
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 4),
                   Text(
                     result.userAnswer!,
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFF333333),
                     ),
@@ -532,6 +541,55 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
       case QuestionType.dialog:
         return Icons.chat_bubble;
     }
+  }
+
+  String _getCleanQuestionText(String question) {
+    // "빈칸에 들어갈 단어는?" 같은 안내 문구 제거
+    if (question.contains('빈칸에 들어갈 단어는?')) {
+      // "빈칸에 들어갈 단어는?" 이후의 문장만 추출
+      final parts = question.split('빈칸에 들어갈 단어는?');
+      if (parts.length > 1) {
+        return parts[1].trim();
+      }
+    }
+    
+    // "다음 문장의 빈칸에 들어갈 단어는?" 같은 패턴도 처리
+    if (question.contains('다음 문장의 빈칸에 들어갈 단어는?')) {
+      final parts = question.split('다음 문장의 빈칸에 들어갈 단어는?');
+      if (parts.length > 1) {
+        return parts[1].trim();
+      }
+    }
+    
+    // "다음 대화의 빈칸에 들어갈 단어는?" 같은 패턴도 처리
+    if (question.contains('다음 대화의 빈칸에 들어갈 단어는?')) {
+      final parts = question.split('다음 대화의 빈칸에 들어갈 단어는?');
+      if (parts.length > 1) {
+        return parts[1].trim();
+      }
+    }
+    
+    // 기타 안내 문구 패턴들 처리
+    final patterns = [
+      '빈칸에 들어갈 단어는?',
+      '다음 문장의 빈칸에 들어갈 단어는?',
+      '다음 대화의 빈칸에 들어갈 단어는?',
+      '빈칸에 들어갈 알맞은 단어는?',
+      '다음 문장에서 빈칸에 들어갈 단어는?',
+      '다음 대화에서 빈칸에 들어갈 단어는?',
+    ];
+    
+    for (final pattern in patterns) {
+      if (question.contains(pattern)) {
+        final parts = question.split(pattern);
+        if (parts.length > 1) {
+          return parts[1].trim();
+        }
+      }
+    }
+    
+    // 안내 문구가 없으면 원본 반환
+    return question;
   }
 
   Color _getQuestionTypeColor(QuestionType type) {

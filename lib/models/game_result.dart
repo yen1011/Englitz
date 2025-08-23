@@ -1,5 +1,7 @@
 import 'game_question.dart';
 
+enum GameMode { normal, rank }
+
 class GameResult {
   final GamePlayer player;
   final GamePlayer opponent;
@@ -7,6 +9,7 @@ class GameResult {
   final List<QuestionResult> playerResults;
   final List<QuestionResult> opponentResults;
   final int totalQuestions;
+  final GameMode gameMode;
 
   GameResult({
     required this.player,
@@ -15,6 +18,7 @@ class GameResult {
     required this.playerResults,
     required this.opponentResults,
     required this.totalQuestions,
+    required this.gameMode,
   });
 }
 
