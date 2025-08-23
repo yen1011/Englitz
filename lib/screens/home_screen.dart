@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/bottom_navigation.dart';
 import '../widgets/user_profile_header.dart';
 import '../widgets/game_mode_buttons.dart';
 import '../widgets/stats_card.dart';
@@ -12,8 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentNavIndex = 1; // 홈 탭
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,22 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const Spacer(),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigation(
-        currentIndex: _currentNavIndex,
-        onTap: (index) {
-          setState(() {
-            _currentNavIndex = index;
-          });
-          // 네비게이션 처리
-          if (index == 0) {
-            // 리더보드로 이동
-            Navigator.pushReplacementNamed(context, '/rank');
-          } else if (index == 2) {
-            // 리뷰로 이동
-            Navigator.pushReplacementNamed(context, '/review');
-          }
-        },
       ),
     );
   }

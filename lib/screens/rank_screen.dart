@@ -4,7 +4,6 @@ import '../widgets/rank_item.dart';
 import '../widgets/team_rank_item.dart';
 import '../widgets/top_rankers.dart';
 import '../widgets/top_teams.dart';
-import '../widgets/bottom_navigation.dart';
 
 class RankScreen extends StatefulWidget {
   const RankScreen({Key? key}) : super(key: key);
@@ -15,7 +14,6 @@ class RankScreen extends StatefulWidget {
 
 class _RankScreenState extends State<RankScreen> {
   int _selectedTabIndex = 0; // 0: 개인, 1: 팀
-  int _currentNavIndex = 1; // 리더보드 탭
 
   // 샘플 데이터
   final List<RankUser> _individualUsers = [
@@ -465,22 +463,6 @@ class _RankScreenState extends State<RankScreen> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigation(
-        currentIndex: _currentNavIndex,
-        onTap: (index) {
-          setState(() {
-            _currentNavIndex = index;
-          });
-          // 네비게이션 처리
-          if (index == 1) {
-            // 홈으로 이동
-            Navigator.pushReplacementNamed(context, '/home');
-          } else if (index == 2) {
-            // 리뷰로 이동 (추후 구현)
-            // Navigator.pushReplacementNamed(context, '/review');
-          }
-        },
       ),
     );
   }
