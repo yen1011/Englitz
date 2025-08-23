@@ -5,7 +5,7 @@ import 'rank_screen.dart';
 import 'review_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => MainScreenState();

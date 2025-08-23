@@ -5,11 +5,8 @@ class TeamRankItem extends StatelessWidget {
   final RankUser team;
   final bool isCurrentTeam;
 
-  const TeamRankItem({
-    super.key,
-    required this.team,
-    this.isCurrentTeam = false,
-  });
+  const TeamRankItem({Key? key, required this.team, this.isCurrentTeam = false})
+    : super(key: key);
 
   // 순위 변화 상태 (임시로 랜덤하게 설정, 실제로는 데이터에서 가져와야 함)
   String _getRankChange() {
@@ -112,7 +109,7 @@ class TeamRankItem extends StatelessWidget {
           const SizedBox(width: 8),
 
           // 순위 번호
-          SizedBox(
+          Container(
             width: 32,
             height: 32,
             child: Center(

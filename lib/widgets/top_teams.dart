@@ -4,7 +4,7 @@ import '../models/rank_user.dart';
 class TopTeams extends StatelessWidget {
   final List<RankUser> topTeams;
 
-  const TopTeams({super.key, required this.topTeams});
+  const TopTeams({Key? key, required this.topTeams}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

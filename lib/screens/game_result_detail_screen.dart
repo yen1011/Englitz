@@ -6,7 +6,8 @@ import 'main_screen.dart';
 class GameResultDetailScreen extends StatefulWidget {
   final GameResult gameResult;
 
-  const GameResultDetailScreen({super.key, required this.gameResult});
+  const GameResultDetailScreen({Key? key, required this.gameResult})
+    : super(key: key);
 
   @override
   State<GameResultDetailScreen> createState() => _GameResultDetailScreenState();

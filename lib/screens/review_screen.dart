@@ -3,7 +3,7 @@ import '../models/review_word.dart';
 import '../services/review_service.dart';
 
 class ReviewScreen extends StatefulWidget {
-  const ReviewScreen({super.key});
+  const ReviewScreen({Key? key}) : super(key: key);
 
   @override
   State<ReviewScreen> createState() => _ReviewScreenState();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class StatsCard extends StatelessWidget {
-  const StatsCard({super.key});
+  const StatsCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

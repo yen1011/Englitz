@@ -1,72 +1,195 @@
 import 'package:flutter/material.dart';
 
+class RankWingsPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..style = PaintingStyle.fill;
+
+    // 날개 그라데이션 색상 설정
+    final gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        const Color(0xFFFFB347), // 라이트 오렌지
+        const Color(0xFFFF8C00), // 다크 오렌지
+      ],
+    );
+
+    final rect = Rect.fromLTWH(0, 0, size.width, size.height);
+    paint.shader = gradient.createShader(rect);
+
+    // 검은 테두리 페인트
+    final borderPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..color = const Color(0xFF2D3748)
+      ..strokeWidth = 2.0;
+
+    final path = Path();
+    final center = Offset(size.width / 2, size.height / 2);
+
+    // 날개 모양 그리기 (V자 형태)
+    // 왼쪽 날개
+    path.moveTo(center.dx, size.height * 0.8); // 하단 중앙
+    path.quadraticBezierTo(
+      size.width * 0.2,
+      size.height * 0.3, // 제어점
+      size.width * 0.05,
+      size.height * 0.1, // 왼쪽 끝
+    );
+    path.quadraticBezierTo(
+      size.width * 0.15,
+      size.height * 0.4, // 제어점
+      center.dx,
+      size.height * 0.6, // 중앙으로
+    );
+
+    // 오른쪽 날개
+    path.quadraticBezierTo(
+      size.width * 0.85,
+      size.height * 0.4, // 제어점
+      size.width * 0.95,
+      size.height * 0.1, // 오른쪽 끝
+    );
+    path.quadraticBezierTo(
+      size.width * 0.8,
+      size.height * 0.3, // 제어점
+      center.dx,
+      size.height * 0.8, // 하단 중앙으로 돌아감
+    );
+
+    path.close();
+
+    // 날개 채우기
+    canvas.drawPath(path, paint);
+    // 날개 테두리
+    canvas.drawPath(path, borderPaint);
+
+    // 중앙 다이아몬드 모양 추가
+    final diamondPaint = Paint()
+      ..color = const Color(0xFFFFD700)
+      ..style = PaintingStyle.fill;
+
+    final diamondPath = Path();
+    final diamondSize = 8.0;
+    diamondPath.moveTo(center.dx, center.dy - diamondSize); // 상단
+    diamondPath.lineTo(center.dx + diamondSize, center.dy); // 우측
+    diamondPath.lineTo(center.dx, center.dy + diamondSize); // 하단
+    diamondPath.lineTo(center.dx - diamondSize, center.dy); // 좌측
+    diamondPath.close();
+
+    canvas.drawPath(diamondPath, diamondPaint);
+    canvas.drawPath(diamondPath, borderPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
 class UserProfileHeader extends StatelessWidget {
-  const UserProfileHeader({super.key});
+  const UserProfileHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // 사용자 아바타
-        Stack(
-          children: [
-            // 메인 프로필 이미지
-            Container(
-              width: 140,
-              height: 140,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFF788CC3), // 단색 배경
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.15),
-                    blurRadius: 20,
-                    offset: const Offset(0, 8),
-                  ),
-                ],
-              ),
-              child: ClipOval(
-                child: Image.asset(
-                  // TODO: 여기에 사용자 프로필 이미지 경로를 설정하세요
-                  // 예: 'assets/images/profile_photo.jpg'
-                  'assets/images/default_avatar.png',
-                  width: 140,
-                  height: 140,
-                  fit: BoxFit.cover,
-                ),
-              ),
+        Container(
+          width: 140,
+          height: 140,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFF7B8BC4), Color(0xFFFF9500)],
             ),
-            // 랭크 아이콘 (하단 중앙)
-            Positioned(
-              bottom: -5,
-              left: 50,
-              right: 50,
-              child: Container(
-                height: 35,
-                width: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Stack(
+            children: [
+              // 캐릭터 몸체 (오렌지 부분)
+              Positioned(
+                bottom: 0,
+                left: 20,
+                right: 20,
+                height: 80,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(70),
+                      bottomRight: Radius.circular(70),
                     ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    // TODO: 여기에 랭크 아이콘 이미지 경로를 설정하세요
-                    // 예: 'assets/images/gold_rank.png'
-                    'assets/icons/rank/gold.png',
-                    fit: BoxFit.contain,
+                    color: Color(0xFFFF9500),
                   ),
                 ),
               ),
-            ),
-          ],
+              // 캐릭터 얼굴 (회색 부분)
+              Positioned(
+                top: 20,
+                left: 20,
+                right: 20,
+                height: 70,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFF718096),
+                  ),
+                  child: Stack(
+                    children: [
+                      // 눈
+                      const Positioned(
+                        top: 20,
+                        left: 20,
+                        child: Text('👀', style: TextStyle(fontSize: 24)),
+                      ),
+                      // 입
+                      const Positioned(
+                        bottom: 15,
+                        left: 35,
+                        child: Text('😺', style: TextStyle(fontSize: 16)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // 상단 장식 (핑크 리본)
+              Positioned(
+                top: 10,
+                right: 25,
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFFFF6B9D),
+                  ),
+                ),
+              ),
+              // 랭크 아이콘 (하단 중앙, 최상위 레이어)
+              Positioned(
+                bottom: -5,
+                left: 50,
+                right: 50,
+                child: Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: CustomPaint(
+                    painter: RankWingsPainter(),
+                    size: const Size(40, 35),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
 
         const SizedBox(height: 16),
@@ -111,10 +234,9 @@ class UserProfileHeader extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: Colors.black, width: 1.5),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(3), // 외곽선 안쪽 반경
+                borderRadius: BorderRadius.circular(4),
                 child: LinearProgressIndicator(
                   value: 0.65, // Gold 65% 진행도 (예시)
                   backgroundColor: Colors.transparent,

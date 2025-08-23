@@ -3,7 +3,7 @@ import '../screens/normal_game_screen.dart';
 import '../screens/rank_game_screen.dart';
 
 class GameModeButtons extends StatelessWidget {
-  const GameModeButtons({super.key});
+  const GameModeButtons({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

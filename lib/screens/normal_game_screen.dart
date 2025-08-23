@@ -8,7 +8,7 @@ import '../services/review_service.dart';
 import 'game_result_detail_screen.dart';
 
 class NormalGameScreen extends StatefulWidget {
-  const NormalGameScreen({super.key});
+  const NormalGameScreen({Key? key}) : super(key: key);
 
   @override
   State<NormalGameScreen> createState() => _NormalGameScreenState();
@@ -29,8 +29,8 @@ class _NormalGameScreenState extends State<NormalGameScreen>
   bool _isPlayerWon = false;
 
   // 게임 결과 저장용
-  final List<QuestionResult> _playerResults = [];
-  final List<QuestionResult> _opponentResults = [];
+  List<QuestionResult> _playerResults = [];
+  List<QuestionResult> _opponentResults = [];
 
   // 애니메이션 컨트롤러
   late AnimationController _timerAnimationController;
@@ -265,6 +265,10 @@ class _NormalGameScreenState extends State<NormalGameScreen>
         builder: (context) => GameResultDetailScreen(gameResult: gameResult),
       ),
     );
+  }
+
+  void _exitGame() {
+    Navigator.of(context).pop();
   }
 
   @override

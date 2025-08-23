@@ -6,10 +6,10 @@ class BottomNavigation extends StatelessWidget {
   final Function(int) onTap;
 
   const BottomNavigation({
-    super.key,
+    Key? key,
     required this.currentIndex,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +52,40 @@ class BottomNavigation extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildNavItem(int index, IconData icon, String label) {
+    bool isSelected = currentIndex == index;
+
+    return GestureDetector(
+      onTap: () => onTap(index),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              icon,
+              size: 28,
+              color: isSelected
+                  ? const Color(0xFF788CC3)
+                  : const Color(0xFFD1D1D1),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: isSelected
+                    ? const Color(0xFF788CC3)
+                    : const Color(0xFFD1D1D1),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

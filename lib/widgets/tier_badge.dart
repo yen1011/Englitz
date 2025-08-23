@@ -6,11 +6,11 @@ class TierBadge extends StatelessWidget {
   final double size;
 
   const TierBadge({
-    super.key,
+    Key? key,
     required this.tier,
     required this.tierColor,
     this.size = 24,
-  });
+  }) : super(key: key);
 
   Color _getTierColor() {
     switch (tierColor) {
