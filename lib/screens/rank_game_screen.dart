@@ -8,7 +8,7 @@ import '../services/review_service.dart';
 import 'game_result_detail_screen.dart';
 
 class RankGameScreen extends StatefulWidget {
-  const RankGameScreen({Key? key}) : super(key: key);
+  const RankGameScreen({super.key});
 
   @override
   State<RankGameScreen> createState() => _RankGameScreenState();
@@ -23,8 +23,12 @@ class _RankGameScreenState extends State<RankGameScreen>
   bool _isPlayerTurn = true; // true: 플레이어 턴, false: 상대방 턴
 
   // 플레이어 정보
-  GamePlayer _player = GamePlayer(name: '서연수', tier: 'Gold 2', score: 0);
-  GamePlayer _opponent = GamePlayer(name: '김명수', tier: 'Gold 1', score: 0);
+  final GamePlayer _player = GamePlayer(name: '서연수', tier: 'Gold 2', score: 0);
+  final GamePlayer _opponent = GamePlayer(
+    name: '김명수',
+    tier: 'Gold 1',
+    score: 0,
+  );
 
   // 목숨
   int _playerLives = 3;
@@ -42,7 +46,7 @@ class _RankGameScreenState extends State<RankGameScreen>
   double _maxTime = 10.0; // 기본 10초
 
   // 답안 입력
-  TextEditingController _answerController = TextEditingController();
+  final TextEditingController _answerController = TextEditingController();
   String _userAnswer = '';
   bool _isAnswered = false;
   bool _isCorrect = false;
@@ -54,8 +58,8 @@ class _RankGameScreenState extends State<RankGameScreen>
   late Animation<double> _turnAnimation;
 
   // 게임 결과 저장
-  List<QuestionResult> _playerResults = [];
-  List<QuestionResult> _opponentResults = [];
+  final List<QuestionResult> _playerResults = [];
+  final List<QuestionResult> _opponentResults = [];
 
   // 상대방 시뮬레이션
   Timer? _opponentTimer;
@@ -1121,7 +1125,7 @@ class _RankGameScreenState extends State<RankGameScreen>
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      '${_playerLives} : ${_opponentLives}',
+                      '$_playerLives : $_opponentLives',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

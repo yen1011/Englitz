@@ -2,7 +2,7 @@ import '../models/review_word.dart';
 import '../models/game_question.dart';
 
 class ReviewService {
-  static List<ReviewWord> _wrongWords = [];
+  static final List<ReviewWord> _wrongWords = [];
 
   // 오답 단어 추가
   static void addWrongWord(String english, String korean, QuestionType type) {

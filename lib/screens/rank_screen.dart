@@ -6,7 +6,7 @@ import '../widgets/top_rankers.dart';
 import '../widgets/top_teams.dart';
 
 class RankScreen extends StatefulWidget {
-  const RankScreen({Key? key}) : super(key: key);
+  const RankScreen({super.key});
 
   @override
   State<RankScreen> createState() => _RankScreenState();
