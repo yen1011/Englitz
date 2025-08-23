@@ -72,14 +72,16 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
   }
 
   Widget _buildResultContent() {
-    return Column(
-      children: [
-        // 상대방 결과 섹션
-        Expanded(child: _buildOpponentSection()),
-        const SizedBox(height: 12),
-        // 내 결과 섹션
-        Expanded(child: _buildPlayerSection()),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // 상대방 결과 섹션
+          _buildOpponentSection(),
+          const SizedBox(height: 12),
+          // 내 결과 섹션
+          _buildPlayerSection(),
+        ],
+      ),
     );
   }
 
@@ -87,6 +89,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       padding: const EdgeInsets.all(12),
+      height: 320,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -146,7 +149,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           // 상대방 문제풀이 캐러셀
           Expanded(
             child: _buildQuestionCarousel(
@@ -163,6 +166,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       padding: const EdgeInsets.all(12),
+      height: 320,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -222,7 +226,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           // 내 문제풀이 캐러셀
           Expanded(
             child: _buildQuestionCarousel(
@@ -475,7 +479,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
 
   Widget _buildNavigationButtons() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Center(
         child: ElevatedButton(
           onPressed: () {
