@@ -408,6 +408,14 @@ class _RankScreenState extends State<RankScreen> {
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.15),
+                      blurRadius: 12,
+                      offset: const Offset(0, -4),
+                      spreadRadius: 0,
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
