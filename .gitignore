@@ -21,6 +21,7 @@ migrate_working_dir/
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
+# 팀 설정을 위해 .vscode 폴더를 버전 관리에 포함
 #.vscode/
 
 # Flutter/Dart/Pub related

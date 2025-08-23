@@ -1,0 +1,12 @@
+{
+  "dart.formatOnSave": false,
+  "dart.formatOnType": false,
+  "editor.formatOnSave": false,
+  "editor.formatOnType": false,
+  "dart.lineLength": 80,
+  "dart.enableSdkFormatter": false,
+  "dart.analysisExcludedFolders": [
+    ".dart_tool",
+    "build"
+  ]
+}
