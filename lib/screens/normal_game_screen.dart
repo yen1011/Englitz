@@ -294,7 +294,10 @@ class _NormalGameScreenState extends State<NormalGameScreen>
                     child: Opacity(
                       opacity: _questionAnimation.value,
                       child: Column(
-                        children: [_buildQuestionArea(), _buildAnswerOptions()],
+                        children: [
+                          Expanded(child: _buildQuestionArea()),
+                          _buildAnswerOptions(),
+                        ],
                       ),
                     ),
                   );
@@ -310,7 +313,7 @@ class _NormalGameScreenState extends State<NormalGameScreen>
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: Row(
         children: [
           Container(
@@ -418,8 +421,8 @@ class _NormalGameScreenState extends State<NormalGameScreen>
 
   Widget _buildPlayerInfo() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),

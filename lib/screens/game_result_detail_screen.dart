@@ -33,7 +33,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: Row(
         children: [
           Container(
@@ -76,7 +76,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
       children: [
         // 상대방 결과 섹션
         Expanded(child: _buildOpponentSection()),
-        const SizedBox(height: 20),
+        const SizedBox(height: 12),
         // 내 결과 섹션
         Expanded(child: _buildPlayerSection()),
       ],
@@ -85,8 +85,8 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
 
   Widget _buildOpponentSection() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -161,8 +161,8 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
 
   Widget _buildPlayerSection() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -275,8 +275,8 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
     bool isOpponent,
   ) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -379,7 +379,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
 
           // 문제 내용
           Text(
@@ -392,7 +392,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
 
           // 정답 (더 크게)
           Container(
@@ -432,7 +432,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
 
           // 사용자 답안 (오답인 경우에만 표시)
           if (!result.isCorrect && result.userAnswer != null) ...[
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(8),
@@ -475,7 +475,7 @@ class _GameResultDetailScreenState extends State<GameResultDetailScreen> {
 
   Widget _buildNavigationButtons() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: Center(
         child: ElevatedButton(
           onPressed: () {
