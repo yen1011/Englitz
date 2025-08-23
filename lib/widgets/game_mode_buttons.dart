@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/normal_game_screen.dart';
+import '../screens/rank_game_screen.dart';
 
 class GameModeButtons extends StatelessWidget {
   const GameModeButtons({Key? key}) : super(key: key);
@@ -165,7 +166,10 @@ class GameModeButtons extends StatelessWidget {
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              // 실제 게임 화면으로 이동
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const RankGameScreen()),
+              );
             },
             child: const Text('시작'),
           ),

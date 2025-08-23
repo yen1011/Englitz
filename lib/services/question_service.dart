@@ -65,6 +65,12 @@ class QuestionService {
 
   static GameQuestion _generateWordQuestion(QuestionDifficulty difficulty) {
     final random = Random();
+
+    // 데이터가 초기화되지 않은 경우 기본 문제 생성
+    if (_wordData == null) {
+      return _generateSimpleWordQuestion(difficulty);
+    }
+
     final wordData = _wordData!;
 
     // 난이도에 따라 필터링
@@ -170,6 +176,11 @@ class QuestionService {
   static GameQuestion _generateGrammarQuestion(QuestionDifficulty difficulty) {
     final random = Random();
 
+    // 데이터가 초기화되지 않은 경우 기본 문제 생성
+    if (_grammarData == null) {
+      return _generateFallbackGrammarQuestion(difficulty);
+    }
+
     // 간단한 문법 문제들
     final grammarQuestions = [
       {
@@ -256,6 +267,11 @@ class QuestionService {
 
   static GameQuestion _generateDialogQuestion(QuestionDifficulty difficulty) {
     final random = Random();
+
+    // 데이터가 초기화되지 않은 경우 기본 문제 생성
+    if (_dialogData == null) {
+      return _generateFallbackDialogQuestion(difficulty);
+    }
 
     // 간단한 대화 표현들
     final dialogExpressions = [
