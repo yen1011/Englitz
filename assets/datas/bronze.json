@@ -1,0 +1,1536 @@
+{
+  "tier": "Bronze",
+  "counts": {
+    "total": 122,
+    "by_type": {
+      "sentence": 120,
+      "passage": 2
+    },
+    "by_sublevel": {
+      "1": 49,
+      "2": 49,
+      "3": 24
+    }
+  },
+  "items": [
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "내가 어렸을 때 우리 동네엔 오래된 절이 하나 있었다.",
+      "english": [
+        "When I was young, there used to be an old temple in my neighborhood."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "컴퓨터에 이상이 있는 것처럼 보인다. 수리를 시켜야겠다.",
+      "english": [
+        "① There seems to be something wrong with the computer. I must <b>have</b>(= get) it repaired.",
+        "② It seems that there is something wrong with the computer. I must <b>have</b>(= get) it repaired."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 오늘 의기소침해 보인다. 그가 걱정하는 것이 있음에 틀림없다.",
+      "english": [
+        "He looks depressed today. He must be worried about something."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 소식을 듣고 별안간 창백해졌다.",
+      "english": [
+        "He <b>suddenly turned</b>(= suddenly became) pale at the news."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 자기 아들이 의사가 되기를 바라는 것은 당연하다.",
+      "english": [
+        "It is natural that he (would) want his son to become a doctor."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "우리는 그 일을 가능한 한 빨리 끝내야 할 필요가 있다.",
+      "english": [
+        "It is necessary that we (should) finish the work as soon as <b>possible</b>(= we can)."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "수개월 후에야 그들은 결혼했다.",
+      "english": [
+        "① It was several months before they got married.",
+        "② They got married several months later."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 집에 도착하자마자 천둥이 치기 시작했다.",
+      "english": [
+        "① As soon as he arrived home, it began to thunder.",
+        "② It began to thunder as he arrived home."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "도망치기가 무섭게 그녀는 또 붙잡혔다.",
+      "english": [
+        "She had scarcely escaped before she was caught again."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 회복하리라는 희망은 극히 희박했다.",
+      "english": [
+        "① There was a slim <b>chance</b>(= hope/possibility) that he would recover.",
+        "② There was little chance that he would recover."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "참 좋은 생각이기는 하나 어떻게 실행하느냐가 문제다.",
+      "english": [
+        "To be sure, it is a good idea, but the question is how to carry it out."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 서울에서 바쁘게 살지만, 한 달에 한 번씩 반드시 고향의 부모님께 편지를 쓴다.",
+      "english": [
+        "<b>Although</b>(= Though) he lives a busy life in Seoul, he never fails to write to his parents of home once a month."
+      ],
+      "lesson": "Lesson7",
+      "lesson_title": "부사절Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "너무 무더워서 집안에 있을 수가 없다.",
+      "english": [
+        "It is so sultry that I cannot <b>remain</b>(= keep) indoors."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그녀는 일을 매우 빨리 하기 때문에 사무실의 어느 누구도 그녀를 따라잡을 수 없다.",
+      "english": [
+        "① She works so fast that no one in the office can keep up with her.",
+        "② She is such a fast worker that no one in the office can catch up with her.",
+        "③ She is so fast a worker that nobody in the office overtake her."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 매우 현명한 사람인지라 모두 그를 존경한다.",
+      "english": [
+        "① He is so wise a man that everybody respects him.",
+        "② He is such a wise man that everybody looks up to him.",
+        "③ He is very wise, so that everybody respects him.",
+        "④ He is quite a wise man, so everybody looks up to him."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이번 입학 시험에 떨어지면 내년에 다시 한번 치겠다.",
+      "english": [
+        "If I fail the entrance examination this time, I will try again next year."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "나는 그의 자존심을 상하게 할까봐 그가 한 일을 감히 너에게 말할 수 없다. 실은 그는 양다리를 걸치고 있었다.",
+      "english": [
+        "I dare not tell you what he did <b>lest I should</b>(= for fear that I should) hurt his pride. In fact, he was sitting on the fence."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그 광경은 너무 아름다워서 아무도 묘사할 수가 없었다.",
+      "english": [
+        "① The scenery was too beautiful for anybody to describe.",
+        "② The scenery was so beautiful that nobody could describe it.",
+        "③ The beauty of the scenery was beyond description."
+      ],
+      "lesson": "Lesson9",
+      "lesson_title": "to부정사 활용Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "책을 선택하는 데는 아무리 주의해도 지나칠 게 없다.",
+      "english": [
+        "① We cannot be too careful <b>in the choice of books</b>(= in choosing books).",
+        "② It is impossible for us to be careful in choosing books <b>too much</b>(= enough)."
+      ],
+      "lesson": "Lesson9",
+      "lesson_title": "to부정사 활용Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 여행할 때는 어김없이 그림엽서를 보내온다.",
+      "english": [
+        "① He never fails to send me a picture postcard whenever he makes a journey.",
+        "② He cannot make a journey without sending me a picture postcard."
+      ],
+      "lesson": "Lesson9",
+      "lesson_title": "to부정사 활용Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "나는 갈비 만드는 방법에 대해 전혀 알지 못한다. 하지만 요리책대로 하기만 하면 된다.",
+      "english": [
+        "I don’t have the <b>vaguest</b>(= faintest/slightest) idea as to how I make galbi. <b>All I do is go by the cook book</b>(= But all I have to do is to go by the cook book)."
+      ],
+      "lesson": "Lesson9",
+      "lesson_title": "to부정사 활용Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "할 일이 없을 때에는 텔레비전을 보지 말고 책을 읽는 게 좋겠다.",
+      "english": [
+        "① When you are free, you had better read a book, instead of watching television.",
+        "② When you have nothing to do, it is better for you to read a book instead of watching television."
+      ],
+      "lesson": "Lesson10",
+      "lesson_title": "to부정사 활용Ⅱ"
+    },
+    {
+      "type": "passage",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "your_life_style",
+      "eng_title": "Dry skin",
+      "kor_title": "건조한 피부",
+      "eng_content": "Do you find that with the cooler weather, your skin is getting drier? Weather conditions as well as warm indoor temperatures can worsen dry skin. Dry air can literally pull the moisture right out of your skin – which can cause it to become itchy and flaky. What can you do to prevent this?<br>Keep the air around you moist. Invest in a good humidifier for every room you spend a lot of time in, especially your bedroom. Moist air is gentler to your skin.<br>Use a good moisturizer. The aim of moisturizing in the cold is to lock in the water naturally found in your skin. They will not only give moisture to your skin, but also keep the moisture locked into your skin by forming a protective barrier.<br>Turn down the temperature in your shower and whenever you use water. Hot water may feel great, but it actually dries out your skin. Use warm water instead.<br>Use gentle soaps. Soap strips away your skin's natural oils, making it more likely to get itchy and flaky. Opt instead for gentle cleansers.<br>Remember these tips to keep your skin from drying out in the cool weather.",
+      "kor_content": "날씨가 서늘해지면 피부가 건조해진다는 것을 알고 계십니까? 따뜻한 실내 온도뿐만 아니라 날씨도 건조한 피부를 악화시킬 수 있습니다. 건조한 공기는 문자 그대로 피부에서 습기를 가져가서, 피부가 가렵거나 얇게 벗겨지게 만듭니다. 이렇게 되는 것을 막으려면 어떻게 해야 할까요?<br>여러분 주위의 공기를 촉촉하게 유지하세요. 여러분이 많은 시간을 보내는 모든 방에, 특히 침실에 좋은 가습기를 사 놓으세요. 촉촉한 공기가 피부에 더 순합니다.<br>좋은 모이스쳐 크림을 사용하세요. 추울 때에 모이스쳐 크림을 바르는 목적은 피부에 자연적으로 있는 수분을 가두기 위한 것입니다. 모이스쳐 크림은 피부에 수분을 공급할 뿐만 아니라 보호막을 형성함으로써 수분을 피부에 가두어두기도 합니다.<br>물을 사용할 때에는 항상 샤워기의 온도를 낮추세요. 뜨거운 물의 느낌이 더 좋을지도 모르지만 사실 뜨거운 물은 피부를 건조하게 합니다. 대신 따뜻한 물을 사용하세요.<br>순한 비누를 사용하세요. 비누는 피부에 있는 천연 유분을 벗겨내어 피부가 쉽게 가렵거나 각질이 일어나도록 만듭니다. 대신 순한 비누를 선택하세요.<br>이와 같은 팁들을 기억하셔서 여러분의 피부가 차가운 날씨에 건조해지지 않도록 하세요."
+    },
+    {
+      "type": "passage",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "your_life_style",
+      "eng_title": "Control ",
+      "kor_title": "지배욕",
+      "eng_content": "Do you like to be in control? Do you have a need to be in control at all times? In other words, are you a control freak? A control freak is someone who wants to be in control of every situation they find themselves in. It can be very difficult to deal with a control freak so here are some tips on avoiding becoming one.<br>Avoid Always Needing the Last Word. Be clear and brief on your point when you speak. Only say what will bring success to the goal at hand. Once you have stated you point, avoid saying anything unnecessary.<br>Evaluate your Intentions. Remember that only reason to make a strong point is when the situation is disrupting what needs to be done. Every other point should be made in a positive manner.<br>Use positive and affirming Body Language. Sit eye to eye and don’t convey negative emotions. Remember, you don’t need to be overbearing to make a point.<br>Give in graciously when necessary. Be open to the fact that you could be wrong. When you are, accept it and say you were wrong.<br>Remember that there is a big difference between being a strong person and being a control freak.",
+      "kor_content": "여러분은 지배하는 것을 좋아합니까? 항상 지배하고 싶은 욕구가 있습니까? 바꿔 말하면, 여러분은 지배광(control freak)입니까? 지배광은 자신들이 처한 모든 상황에서 지배하기를 원하는 사람입니다. 지배광을 다루는 것은 매우 어려운 일이므로, 지배광을 다루는 것에 있어서 피해야 할 팁들과 지배광이 되지 않기 위한 팁들을 알려드릴게요.<br>항상 마지막 말을 하려고 하지 마세요. 말할 때에는 여러분의 요점을 명확하고 간단히 하세요. 당면한 목표에 성공을 가져올 것만을 말하세요. 여러분의 요점을 말했다면 불필요한 것을 말하는 것을 피하세요.<br>여러분의 의도를 평가하세요. 강하게 말해야 하는 유일한 이유는 상황이 무엇을 해야 하는 지에 대해 혼란스러울 때라는 것을 기억하세요. 그 밖의 내용은 긍정적인 방식으로 말해져야 합니다.<br>긍정적이고 확신하는 바디 랭귀지를 사용하세요. 눈을 마주보고 앉고, 부정적인 감정을 전달하지 마세요. 기억하세요. 요점을 말하기 위해 압도적이 될 필요는 없습니다.<br>필요할 때에는 품위 있게 단념하세요. 여러분이 틀릴 수도 있다는 사살을 받아들이세요. 여러분이 틀렸을 때에는 이를 받아들이고 여러분이 틀렸다고 말씀하세요.<br>강한 사람이 되는 것과 지배광이 되는 것 사이에는 큰 차이가 있다는 것을 기억하세요."
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "금년 겨울에는 눈이 많이 올 것 같다.",
+      "english": [
+        "① It seems likely that it will snow a lot this winter.",
+        "② It seems likely to show a lot this winter."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "항아리에는 설탕이 거의 남아 있지 않다.",
+      "english": [
+        "There is little sugar left <b>in the pot</b>(= in the jar)."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 무일푼으로 집을 떠났으나 백만장자가 되어 돌아왔다.",
+      "english": [
+        "He had left home penniless, but he came back a millionaire."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "교양의 가치는 그것이 인격에 미치는 영향에 있다고들 한다.",
+      "english": [
+        "It is said that the value of culture is its effect on character."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "작년에 서울에 세워진 뮤직홀은 아시아 제일이라고 한다.",
+      "english": [
+        "The music hall built in Seoul last year is said to be the finest one in Asia."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그녀가 그와 결혼했다니 이상하다.",
+      "english": [
+        "It is strange that she should have married him."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "눈물로 쓴 편지를 읽고 나서야 비로소 그는 그녀의 사랑을 알았다.",
+      "english": [
+        "① He did not know her true love until he read the letter <b>that she wrote in tears</b>(= written in tears).",
+        "② It was not until he read her letter written in tears that he <b>knew</b>(= found/ realized) her true love."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "날씨가 점점 따뜻해진다. 머지않아 벚꽃이 피기 시작할 것이다.",
+      "english": [
+        "It is getting warmer and warmer. It will not be long before the cherry blossoms begin to bloom."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 학교에서 돌아오기가 무섭게 노래방에 갔다.",
+      "english": [
+        "No sooner had he <b>returned</b>(= come back) from school that he went to a karaoke bar."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "컴퓨터란 것이 아주 희귀한 시대도 있었다.",
+      "english": [
+        "There was a time when computers were very rare."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "언제든지 편리할 때 오십시오.",
+      "english": [
+        "You may come whenever it is convenient for you."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "사람들이 과학에 관한 지식이 거의 없던 시절에는 지구가 둥글다는 사실을 아는 사람이 거의 없었다.",
+      "english": [
+        "In the days when people had little knowledge of science, few people knew the fact that the earth is round."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "나는 결혼식 시간에 겨우 맞춰 도착하였다.",
+      "english": [
+        "I arrived just in time for the wedding ceremony."
+      ],
+      "lesson": "Lesson5",
+      "lesson_title": "여러 가지 시간 표현"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 자네 매부라는 사실이 자네의 결정에 영향을 줄 순 없다.",
+      "english": [
+        "The fact that he is your brother-in-law should not affect your decision."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "문제는 내가 해외로 나가야 하느냐 여기에 있어야 하느냐이다.",
+      "english": [
+        "The question is whether I should go abroad or stay here."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 영리하기는 하나 인내심이 부족한 듯하다.",
+      "english": [
+        "It is true that he is clever, but he seems to be impatient."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "사실 그녀는 요리에 대해 많이 알고는 있지만, 솜씨는 별로다.",
+      "english": [
+        "It is true that she knows a lot about cooking, but <b>she is not much of a cook</b>(= she is a bad cook)."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "아무리 훌륭한 학자라 하더라도, 그가 모든 것을 다 아는 것은 아니다.",
+      "english": [
+        "① Although he is a great scholar, he does not know everything.",
+        "② Great scholar as he is, he does not know everything."
+      ],
+      "lesson": "Lesson7",
+      "lesson_title": "부사절Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "나는 너무 피곤해서 말하고 싶지도 않다.",
+      "english": [
+        "I am so tired that I don’t feel like speaking."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "버스가 너무 붐벼서 학교까지 줄곧 서서 갔다.",
+      "english": [
+        "① The bus was so crowded that I kept standing all the way to the school.",
+        "② The bus was so crowded that I had to stand all the way to the school."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "의논하고 싶은 중요한 문제가 있을 경우엔, 찾아 뵙겠습니다.",
+      "english": [
+        "① In case there is an important matter I need to talk to you about, I will call on you.",
+        "② In case there happens an important matter I need to discuss with you, I will visit you."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "프랑스인들이 자기네 포도주를 사랑하는 것처럼 영국인들은 자기네 맥주를 사랑한다.",
+      "english": [
+        "<b>Just as</b>(= As) the French love their wine, so the English love their beer."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "사람은 흔히 남의 행복을 시기하는 경향이 있다.",
+      "english": [
+        "One <b>is liable to</b>(= is apt to/is prone to/is inclined to) envy other people’s happiness."
+      ],
+      "lesson": "Lesson10",
+      "lesson_title": "to부정사 활용Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그 감기가 나을 때까지 집에 있는 것이 상책이다.",
+      "english": [
+        "You had best stay (at) home <b>till you get over that cold</b>(= until you recover from that cold)."
+      ],
+      "lesson": "Lesson10",
+      "lesson_title": "to부정사 활용Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그녀의 남편은 일찍 죽었고, 그녀는 여생을 혼자 지냈다.",
+      "english": [
+        "Her husband died early and she remained single for the rest of her life."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그 원칙은 우리 인간성에 깊히 뿌리박고 있다.",
+      "english": [
+        "The principle lies deep in our human nature."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그 소문은 거짓으로 판명되었다.",
+      "english": [
+        "The rumor <b>turned out</b>(= proved) (to be) false."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 외아들이 원하는 것은 무엇이든 들어준다.",
+      "english": [
+        "① He denies his only son nothing.",
+        "② He denies nothing to his only son."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "미국에서는 보수를 연봉으로 받는다고 한다.",
+      "english": [
+        "It is said that they are paid by the year in America."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 의장직에서 물러날 것이라는 소문이다.",
+      "english": [
+        "① It is rumored that he will resign as chairman.",
+        "② Rumor has it that he will resign as chairman."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 이해를 못하는 것은 그가 너무 젊기 때문이다.",
+      "english": [
+        "It is because he is so young that he can’t understand."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이 집을 짓는 데 6개월 반이란 세월과 1억의 경비가 들었습니다.",
+      "english": [
+        "It took six and a half months, and 100 million won to build this house."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "전쟁이 시작된 지 거의 4년이 경과되었다.",
+      "english": [
+        "① Nearly four years have passed since the outbreak of the war.",
+        "② It is nearly four years since the war broke out."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이 박물관이 지어진 지도 약 100년이다.",
+      "english": [
+        "① This museum is about 100 years old.",
+        "② This museum was built about 100 years ago.",
+        "③ About 100 years have passed since this museum was built.",
+        "④ It is about 100 years since this museum was built.",
+        "⑤ It has been about 100 years since this museum was built."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "보통 사람들이 달로 여행하는 날은 아직 멀었어요.",
+      "english": [
+        "It will be a very long time before common people make a trip to the moon."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "나를 본 순간 그는 얼굴이 창백해졌다.",
+      "english": [
+        "① The moment he saw me, he turned pale.",
+        "② When he saw me, he turned white."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "방에 들어가자마자 그는 코트를 벗었다.",
+      "english": [
+        "① As soon as he entered the room, he took off his coat.",
+        "② The instant he entered the room, he took off his coat."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "오랜 휴가도 어느새 다 지났다.",
+      "english": [
+        "Our long vacation has passed before we were aware of it."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 정직하다는 사실은 누구에게나 알려져 있다.",
+      "english": [
+        "The fact that he is honest is known to everybody."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "난처한 것은 그가 스페인어를 한마디도 못한다는 것이다.",
+      "english": [
+        "The trouble is that he cannot speak a single word of Spanish."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "중요한 것은 그것을 어떻게 수행하느냐이다.",
+      "english": [
+        "① The important thing is how we can carry it out.",
+        "② What is important is how to carry it out."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "재미가 있는 한, 어떤 잡지도 좋습니다.",
+      "english": [
+        "Any magazine will do, <b>so far as</b>(= so long as) it is interesting."
+      ],
+      "lesson": "Lesson7",
+      "lesson_title": "부사절Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "비록 피곤했지만 그는 그녀를 집까지 태워다 주겠다고 했다.",
+      "english": [
+        "Tired as he was, he offered to drive her home."
+      ],
+      "lesson": "Lesson7",
+      "lesson_title": "부사절Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 노후에 편히 살려고 열심히 일하고 있다.",
+      "english": [
+        "He is working hard so that he may live in comfort <b>in his old age</b>(= when he grows old)."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 기차 시간에 대기 위해 즉시 집을 나섰다.",
+      "english": [
+        "He left home at once (so) that he might be in time for the train."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이 기계를 작동시키려면 단추 하나만 누르면 된다.",
+      "english": [
+        "① You have only to push a button to set this machine in motion.",
+        "② You have only to push a button to work this machine.",
+        "③ You have only to push a button to make this machine operate."
+      ],
+      "lesson": "Lesson9",
+      "lesson_title": "to부정사 활용Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 틀림없이 언론계에서 명성을 날릴 것이다.",
+      "english": [
+        "① He is sure to make himself famous in press circles.",
+        "② He is certain to <b>earn</b>(= win) fame in press circles.",
+        "③ He will certainly earn fame in press circles.",
+        "④ He will never fail to earn fame in press circles.",
+        "⑤ He is bound to make his mark in newspaper circles."
+      ],
+      "lesson": "Lesson9",
+      "lesson_title": "to부정사 활용Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "감기에 걸리기 쉬운 사람은 피부를 튼튼히 해야 한다.",
+      "english": [
+        "Those who <b>are liable to</b>(= are inclined to/are prone to) catch cold must harden their skin."
+      ],
+      "lesson": "Lesson10",
+      "lesson_title": "to부정사 활용Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "날씨가 안 좋으니 여행을 포기하는 게 좋겠다.",
+      "english": [
+        "You had better cancel your trip given the bad weather."
+      ],
+      "lesson": "Lesson10",
+      "lesson_title": "to부정사 활용Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "간밤에 우리 집 근처에서 큰 화재가 발생했다.",
+      "english": [
+        "① A big fire broke out near my house last night.",
+        "② There was a big fire near my house last night."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그것에 대해서는 의문이 있을 수 없다.",
+      "english": [
+        "① There seems to be no doubt about it.",
+        "② It seems that there is no doubt about it."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이 사과는 맛이 시지만 이 레몬은 냄새가 좋군요.",
+      "english": [
+        "This apple tastes sour, but this lemon smells good."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그 일로 해서 그는 건강을 해쳤다.",
+      "english": [
+        "The work cost him his health."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 친구에게 수고를 끼치지 않으려고 애썼다.",
+      "english": [
+        "He tried to spare his friend trouble."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "한국인은 근면한 민족이라고들 한다.",
+      "english": [
+        "It is said that the Koreans are a diligent people."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "내가 찾고 있는 것은 나의 자동차 열쇠이다.",
+      "english": [
+        "It is my car key that I am looking for."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "배를 타고 그 섬까지 가는 데 3시간 걸렸다.",
+      "english": [
+        "It took me three hours to go to the island by boat."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "머지 않아 사건의 진상을 알 수 있을 것이다.",
+      "english": [
+        "① It will not be long before we <b>know</b>(= find) the truth of the matter.",
+        "② The day will come soon when we will know the truth of the matter.",
+        "③ We should be able to get to the bottom of matter before long."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "10분을 걸어야 우리는 그 집에 도착할 것이다.",
+      "english": [
+        "① It will be ten minutes’ walk before we get to the house.",
+        "② It will take ten minutes for us to walk to the house."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "재미있다면 어떤 책이라도 좋다.",
+      "english": [
+        "Any book will do <b>so long as</b>(= if only) it is interesting."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "10시 전에 돌아오겠다고 약속한다면 외출해도 좋다.",
+      "english": [
+        "You can go out <b>so long as</b>(= as long as/if and when) you promise to be back before 10 o’clock."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "어느덧 백합이 피었다.",
+      "english": [
+        "Lilies have bloomed before we were aware of it."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "지하철로 가시면 당신은 그를 만나기로 한 시간에 가까스로 도착할 수 있을 것입니다.",
+      "english": [
+        "If you go by subway, you will be just in time to meet him."
+      ],
+      "lesson": "Lesson5",
+      "lesson_title": "여러 가지 시간 표현"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "물 한잔 얻어 마셔도 될까요?",
+      "english": [
+        "I wonder if I <b>might</b>(= could) trouble you for a glass of water?"
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 가난하기는 하나 정직하다.",
+      "english": [
+        "① Indeed, he is poor, but he is honest.",
+        "② He may be poor, but he is honest."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "나에 관한 한 그것과는 아무 관계도 없다.",
+      "english": [
+        "① As far as I am concerned, I have nothing to do with that matter.",
+        "② As for me, I have no connection with that matter."
+      ],
+      "lesson": "Lesson7",
+      "lesson_title": "부사절Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "용감한 그였지만 그 광경을 보고 눈물을 흘리지 않을 수 없었다.",
+      "english": [
+        "① Brave as he was, he could not help weeping at the sight.",
+        "② <b>Although</b>(= Though) he was a brave man, he could not but weep at the sight.",
+        "③ Brave man as he was, he could not help weeping at the sight."
+      ],
+      "lesson": "Lesson7",
+      "lesson_title": "부사절Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "혹시 내가 잊어버리는 경우엔, 약속 시간을 일깨워 주세요.",
+      "english": [
+        "In case I forget the appointed time, please remind me."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이 카메라는 너무 비싸서 못 사겠다.",
+      "english": [
+        "① This camera is too expensive for me to buy.",
+        "② This camera is so expensive that I can’t buy it."
+      ],
+      "lesson": "Lesson9",
+      "lesson_title": "to부정사 활용Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "자네가 이 병을 고치려면 담배를 끊기만 하면 되네.",
+      "english": [
+        "You have only to give up smoking to cure this disease."
+      ],
+      "lesson": "Lesson9",
+      "lesson_title": "to부정사 활용Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "너는 그를 만나서 이 서류를 건네주기만 하면 된다.",
+      "english": [
+        "① You only have to hand this document over to him.",
+        "② All you have to do is to hand this document over to him.",
+        "③ You need only to hand this document over to him."
+      ],
+      "lesson": "Lesson9",
+      "lesson_title": "to부정사 활용Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "과식을 하지 않는 편이 좋겠다.",
+      "english": [
+        "You had better not overeat."
+      ],
+      "lesson": "Lesson10",
+      "lesson_title": "to부정사 활용Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "요즘 안색이 좋지 않군요, 가능한 빨리 의사의 진단을 받는 편이 좋겠습니다.",
+      "english": [
+        "You look pale these days. You had better <b>consult a doctor</b>(= see a doctor) as soon as possible."
+      ],
+      "lesson": "Lesson10",
+      "lesson_title": "to부정사 활용Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이 천은 촉감이 보드랍고 마(碼)당으로 팔고 있습니다.",
+      "english": [
+        "This cloth feels <b>soft</b>(= smooth), and is sold by the yard."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그들은 연중 내내 나체로 지낸다.",
+      "english": [
+        "They go naked all the year round."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그녀는 한창때 미인이었던 것으로 보인다.",
+      "english": [
+        "① She seems to have been a beauty in her days.",
+        "② It seems that she was a beauty in her days."
+      ],
+      "lesson": "Lesson1",
+      "lesson_title": "5가지 기본 문형"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "내가 지갑을 잃어버린 것은 열차에서였다.",
+      "english": [
+        "It was <b>in</b>(= on) the train that I lost my purse."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "내게 돈을 빌려준 사람은 김씨였다.",
+      "english": [
+        "① It was Mr. Kim who lent the money to me.",
+        "② It was Mr. Kim that lent me the money."
+      ],
+      "lesson": "Lesson2",
+      "lesson_title": "가주어 it 용법"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "거기까지 차로 가는 데 4시간 걸렸다.",
+      "english": [
+        "① It took me four hours to drive there.",
+        "② It took four hours for me to drive there."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "파리까지 비행하는 데 500달러가 들 것이다.",
+      "english": [
+        "① It will cost you $ 500 to fly to Paris.",
+        "② It will cost $ 500 for you to fly to Paris."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이 시계를 고치는 데 많은 돈이 들었다. 새 것을 사는 편이 좋을 걸 그랬다.",
+      "english": [
+        "It cost a lot of money for me to have this watch repaired. <b>I had better have bought a new one.</b>(= I should have bought a better one./ I’d have done better to have bought a new one.)"
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그때서야 비로소 그가 매우 정직한 사람이라는 것을 알았다.",
+      "english": [
+        "① I did not know how honest he was until that time.",
+        "② It was not until that time that I knew how honest he was."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "사람의 진가는 죽고 나서야 비로소 알 수 있다.",
+      "english": [
+        "① It is not until a man dies that you can tell his real worth.",
+        "② You cannot tell a man’s worth until he dies."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "내 꿈이 실현될 날도 머지않을 것이다.",
+      "english": [
+        "① The day will come soon when my dream will come true.",
+        "② It will not be long before my dream comes true."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 건강해지기까지는 얼마간 시간이 걸릴 것이다.",
+      "english": [
+        "It will be some time before he gets well."
+      ],
+      "lesson": "Lesson3",
+      "lesson_title": "형식주어it"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 집을 나서기가 무섭게 비가 거세게 내리기 시작했다.",
+      "english": [
+        "He had hardly left home when it began to rain hard."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "내가 살아있는 한 가족들을 궁색하게 하지는 않겠다.",
+      "english": [
+        "My family shall want for nothing as long as I live."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "책을 깨끗하게 쓴다면야 빌려줄 수도 있지.",
+      "english": [
+        "① I can lend the book to you as long as you keep it clean.",
+        "② You may borrow the book as long as you keep it clean."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "어느새[금방] 어두워질 거야.",
+      "english": [
+        "It will become dark before we know it."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그들은 09시 30분발 급행열차를 가까스로 탔다.",
+      "english": [
+        "They were just in time for the 09 : 30 express."
+      ],
+      "lesson": "Lesson5",
+      "lesson_title": "여러 가지 시간 표현"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이제는 의심할 여지가 없다.",
+      "english": [
+        "① There is no room for doubt now.",
+        "② There is no longer doubt."
+      ],
+      "lesson": "Lesson5",
+      "lesson_title": "여러 가지 시간 표현"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그가 돌아올까?",
+      "english": [
+        "I wonder if he will come back."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "이 다리의 길이가 얼마나 될까?",
+      "english": [
+        "I wonder how long this bridge is."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "그는 지금 어디서 무엇을 하고 있을까?",
+      "english": [
+        "I wonder where he is and what he is doing now."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "내가 아는 한 영어에 그런 말은 없다.",
+      "english": [
+        "① So far as I know, there is no such a word in English.",
+        "② To the best of my knowledge, there is no such word in English."
+      ],
+      "lesson": "Lesson7",
+      "lesson_title": "부사절Ⅰ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "녹이 철을 부식시키는 것처럼 근심은 마음을 좀먹는다.",
+      "english": [
+        "① Just as rust eats iron, so too does care eat the heart.",
+        "② Just as rust eats into iron, so care eats into the heart."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "사막이 바다라면 낙타는 배이다.",
+      "english": [
+        "① Just as the desert is like a sea, so too is the camel like a ship.",
+        "② The desert is to a sea what the camel is to a ship."
+      ],
+      "lesson": "Lesson8",
+      "lesson_title": "부사절Ⅱ"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "아이들은 해서는 안 되는 일을 하는 경향이 있다.",
+      "english": [
+        "Children <b>are apt to</b>(= are liable to) do what they ought not to do."
+      ],
+      "lesson": "Lesson10",
+      "lesson_title": "to부정사 활용Ⅱ"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import '../widgets/rank_item.dart';
 import '../widgets/team_rank_item.dart';
 import '../widgets/top_rankers.dart';
 import '../widgets/top_teams.dart';
+import '../services/user_service.dart';
 
 class RankScreen extends StatefulWidget {
   const RankScreen({Key? key}) : super(key: key);
@@ -16,383 +17,314 @@ class _RankScreenState extends State<RankScreen> {
   int _selectedTabIndex = 0; // 0: 개인, 1: 팀
 
   // 샘플 데이터
-  final List<RankUser> _individualUsers = [
-    RankUser(
-      rank: 1,
-      name: 'Bryan Wolf',
-      affiliation: '삼성전자',
-      tier: 'G',
-      tierColor: 'G',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 2,
-      name: 'Meghan Jes...',
-      affiliation: 'LG전자',
-      tier: 'S',
-      tierColor: 'S',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 3,
-      name: 'Alex Turner',
-      affiliation: '현대자동차',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 4,
-      name: 'Tamara Schmidt',
-      affiliation: 'SK하이닉스',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 5,
-      name: '민예은',
-      affiliation: 'LG전자',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 6,
-      name: 'Tamara Schmidt',
-      affiliation: '넥슨',
-      tier: 'S',
-      tierColor: 'S',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 7,
-      name: 'Tamara Schmidt',
-      affiliation: '카카오',
-      tier: 'P',
-      tierColor: 'P',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 8,
-      name: 'Tamara Schmidt',
-      affiliation: '네이버',
-      tier: 'M',
-      tierColor: 'M',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 9,
-      name: 'Tamara Schmidt',
-      affiliation: '쿠팡',
-      tier: 'G',
-      tierColor: 'G',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 10,
-      name: 'Tamara Schmidt',
-      affiliation: '배달의민족',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 11,
-      name: '김철수',
-      affiliation: '삼성SDS',
-      tier: 'S',
-      tierColor: 'S',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 12,
-      name: '이영희',
-      affiliation: 'KT',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 13,
-      name: '서연수',
-      affiliation: '이화여자대학교',
-      tier: 'G',
-      tierColor: 'G',
-      avatarUrl: '',
-      isCurrentUser: true,
-    ),
-    RankUser(
-      rank: 14,
-      name: '박민수',
-      affiliation: '네이버',
-      tier: 'C',
-      tierColor: 'C',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 15,
-      name: '최지영',
-      affiliation: '카카오',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 16,
-      name: '정현우',
-      affiliation: '쿠팡',
-      tier: 'S',
-      tierColor: 'S',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 17,
-      name: '김서연',
-      affiliation: '배달의민족',
-      tier: 'C',
-      tierColor: 'C',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 18,
-      name: '이준호',
-      affiliation: '토스',
-      tier: 'G',
-      tierColor: 'G',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 19,
-      name: '박수진',
-      affiliation: '당근마켓',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 20,
-      name: '최동현',
-      affiliation: '라인',
-      tier: 'S',
-      tierColor: 'S',
-      avatarUrl: '',
-    ),
-  ];
+  List<RankUser> get _individualUsers {
+    final currentUserInfo = UserService.getCurrentUserInfo();
+    final currentUserName = currentUserInfo['name'] as String;
+    final currentUserOrg = currentUserInfo['organization'] as String;
+    final currentUserTier = currentUserInfo['tier'] as String;
+    
+    return [
+      RankUser(
+        rank: 1,
+        name: 'Bryan Wolf',
+        affiliation: '삼성전자',
+        tier: 'G',
+        tierColor: 'G',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 2,
+        name: 'Meghan Jes...',
+        affiliation: 'LG전자',
+        tier: 'S',
+        tierColor: 'S',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 3,
+        name: 'Alex Turner',
+        affiliation: '현대자동차',
+        tier: 'B',
+        tierColor: 'B',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 4,
+        name: 'Tamara Schmidt',
+        affiliation: 'SK하이닉스',
+        tier: 'B',
+        tierColor: 'B',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 5,
+        name: '민예은',
+        affiliation: 'LG전자',
+        tier: 'B',
+        tierColor: 'B',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 6,
+        name: 'Tamara Schmidt',
+        affiliation: '넥슨',
+        tier: 'S',
+        tierColor: 'S',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 7,
+        name: 'Tamara Schmidt',
+        affiliation: '카카오',
+        tier: 'P',
+        tierColor: 'P',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 8,
+        name: 'Tamara Schmidt',
+        affiliation: '네이버',
+        tier: 'M',
+        tierColor: 'M',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 9,
+        name: 'Tamara Schmidt',
+        affiliation: '쿠팡',
+        tier: 'G',
+        tierColor: 'G',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 10,
+        name: 'Tamara Schmidt',
+        affiliation: '배달의민족',
+        tier: 'B',
+        tierColor: 'B',
+        avatarUrl: '',
+      ),
+      // 현재 사용자 정보로 업데이트된 항목
+      RankUser(
+        rank: 135,
+        name: currentUserName,
+        affiliation: currentUserOrg,
+        tier: currentUserTier.isNotEmpty ? currentUserTier[0] : 'G',
+        tierColor: currentUserTier.isNotEmpty ? currentUserTier[0] : 'G',
+        avatarUrl: '',
+        isCurrentUser: true,
+      ),
+    ];
+  }
 
-  final List<RankUser> _teamUsers = [
-    RankUser(
-      rank: 1,
-      name: 'Team Alpha',
-      affiliation: '삼성전자',
-      tier: 'G',
-      tierColor: 'G',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 2,
-      name: 'Team Beta',
-      affiliation: 'LG전자',
-      tier: 'S',
-      tierColor: 'S',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 3,
-      name: 'Team Gamma',
-      affiliation: '현대자동차',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 4,
-      name: 'Team Delta',
-      affiliation: '이화여자대학교',
-      tier: 'G',
-      tierColor: 'G',
-      avatarUrl: '',
-      isCurrentUser: true,
-    ),
-    RankUser(
-      rank: 5,
-      name: 'Team Epsilon',
-      affiliation: '넥슨',
-      tier: 'S',
-      tierColor: 'S',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 6,
-      name: 'Team Zeta',
-      affiliation: '카카오',
-      tier: 'P',
-      tierColor: 'P',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 7,
-      name: 'Team Eta',
-      affiliation: '네이버',
-      tier: 'M',
-      tierColor: 'M',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 8,
-      name: 'Team Theta',
-      affiliation: '쿠팡',
-      tier: 'G',
-      tierColor: 'G',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 9,
-      name: 'Team Iota',
-      affiliation: '배달의민족',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 10,
-      name: 'Team Kappa',
-      affiliation: '삼성SDS',
-      tier: 'S',
-      tierColor: 'S',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 11,
-      name: 'Team Lambda',
-      affiliation: 'KT',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 12,
-      name: 'Team Mu',
-      affiliation: 'SK하이닉스',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 13,
-      name: 'Team Nu',
-      affiliation: '토스',
-      tier: 'C',
-      tierColor: 'C',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 14,
-      name: 'Team Xi',
-      affiliation: '당근마켓',
-      tier: 'B',
-      tierColor: 'B',
-      avatarUrl: '',
-    ),
-    RankUser(
-      rank: 15,
-      name: 'Team Omicron',
-      affiliation: '라인',
-      tier: 'S',
-      tierColor: 'S',
-      avatarUrl: '',
-    ),
-  ];
+  List<RankUser> get _teamUsers {
+    final currentUserInfo = UserService.getCurrentUserInfo();
+    final currentUserOrg = currentUserInfo['organization'] as String;
+    
+    return [
+      RankUser(
+        rank: 1,
+        name: '삼성전자',
+        affiliation: '삼성전자',
+        tier: 'G',
+        tierColor: 'G',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 2,
+        name: 'LG전자',
+        affiliation: 'LG전자',
+        tier: 'S',
+        tierColor: 'S',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 3,
+        name: '현대자동차',
+        affiliation: '현대자동차',
+        tier: 'B',
+        tierColor: 'B',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 4,
+        name: 'SK하이닉스',
+        affiliation: 'SK하이닉스',
+        tier: 'B',
+        tierColor: 'B',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 5,
+        name: 'LG전자',
+        affiliation: 'LG전자',
+        tier: 'B',
+        tierColor: 'B',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 6,
+        name: '넥슨',
+        affiliation: '넥슨',
+        tier: 'S',
+        tierColor: 'S',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 7,
+        name: '카카오',
+        affiliation: '카카오',
+        tier: 'P',
+        tierColor: 'P',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 8,
+        name: '네이버',
+        affiliation: '네이버',
+        tier: 'M',
+        tierColor: 'M',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 9,
+        name: '쿠팡',
+        affiliation: '쿠팡',
+        tier: 'G',
+        tierColor: 'G',
+        avatarUrl: '',
+      ),
+      RankUser(
+        rank: 10,
+        name: '배달의민족',
+        affiliation: '배달의민족',
+        tier: 'B',
+        tierColor: 'B',
+        avatarUrl: '',
+      ),
+      // 현재 사용자 소속으로 업데이트된 항목
+      RankUser(
+        rank: 15,
+        name: currentUserOrg,
+        affiliation: currentUserOrg,
+        tier: 'G',
+        tierColor: 'G',
+        avatarUrl: '',
+        isCurrentUser: true,
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
-    final currentUsers = _selectedTabIndex == 0 ? _individualUsers : _teamUsers;
-    final topUsers = currentUsers.take(3).toList();
-    final otherUsers = currentUsers.skip(3).toList();
+    final users = _selectedTabIndex == 0 ? _individualUsers : _teamUsers;
+    
+    // 상위 3명/3팀
+    final topUsers = users.take(3).toList();
+    
+    // 나머지 사용자들
+    final otherUsers = users.skip(3).toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F6FA),
       body: SafeArea(
         child: Column(
           children: [
-            // 상단 탭
+            // 상단 타이틀과 탭
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
                 children: [
-                  SizedBox(
-                    width: 92,
-                    child: GestureDetector(
-                      onTap: () => setState(() => _selectedTabIndex = 0),
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: _selectedTabIndex == 0
-                              ? const Color(0xFF788CC3)
-                              : const Color(0xFFF5F5F5),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: _selectedTabIndex == 0
-                              ? [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ]
-                              : null,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '개인',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
+
+
+                  // 탭 버튼들
+                  Row(
+                    children: [
+                      // 개인 탭
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedTabIndex = 0;
+                            });
+                          },
+                          child: Container(
+                            height: 48,
+                            decoration: BoxDecoration(
                               color: _selectedTabIndex == 0
-                                  ? Colors.white
-                                  : Colors.black,
+                                  ? const Color(0xFF788CC3)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: _selectedTabIndex == 0
+                                  ? [
+                                      BoxShadow(
+                                        color: const Color(0xFF788CC3)
+                                            .withOpacity(0.3),
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ]
+                                  : null,
+                            ),
+                            child: Center(
+                              child: Text(
+                                '개인',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: _selectedTabIndex == 0
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  SizedBox(
-                    width: 92,
-                    child: GestureDetector(
-                      onTap: () => setState(() => _selectedTabIndex = 1),
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: _selectedTabIndex == 1
-                              ? const Color(0xFF788CC3)
-                              : const Color(0xFFF5F5F5),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: _selectedTabIndex == 1
-                              ? [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ]
-                              : null,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '팀',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
+                      const SizedBox(width: 12),
+
+                      // 팀 탭
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedTabIndex = 1;
+                            });
+                          },
+                          child: Container(
+                            height: 48,
+                            decoration: BoxDecoration(
                               color: _selectedTabIndex == 1
-                                  ? Colors.white
-                                  : Colors.black,
+                                  ? const Color(0xFF788CC3)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: _selectedTabIndex == 1
+                                  ? [
+                                      BoxShadow(
+                                        color: const Color(0xFF788CC3)
+                                            .withOpacity(0.3),
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ]
+                                  : null,
+                            ),
+                            child: Center(
+                              child: Text(
+                                '팀',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: _selectedTabIndex == 1
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),

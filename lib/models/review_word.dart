@@ -1,14 +1,18 @@
+import '../models/game_question.dart';
+
 class ReviewWord {
   final String english;
   final String korean;
   final ReviewStatus status;
   final DateTime lastReviewed;
+  final QuestionType type;
 
   ReviewWord({
     required this.english,
     required this.korean,
     required this.status,
     required this.lastReviewed,
+    required this.type,
   });
 }
 

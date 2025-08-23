@@ -5,6 +5,7 @@ import '../models/game_question.dart';
 import '../models/game_result.dart';
 import '../services/question_service.dart';
 import '../services/review_service.dart';
+import '../services/user_service.dart';
 import '../widgets/game_result_popup.dart';
 import 'game_result_detail_screen.dart';
 
@@ -19,6 +20,7 @@ class _NormalGameScreenState extends State<NormalGameScreen>
     with TickerProviderStateMixin {
   List<GameQuestion> _questions = [];
   int _currentQuestionIndex = 0;
+  Set<String> _usedQuestions = {}; // 이미 나온 문제들을 추적
   int _correctAnswers = 0;
   int _wrongAnswers = 0;
   double _timeLeft = 0.0;
@@ -40,8 +42,8 @@ class _NormalGameScreenState extends State<NormalGameScreen>
   late Animation<double> _questionAnimation;
 
   // 상대방 정보 (실제로는 매칭 시스템에서 받아와야 함)
-  GamePlayer _opponent = GamePlayer(name: '김철수', tier: '실버 2', score: 0);
-  GamePlayer _player = GamePlayer(name: '서연수', tier: '실버 1', score: 0);
+  late GamePlayer _opponent;
+  late GamePlayer _player;
 
   // 상대방 점수 업데이트 타이머
   Timer? _opponentScoreTimer;
@@ -88,13 +90,54 @@ class _NormalGameScreenState extends State<NormalGameScreen>
   Future<void> _initializeGame() async {
     await QuestionService.initializeData();
 
-    // 20문제 생성 (실제로는 플레이어의 티어에 맞는 난이도로)
-    _questions = QuestionService.generateQuestions(
-      count: 20,
-      difficulty: QuestionDifficulty.silver1,
+    // 사용자 정보 설정
+    final userInfo = UserService.getCurrentUserInfo();
+    _player = GamePlayer(
+      name: userInfo['name'] as String,
+      tier: userInfo['tier'] as String,
+      score: 0,
     );
+    
+    // 상대방 정보 (임시로 고정, 실제로는 매칭 시스템에서 받아와야 함)
+    _opponent = GamePlayer(name: '김철수', tier: 'SILVER 2', score: 0);
 
+    // 20개의 중복되지 않는 문제 생성
+    _generateUniqueQuestions(20);
     _startQuestion();
+  }
+
+  void _generateUniqueQuestions(int count) {
+    _questions.clear();
+    _usedQuestions.clear();
+    
+    int attempts = 0;
+    final maxAttempts = count * 3; // 최대 시도 횟수
+    
+    while (_questions.length < count && attempts < maxAttempts) {
+      final question = QuestionService.generateQuestions(
+        count: 1,
+        difficulty: QuestionDifficulty.silver1,
+      ).first;
+      
+      // 문제의 고유 식별자 생성 (문제 텍스트 기반)
+      final questionId = question.question;
+      
+      if (!_usedQuestions.contains(questionId)) {
+        _questions.add(question);
+        _usedQuestions.add(questionId);
+      }
+      
+      attempts++;
+    }
+    
+    // 문제가 부족한 경우 기본 문제로 채우기
+    while (_questions.length < count) {
+      final question = QuestionService.generateQuestions(
+        count: 1,
+        difficulty: QuestionDifficulty.silver1,
+      ).first;
+      _questions.add(question);
+    }
   }
 
   void _startOpponentScoreUpdates() {
@@ -206,6 +249,7 @@ class _NormalGameScreenState extends State<NormalGameScreen>
     } else {
       _wrongAnswers++;
       // 오답 단어를 ReviewService에 추가
+      print('NormalGame: Adding wrong answer - Question: ${currentQuestion.question}, Correct: ${currentQuestion.options[currentQuestion.correctAnswerIndex]}, Type: ${currentQuestion.type}');
       ReviewService.addWrongWord(
         currentQuestion.question,
         currentQuestion.options[currentQuestion.correctAnswerIndex],
@@ -251,10 +295,41 @@ class _NormalGameScreenState extends State<NormalGameScreen>
     _isPlayerWon = _player.score > _opponent.score;
     _opponentScoreTimer?.cancel();
 
+    // 게임 결과 기록
+    final questionStats = _calculateQuestionStats();
+    UserService.recordGameResult(_isPlayerWon, questionStats);
+
     // 팝업 표시
     setState(() {
       _showResultPopup = true;
     });
+  }
+
+  // 문제 타입별 정답 통계 계산
+  Map<String, int> _calculateQuestionStats() {
+    final stats = <String, int>{
+      'word': 0,
+      'grammar': 0,
+      'dialog': 0,
+    };
+
+    for (final result in _playerResults) {
+      if (result.isCorrect) {
+        switch (result.type) {
+          case QuestionType.word:
+            stats['word'] = (stats['word'] ?? 0) + 1;
+            break;
+          case QuestionType.grammar:
+            stats['grammar'] = (stats['grammar'] ?? 0) + 1;
+            break;
+          case QuestionType.dialog:
+            stats['dialog'] = (stats['dialog'] ?? 0) + 1;
+            break;
+        }
+      }
+    }
+
+    return stats;
   }
 
   void _showResultDetail() {

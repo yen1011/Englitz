@@ -6,6 +6,7 @@ import '../models/game_result.dart';
 
 import '../services/question_service.dart';
 import '../services/review_service.dart';
+import '../services/user_service.dart';
 import '../widgets/game_result_popup.dart';
 import 'game_result_detail_screen.dart';
 
@@ -25,8 +26,8 @@ class _RankGameScreenState extends State<RankGameScreen>
   bool _isPlayerTurn = true; // true: 플레이어 턴, false: 상대방 턴
 
   // 플레이어 정보
-  GamePlayer _player = GamePlayer(name: '서연수', tier: 'Gold 2', score: 0);
-  GamePlayer _opponent = GamePlayer(name: '김명수', tier: 'Gold 1', score: 0);
+  late GamePlayer _player;
+  late GamePlayer _opponent;
 
   // 팝업 표시 상태
   bool _showResultPopup = false;
@@ -38,6 +39,7 @@ class _RankGameScreenState extends State<RankGameScreen>
   // 현재 문제
   GameQuestion? _currentQuestion;
   int _currentQuestionIndex = 0;
+  Set<String> _usedQuestions = {}; // 이미 나온 문제들을 추적
   int _currentDifficultyLevel =
       0; // 0: Bronze, 1: Silver, 2: Gold, 3: Platinum, 4: Diamond, 5: Master
 
@@ -117,6 +119,17 @@ class _RankGameScreenState extends State<RankGameScreen>
     // 데이터 초기화
     await QuestionService.initializeData();
 
+    // 사용자 정보 설정
+    final userInfo = UserService.getCurrentUserInfo();
+    _player = GamePlayer(
+      name: userInfo['name'] as String,
+      tier: userInfo['tier'] as String,
+      score: 0,
+    );
+    
+    // 상대방 정보 (임시로 고정, 실제로는 매칭 시스템에서 받아와야 함)
+    _opponent = GamePlayer(name: '김철수', tier: 'GOLD 2', score: 0);
+
     setState(() {
       _isGameStarted = true;
     });
@@ -143,31 +156,44 @@ class _RankGameScreenState extends State<RankGameScreen>
     ];
 
     try {
-      final questions = QuestionService.generateQuestions(
-        count: 1,
-        difficulty: difficulties[_currentDifficultyLevel],
-      );
+      // 중복되지 않는 문제 생성
+      GameQuestion? uniqueQuestion;
+      int attempts = 0;
+      const maxAttempts = 10;
+      
+      while (uniqueQuestion == null && attempts < maxAttempts) {
+    final questions = QuestionService.generateQuestions(
+      count: 1,
+      difficulty: difficulties[_currentDifficultyLevel],
+    );
 
-      if (questions.isNotEmpty) {
-        // 첫 번째 문제는 주관식, 두 번째부터는 랜덤하게 객관식/주관식 결정
-        if (_currentQuestionIndex == 0) {
-          _isMultipleChoice = false;
-          _currentQuestion = questions.first;
-        } else {
-          // 이전 문제와 동일한 유형 유지 (공정성)
-          _currentQuestion = _isMultipleChoice
-              ? QuestionService.generateMultipleChoiceQuestion(questions.first)
-              : questions.first;
+    if (questions.isNotEmpty) {
+          final question = questions.first;
+          final questionId = question.question;
+          
+          if (!_usedQuestions.contains(questionId)) {
+            uniqueQuestion = question;
+            _usedQuestions.add(questionId);
+          }
         }
+        attempts++;
+      }
 
-        _timeLeft = _maxTime;
-        _isAnswered = false;
-        _userAnswer = '';
+      if (uniqueQuestion != null) {
+        // 랭크 게임에서는 객관식과 주관식을 모두 허용
+        _isMultipleChoice = uniqueQuestion.options.length > 1;
+        _currentQuestion = _isMultipleChoice
+            ? QuestionService.generateMultipleChoiceQuestion(uniqueQuestion)
+            : uniqueQuestion;
+
+      _timeLeft = _maxTime;
+      _isAnswered = false;
+      _userAnswer = '';
         _selectedOptionIndex = null;
-        _answerController.clear();
+      _answerController.clear();
 
-        _questionAnimationController.reset();
-        _questionAnimationController.forward();
+      _questionAnimationController.reset();
+      _questionAnimationController.forward();
 
         // 플레이어 턴일 때만 타이머 시작
         if (_isPlayerTurn) {
@@ -182,7 +208,7 @@ class _RankGameScreenState extends State<RankGameScreen>
   }
 
   void _generateFallbackQuestion() {
-    // 기본 문제 생성 (JSON 파일 로드 실패 시 사용)
+    // 기본 문제 생성 (JSON 파일 로드 실패 시 사용) - 객관식으로 설정
     final random = Random();
     final simpleQuestions = [
       GameQuestion(
@@ -212,6 +238,7 @@ class _RankGameScreenState extends State<RankGameScreen>
     ];
 
     _currentQuestion = simpleQuestions[random.nextInt(simpleQuestions.length)];
+    _isMultipleChoice = _currentQuestion!.options.length > 1; // 객관식/주관식 자동 판단
     _timeLeft = _maxTime;
     _isAnswered = false;
     _userAnswer = '';
@@ -247,7 +274,7 @@ class _RankGameScreenState extends State<RankGameScreen>
       if (_isMultipleChoice && _selectedOptionIndex != null) {
         _submitAnswer(_currentQuestion!.options[_selectedOptionIndex!]);
       } else {
-        _submitAnswer(''); // 빈 답안으로 제출
+      _submitAnswer(''); // 빈 답안으로 제출
       }
     }
   }
@@ -259,58 +286,59 @@ class _RankGameScreenState extends State<RankGameScreen>
     _isAnswered = true;
     _userAnswer = answer;
 
-    final isCorrect = _checkAnswer(answer);
-    _isCorrect = isCorrect;
+      final isCorrect = _checkAnswer(answer);
+      _isCorrect = isCorrect;
 
-    // 결과 저장
-    if (_isPlayerTurn) {
-      _playerResults.add(
-        QuestionResult(
-          question: _currentQuestion!.question,
-          correctAnswer:
-              _currentQuestion!.options[_currentQuestion!.correctAnswerIndex],
-          userAnswer: answer.isEmpty ? null : answer,
-          isCorrect: isCorrect,
-          type: _currentQuestion!.type,
-          explanation: _currentQuestion!.explanation,
-        ),
-      );
-
-      if (!isCorrect) {
-        _playerLives--;
-        // 오답 단어 저장
-        ReviewService.addWrongWord(
-          _currentQuestion!.question,
-          _currentQuestion!.options[_currentQuestion!.correctAnswerIndex],
-          _currentQuestion!.type,
+      // 결과 저장
+      if (_isPlayerTurn) {
+        _playerResults.add(
+          QuestionResult(
+            question: _currentQuestion!.question,
+            correctAnswer:
+                _currentQuestion!.options[_currentQuestion!.correctAnswerIndex],
+            userAnswer: answer.isEmpty ? null : answer,
+            isCorrect: isCorrect,
+            type: _currentQuestion!.type,
+            explanation: _currentQuestion!.explanation,
+          ),
         );
-      }
-    } else {
-      _opponentResults.add(
-        QuestionResult(
-          question: _currentQuestion!.question,
-          correctAnswer:
-              _currentQuestion!.options[_currentQuestion!.correctAnswerIndex],
-          userAnswer: answer.isEmpty ? null : answer,
-          isCorrect: isCorrect,
-          type: _currentQuestion!.type,
-          explanation: _currentQuestion!.explanation,
-        ),
-      );
 
-      if (!isCorrect) {
-        _opponentLives--;
-      }
-    }
+        if (!isCorrect) {
+          _playerLives--;
+          // 오답 단어 저장
+        print('RankGame: Adding wrong answer - Question: ${_currentQuestion!.question}, Correct: ${_currentQuestion!.options[_currentQuestion!.correctAnswerIndex]}, Type: ${_currentQuestion!.type}');
+          ReviewService.addWrongWord(
+            _currentQuestion!.question,
+            _currentQuestion!.options[_currentQuestion!.correctAnswerIndex],
+            _currentQuestion!.type,
+          );
+        }
+      } else {
+        _opponentResults.add(
+          QuestionResult(
+            question: _currentQuestion!.question,
+            correctAnswer:
+                _currentQuestion!.options[_currentQuestion!.correctAnswerIndex],
+            userAnswer: answer.isEmpty ? null : answer,
+            isCorrect: isCorrect,
+            type: _currentQuestion!.type,
+            explanation: _currentQuestion!.explanation,
+          ),
+        );
 
-    setState(() {});
-
-    // 2초 후 다음 턴으로
-    Timer(const Duration(seconds: 2), () {
-      if (mounted) {
-        _nextTurn();
+        if (!isCorrect) {
+          _opponentLives--;
+        }
       }
-    });
+
+      setState(() {});
+
+      // 2초 후 다음 턴으로
+      Timer(const Duration(seconds: 2), () {
+        if (mounted) {
+          _nextTurn();
+        }
+      });
   }
 
   bool _checkAnswer(String answer) {
@@ -358,34 +386,34 @@ class _RankGameScreenState extends State<RankGameScreen>
         _isOpponentThinking = true;
       });
 
-      // 상대방이 3-7초 후에 답안 제출
-      final random = Random();
-      final thinkTime = 3.0 + random.nextDouble() * 4.0; // 3-7초
+    // 상대방이 3-7초 후에 답안 제출
+    final random = Random();
+    final thinkTime = 3.0 + random.nextDouble() * 4.0; // 3-7초
 
-      _opponentTimer = Timer(
-        Duration(milliseconds: (thinkTime * 1000).toInt()),
-        () {
+    _opponentTimer = Timer(
+      Duration(milliseconds: (thinkTime * 1000).toInt()),
+      () {
           if (mounted && !_isAnswered && _currentQuestion != null) {
-            // 상대방 정답률 (난이도에 따라 조정)
-            final correctRate =
-                0.8 - (_currentDifficultyLevel * 0.1); // 80%에서 점점 줄어듦
-            final isCorrect = random.nextDouble() < correctRate;
+          // 상대방 정답률 (난이도에 따라 조정)
+          final correctRate =
+              0.8 - (_currentDifficultyLevel * 0.1); // 80%에서 점점 줄어듦
+          final isCorrect = random.nextDouble() < correctRate;
 
-            String answer;
-            if (isCorrect) {
+          String answer;
+          if (isCorrect) {
               answer = _currentQuestion!
                   .options[_currentQuestion!.correctAnswerIndex];
-            } else {
-              // 틀린 답안 (랜덤하게 선택)
-              final wrongOptions = List<String>.from(_currentQuestion!.options);
-              wrongOptions.removeAt(_currentQuestion!.correctAnswerIndex);
-              answer = wrongOptions[random.nextInt(wrongOptions.length)];
-            }
-
-            _submitAnswer(answer);
+          } else {
+            // 틀린 답안 (랜덤하게 선택)
+            final wrongOptions = List<String>.from(_currentQuestion!.options);
+            wrongOptions.removeAt(_currentQuestion!.correctAnswerIndex);
+            answer = wrongOptions[random.nextInt(wrongOptions.length)];
           }
-        },
-      );
+
+          _submitAnswer(answer);
+        }
+      },
+    );
     }
   }
 
@@ -395,10 +423,50 @@ class _RankGameScreenState extends State<RankGameScreen>
     _timer?.cancel();
     _opponentTimer?.cancel();
 
+    // 게임 결과 기록
+    final questionStats = _calculateQuestionStats();
+    UserService.recordGameResult(_isPlayerWon, questionStats);
+
+    // 승리/패배에 따른 티어 진행률 변경
+    if (_isPlayerWon) {
+      // 승리 시 10% 진행률 증가
+      UserService.increaseTierProgress();
+    } else {
+      // 패배 시 10% 진행률 감소
+      UserService.decreaseTierProgress();
+    }
+
     // 팝업 표시
     setState(() {
       _showResultPopup = true;
     });
+  }
+
+  // 문제 타입별 정답 통계 계산
+  Map<String, int> _calculateQuestionStats() {
+    final stats = <String, int>{
+      'word': 0,
+      'grammar': 0,
+      'dialog': 0,
+    };
+
+    for (final result in _playerResults) {
+      if (result.isCorrect) {
+        switch (result.type) {
+          case QuestionType.word:
+            stats['word'] = (stats['word'] ?? 0) + 1;
+            break;
+          case QuestionType.grammar:
+            stats['grammar'] = (stats['grammar'] ?? 0) + 1;
+            break;
+          case QuestionType.dialog:
+            stats['dialog'] = (stats['dialog'] ?? 0) + 1;
+            break;
+        }
+      }
+    }
+
+    return stats;
   }
 
   void _showResultDetail() {
@@ -441,11 +509,11 @@ class _RankGameScreenState extends State<RankGameScreen>
     return Stack(
       children: [
         Scaffold(
-          backgroundColor: const Color(0xFFF8F9FF),
-          body: SafeArea(
+      backgroundColor: const Color(0xFFF8F9FF),
+      body: SafeArea(
             child: _isGameFinished
                 ? Center(
-                    child: Column(
+        child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const CircularProgressIndicator(
@@ -463,34 +531,34 @@ class _RankGameScreenState extends State<RankGameScreen>
                     ),
                   )
                 : Column(
-                    children: [
-                      _buildHeader(),
-                      _buildPlayerInfo(),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: AnimatedBuilder(
-                            animation: _questionAnimation,
-                            builder: (context, child) {
-                              return Transform.scale(
-                                scale: 0.8 + (_questionAnimation.value * 0.2),
-                                child: Opacity(
-                                  opacity: _questionAnimation.value,
-                                  child: Column(
+          children: [
+            _buildHeader(),
+            _buildPlayerInfo(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: AnimatedBuilder(
+                  animation: _questionAnimation,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: 0.8 + (_questionAnimation.value * 0.2),
+                      child: Opacity(
+                        opacity: _questionAnimation.value,
+                        child: Column(
                                     children: [
                                       _buildQuestionArea(),
                                       _buildAnswerInput(),
                                     ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
                         ),
                       ),
+                    );
+                  },
+                ),
+              ),
+            ),
                       if (_isPlayerTurn) _buildTimer(),
-                    ],
-                  ),
-          ),
+          ],
+        ),
+      ),
         ),
         // 게임 결과 팝업
         if (_showResultPopup)
@@ -523,9 +591,9 @@ class _RankGameScreenState extends State<RankGameScreen>
       child: Column(
         children: [
           // 귀여운 배틀 아이콘과 제목
-          Container(
+              Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            decoration: BoxDecoration(
+                decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [Color(0xFFFF6B6B), Color(0xFFFF8E8E)],
                 begin: Alignment.topLeft,
@@ -539,10 +607,10 @@ class _RankGameScreenState extends State<RankGameScreen>
                   offset: const Offset(0, 4),
                 ),
               ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
@@ -550,22 +618,22 @@ class _RankGameScreenState extends State<RankGameScreen>
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(
-                    Icons.emoji_events,
-                    color: Colors.white,
+                      Icons.emoji_events,
+                      color: Colors.white,
                     size: 20,
-                  ),
+                    ),
                 ),
                 const SizedBox(width: 12),
                 const Text(
-                  '랭크 배틀',
+                      '랭크 배틀',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                        color: Colors.white,
                     letterSpacing: 0.5,
-                  ),
-                ),
-              ],
+                      ),
+                    ),
+                  ],
             ),
           ),
         ],
@@ -660,7 +728,7 @@ class _RankGameScreenState extends State<RankGameScreen>
                         Icons.favorite,
                         color: index < _playerLives
                             ? (_isPlayerTurn
-                                  ? const Color(0xFFFF6B6B)
+                            ? const Color(0xFFFF6B6B)
                                   : Colors.grey[600])
                             : Colors.grey[300],
                         size: 18,
@@ -688,7 +756,7 @@ class _RankGameScreenState extends State<RankGameScreen>
                         Icons.favorite,
                         color: index < _opponentLives
                             ? (!_isPlayerTurn
-                                  ? const Color(0xFFFF6B6B)
+                            ? const Color(0xFFFF6B6B)
                                   : Colors.grey[600])
                             : Colors.grey[300],
                         size: 18,
@@ -782,42 +850,42 @@ class _RankGameScreenState extends State<RankGameScreen>
           // 간단한 턴 표시
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: _isPlayerTurn
-                  ? const Color(0xFF788CC3).withOpacity(0.1)
-                  : const Color(0xFFFF6B6B).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: _isPlayerTurn
-                    ? const Color(0xFF788CC3)
-                    : const Color(0xFFFF6B6B),
-                width: 1,
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  _isPlayerTurn ? Icons.person : Icons.computer,
-                  color: _isPlayerTurn
-                      ? const Color(0xFF788CC3)
-                      : const Color(0xFFFF6B6B),
-                  size: 16,
-                ),
-                const SizedBox(width: 6),
-                Text(
-                  _isPlayerTurn ? '내 턴' : '상대 턴',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                  decoration: BoxDecoration(
                     color: _isPlayerTurn
-                        ? const Color(0xFF788CC3)
-                        : const Color(0xFFFF6B6B),
+                        ? const Color(0xFF788CC3).withOpacity(0.1)
+                        : const Color(0xFFFF6B6B).withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: _isPlayerTurn
+                          ? const Color(0xFF788CC3)
+                          : const Color(0xFFFF6B6B),
+                width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        _isPlayerTurn ? Icons.person : Icons.computer,
+                        color: _isPlayerTurn
+                            ? const Color(0xFF788CC3)
+                            : const Color(0xFFFF6B6B),
+                        size: 16,
+                      ),
+                const SizedBox(width: 6),
+                      Text(
+                        _isPlayerTurn ? '내 턴' : '상대 턴',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: _isPlayerTurn
+                              ? const Color(0xFF788CC3)
+                              : const Color(0xFFFF6B6B),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
           const SizedBox(height: 16),
 
           const SizedBox(height: 16),
@@ -866,10 +934,10 @@ class _RankGameScreenState extends State<RankGameScreen>
                   color: const Color(0xFFFF6B6B).withOpacity(0.3),
                   width: 1,
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -877,15 +945,15 @@ class _RankGameScreenState extends State<RankGameScreen>
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Color(0xFFFF6B6B),
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Color(0xFFFF6B6B),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
+              ),
+            ),
+            const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       _isOpponentThinking
@@ -1053,6 +1121,8 @@ class _RankGameScreenState extends State<RankGameScreen>
                             _selectedOptionIndex = index;
                             _userAnswer = _currentQuestion!.options[index];
                           });
+                          // 답을 선택하면 즉시 제출
+                          _submitAnswer(_currentQuestion!.options[index]);
                         },
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
@@ -1102,14 +1172,7 @@ class _RankGameScreenState extends State<RankGameScreen>
                                   color: Colors.white,
                                   size: 12,
                                 )
-                              : Text(
-                                  String.fromCharCode(65 + index), // A, B, C, D
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10,
-                                  ),
-                                ),
+                              : null,
                         ),
                         const SizedBox(width: 10),
                         Expanded(
@@ -1133,7 +1196,7 @@ class _RankGameScreenState extends State<RankGameScreen>
                   ),
                 ),
               );
-            }),
+                          }),
           ] else ...[
             // 주관식인 경우
             TextField(
@@ -1230,12 +1293,12 @@ class _RankGameScreenState extends State<RankGameScreen>
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Icon(
-                          _isCorrect ? Icons.check_circle : Icons.cancel,
-                          color: _isCorrect
-                              ? const Color(0xFF4CAF50)
-                              : const Color(0xFFF44336),
-                          size: 24,
-                        ),
+                        _isCorrect ? Icons.check_circle : Icons.cancel,
+                        color: _isCorrect
+                            ? const Color(0xFF4CAF50)
+                            : const Color(0xFFF44336),
+                        size: 24,
+                      ),
                       ),
                       const SizedBox(width: 12),
                       Text(
@@ -1266,9 +1329,9 @@ class _RankGameScreenState extends State<RankGameScreen>
                         ),
                       ),
                       child: Text(
-                        '정답: ${_currentQuestion?.options[_currentQuestion!.correctAnswerIndex]}',
-                        style: const TextStyle(
-                          fontSize: 16,
+                      '정답: ${_currentQuestion?.options[_currentQuestion!.correctAnswerIndex]}',
+                      style: const TextStyle(
+                        fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF4CAF50),
                         ),
@@ -1287,9 +1350,9 @@ class _RankGameScreenState extends State<RankGameScreen>
   Widget _buildTimer() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      child: Container(
+              child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
+                decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
@@ -1310,21 +1373,21 @@ class _RankGameScreenState extends State<RankGameScreen>
               size: 16,
             ),
             const SizedBox(width: 8),
-            Text(
-              '${_timeLeft.toInt()}초',
-              style: TextStyle(
+          Text(
+            '${_timeLeft.toInt()}초',
+            style: TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: _timeLeft > _maxTime * 0.3
-                    ? const Color(0xFF4CAF50)
-                    : const Color(0xFFFF6B6B),
-              ),
+              fontWeight: FontWeight.w600,
+              color: _timeLeft > _maxTime * 0.3
+                  ? const Color(0xFF4CAF50)
+                  : const Color(0xFFFF6B6B),
             ),
+          ),
             const SizedBox(width: 12),
             Expanded(
-              child: Container(
+            child: Container(
                 height: 6,
-                decoration: BoxDecoration(
+              decoration: BoxDecoration(
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(3),
                 ),

@@ -1,0 +1,1145 @@
+{
+  "tier": "Platinum",
+  "counts": {
+    "total": 112,
+    "by_type": {
+      "vocabulary": 108,
+      "sentence": 4
+    },
+    "by_sublevel": {
+      "1": 44,
+      "2": 45,
+      "3": 23
+    }
+  },
+  "items": [
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "abandon",
+      "meaning": "버리다, 포기하다, 넘겨주다",
+      "example_eng": "When the rebel troops arrived, the village had already been abandoned.",
+      "example_kor": "반란군이 도착했을 때 사람들은 이미 그 마을을 버리고 떠난 뒤였다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "abjection",
+      "meaning": "비열, 비굴, 비천",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "earthen",
+      "meaning": "흙으로 만든",
+      "example_eng": "The hut has an earthen floor and a thatched roof.",
+      "example_kor": "그 오두막은 흙 바닥과 짚으로 이은 지붕이 있었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "facsimile",
+      "meaning": "복사, 모사, 사진 전송, 정확하게 복사하다",
+      "example_eng": "It is facsimile of the original manuscript.",
+      "example_kor": "그것은 원래 원고의 복사본이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "facsimile",
+      "meaning": "정확한, 복사, 사진 전송",
+      "example_eng": "It is on display in a facsimile version.",
+      "example_kor": "그것은 모사본으로 전시되고 있는 중이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "facticide",
+      "meaning": "증거 인멸, 사실 말살",
+      "example_eng": "The life-long rivalry between the brothers ended tragically in fratricide.",
+      "example_kor": "형제들 간의 일생에 걸친 경쟁은 형제살해라는 비극으로 막을 내렸다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "facticide",
+      "meaning": "사실 말살",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "habitable",
+      "meaning": "거주할 수 있는, 살기에 알맞은",
+      "example_eng": "A lot of improvements would have to be made before the building was habitable.",
+      "example_kor": "그 건물이 사람이 살 만한 상태가 되기까지는 많은 개선이 이루어져야 할 것이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "habituate",
+      "meaning": "습관을 들이다, 길들이다, 익숙하게 하다",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "jealous",
+      "meaning": "시기하는, 질투심 많은",
+      "example_eng": "Her colleagues are jealous of her success.",
+      "example_kor": "그녀의 동료들은 그녀의 성공을 질투한다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "macrobian",
+      "meaning": "수명이 긴",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "obedience",
+      "meaning": "복종, 순종, 순응, 준수",
+      "example_eng": "They demand unquestioning obedience from every follower.",
+      "example_kor": "그들은 모든 추종자로부터 절대적인 복종을 요구한다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "objection",
+      "meaning": "항의, 반대, 결점",
+      "example_eng": "Her objection against the plan is based on incorrect facts.",
+      "example_kor": "그녀가 그 계획에 대해 반대하는 것은 정확하지 않은 사실에 근거하고 있다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "padre",
+      "meaning": "신부, 목사",
+      "example_eng": "The service will be conducted by the RAF padre.",
+      "example_kor": "영국 공군 목사가 예배를 주관할 것이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "radiate",
+      "meaning": "빛을 내다",
+      "example_eng": "A single beam of light radiated from the lighthouse.",
+      "example_kor": "한줄기 빛이 등대로부터 비추었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "tactician",
+      "meaning": "전략가, 전술가, 모사",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "tactician",
+      "meaning": "전략가, 전술가, 모사",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "tactics",
+      "meaning": "전술, 병법",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "tactics",
+      "meaning": "전술, 병법",
+      "example_eng": "I don’ t like his tactics, he sets one person against another.",
+      "example_kor": "그는 사람들끼리 반감을 품게 하는데, 나는 그의 이런 전술이 마음에 들지 않는다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "tactility",
+      "meaning": "촉지성, 만져서 알 수 있음",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "vacancy",
+      "meaning": "공허, 공백, 공간, 빈 방, 결원, 방심",
+      "example_eng": "We wanted to book a hotel room in July, but there were no vacancies.",
+      "example_kor": "우리는 7월에 호텔방을 예약하고 싶었는데 빈 방이 전혀 없었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "vagrant",
+      "meaning": "방랑자, 방랑의",
+      "example_eng": "Vagrants and drunks hang around the bars at the end of the street.",
+      "example_kor": "길 끝에 있는 여러 술집에는 방랑자와 주정뱅이가 배회한다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 3,
+      "original_level": 1,
+      "source": "voca_10000",
+      "word": "warfare",
+      "meaning": "전쟁, 교전",
+      "example_eng": "He wrote of the horrors of modern warfare.",
+      "example_kor": "그는 현대 전쟁의 참사에 대해 썼다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "baker’s dozen",
+      "meaning": "13개",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "dactylography",
+      "meaning": "지문학",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "dactyloscopy",
+      "meaning": "지문학",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "dastardliness",
+      "meaning": "비열함",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "facetiousness",
+      "meaning": "우스움, 익살 맞음",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "galactagogue",
+      "meaning": "착유량을 증가시키는",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "galactopoietic",
+      "meaning": "모유 분비 촉진제(의)",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "hallucinogen",
+      "meaning": "환각제",
+      "example_eng": "He used to use hallucinogens like acid and ecstasy.",
+      "example_kor": "그는 애시드나 엑스터시 같은 환각제를 이용하곤 했다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "kakistocracy",
+      "meaning": "국내 최고 악당에 의한 정치, 악덕 정치",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "lachrymation",
+      "meaning": "눈물을 흘림",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "lachrymatory",
+      "meaning": "눈물의, (고대 로마의) 눈물 단지",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "macroeconomics",
+      "meaning": "거시 경제학",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "palatalization",
+      "meaning": "구개음화",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "quadrilingual",
+      "meaning": "4개 국어를 사용하는, 4개 국어로 쓰인",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "Ubiquitarianism",
+      "meaning": "그리스도의 편재론",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 2,
+      "source": "voca_10000",
+      "word": "kinetic theory",
+      "meaning": "분자 운동론",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "버스와 지하철이 좀더 빠르고 좀더 안락한 서비스를 제공하기만 한다면, 점점 더 많은 사람들이 비교적 비싸지 않은 대중 교통을 애용할 것이다.",
+      "english": [
+        "<b>So long as</b>(= If only/If and when) buses and subway trains offer faster and more comfortable service, <b>more and more people</b>(= an increasing number of people) will patronize these relatively inexpensive public transportation systems."
+      ],
+      "lesson": "Lesson4",
+      "lesson_title": "부사절과 형용사절"
+    },
+    {
+      "type": "sentence",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "많은 정부가 담배 판매로 생기는 수입에 상당히 의존하고 있다. 그래서 그들은 건강 문제와 관련된 담배를 마지못해 적극적으로 단속하고 있다. 나는 만약 정부가 흡연 구역을 제한하고 담배 광고도 금지하거나 제한하며, 담배 갑에 건강을 해친다는 어두운 경고문을 싣는다면 어떻게 될지 궁금하다.",
+      "english": [
+        "Many governments rely heavily on income generated by cigarette sales, so much so that they are reluctant to crack down cigarette related health issues aggressively. I wonder what would happen if governments restricted smoking to certain areas, banned or limited tobacco ads and put ominous health warnings on cigarette packages."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "bakery",
+      "meaning": "제과점",
+      "example_eng": "She used to work in the local bakery.",
+      "example_kor": "그녀는 그 지방의 제과점에서 일했었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "baking",
+      "meaning": "빵 굽기",
+      "example_eng": "She spent the afternoon baking some bread.",
+      "example_kor": "그녀는 빵을 구우면서 오후를 보냈다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "bandit",
+      "meaning": "산적, 노상 강도, 깡패",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "banner",
+      "meaning": "국기, 문장이 든 깃발, 표지",
+      "example_eng": "The demonstrators walked along the street, waving banners and shouting angrily.",
+      "example_kor": "시위자들은 깃발을 흔들고 분노의 함성을 지르며 거리를 활보했다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "damage",
+      "meaning": "손해(를 입히다)",
+      "example_eng": "Many buildings were badly damaged during the war.",
+      "example_kor": "많은 건물이 전쟁 중에 심하게 손상되었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "damned",
+      "meaning": "비난 받은, 지독한",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "fabric",
+      "meaning": "뼈대, 구조, 직물, 옷감",
+      "example_eng": "We must invest in the fabric of our hospitals and start rebuilding them.",
+      "example_kor": "우리는 병원 건물 구조에 투자하여 병원을 재건축해야 한다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "fact",
+      "meaning": "사실, 실제, 현실",
+      "example_eng": "Can I regard what you have just told me as fact?",
+      "example_kor": "방금 당신이 말해 준 것을 사실로 간주해도 될까요?"
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "galactic",
+      "meaning": "젖의, 은하의",
+      "example_eng": "We are still many years away from realizing the possibility of inter-galactic travel.",
+      "example_kor": "아직도 많은 세월이 지나야 우리는 은하계 간의 여행을 실현할 수 있을 것이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "habitude",
+      "meaning": "습관, 성질, 체질",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "identify",
+      "meaning": "동일시하다",
+      "example_eng": "Many football fans are unfairly identified with violent behavior.",
+      "example_kor": "많은 축구팬들이 부당하게도 폭력적 행동과 동일시되고 있다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "national",
+      "meaning": "국가의, 전국의, 국유의, 국립의, 애국적인",
+      "example_eng": "The government’ s view is that raising taxes now would not be in the national interest.",
+      "example_kor": "정부의 견해는 지금 세금을 올리는 것은 국가에 이익이 되지 않으리라는 것이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "nativism",
+      "meaning": "선천론, 생득설, 원주민 보호주의",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "nativity",
+      "meaning": "출생, 탄생",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "object",
+      "meaning": "물체, 목적, 반대하다",
+      "example_eng": "The object of their expedition was to discover the source of the River Nile.",
+      "example_kor": "그들이 기획한 원정의 목적은 나일강의 원류를 찾는 것이었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "pacifier",
+      "meaning": "화해자, 달래는 사람, 고무 젖꼭지",
+      "example_eng": "I don’ t believe in the old view that men are fighters and women are pacifiers.",
+      "example_kor": "나는 남성은 전사고 여성은 화해자라는 오래된 견해를 믿지 않는다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "palate",
+      "meaning": "입천장, 기호, 미각, 심미안",
+      "example_eng": "The disease causes ulcers to appear on the tongue and palate and leads to lack of appetite.",
+      "example_kor": "그 질병은 혀와 입천장에 궤양이 나타나게 하고 식욕결핍으로 이어진다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "quantify",
+      "meaning": "양을 정하다",
+      "example_eng": "It’ s difficult to quantify how many people will be affected by the change in the law.",
+      "example_kor": "법이 바뀜으로써 얼마나 많은 사람들이 영향을 받을지 양적으로 계산하기 어렵다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "radish",
+      "meaning": "무",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "radium",
+      "meaning": "라듐",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "radius",
+      "meaning": "반경(의 길이), 항속 거리",
+      "example_eng": "The radius of this wheel is 30.",
+      "example_kor": "이 바퀴의 반경은 30이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "tactical",
+      "meaning": "전술의, 약삭빠른",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "tactical",
+      "meaning": "전술의, 약삭빠른",
+      "example_eng": "There can be a lot of tactical voting in some elections, when people vote for a party they do not normally support to try to beat a third party.",
+      "example_kor": "어떤 선거에서는 전술적 투표가 많이 나올 수 있는데, 사람들이 제3당을 무찌르기 위해 자기들이 별로 지지하지 않는 당에 투표하는 경우가 그것이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "ultraism",
+      "meaning": "극단론, 과격한 행동",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "ultraist",
+      "meaning": "극단론자, 과격주의자",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "vacation",
+      "meaning": "방학, 휴가, 휴일, 휴식, 사직",
+      "example_eng": "We’ re taking a vacation in June.",
+      "example_kor": "우리는 6월에 휴가를 보낼 것이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 2,
+      "original_level": 3,
+      "source": "voca_10000",
+      "word": "vacuolar",
+      "meaning": "((생물))공포(空胞)의, 액포가 있는",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "컴퓨터가 통신과 사업을 더 빠르고 더 편리하게 해 온 것은 사실이다. 그러나 개인용 컴퓨터의 발명이 가져올 예기치 않은 결과가 무엇이 될지는 기다려 봐야 알 것이다.",
+      "english": [
+        "It is true that computers have made communicating and doing business faster and more convenient, but we will have to wait and see what the unexpected consequences of the invention of personal computers will be."
+      ],
+      "lesson": "Lesson6",
+      "lesson_title": "명사절"
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "ability",
+      "meaning": "능력",
+      "example_eng": "His failure was not due to lack of ability.",
+      "example_kor": "그의 실패는 능력 부족 때문이 아니었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "caesura",
+      "meaning": "((운율))중간 휴지",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "dactylogram",
+      "meaning": "지문(指紋)",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "dactylology",
+      "meaning": "지화술",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "early",
+      "meaning": "일찍, 초기에",
+      "example_eng": "The team captain scored two wonderful goals early in the game.",
+      "example_kor": "그 팀의 주장은 경기 초반에 두 골을 멋지게 넣었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "fable",
+      "meaning": "우화, 신화, 전설, 우화를 이야기하다",
+      "example_eng": "Even adults have a taste for fable, fantasy and magic.",
+      "example_kor": "성인들도 우화와 팬터지, 마술에 취미를 가진다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "fabrication",
+      "meaning": "조립, 위조, 지어낸 이야기, 허구",
+      "example_eng": "The report submitted by the police officer was a clear fabrication.",
+      "example_kor": "그 경찰관이 제출한 보고서는 명백한 위조물이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "habitue",
+      "meaning": "단골 손님, 마약 상습자",
+      "example_eng": "In the sixties, she was a habitue of all international night-clubs.",
+      "example_kor": "60년대에 그녀는 모든 국제적 나이트 클럽의 단골 손님이었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "iconography",
+      "meaning": "그림 풀이, 도해, 성상학",
+      "example_eng": "The iconography of this picture is fascinating.",
+      "example_kor": "이 그림의 도상학은 매혹적이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "iconostasis",
+      "meaning": "성상 병풍, 성화벽",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "idiomorphic",
+      "meaning": "독특한 형태를 가진",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "jejunectomy",
+      "meaning": "공장(空腸) 절제",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "kinetoscope",
+      "meaning": "(초기의) 활동 사진 영사기",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "laborsaving",
+      "meaning": "노동력 절감의, 수고를 덜어 주는",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "natural",
+      "meaning": "타고난, 야생의, 자연의, 보통의",
+      "example_eng": "People say that breast-feeding is better than bottle-feeding because it’ s more natural.",
+      "example_kor": "사람들은 모유로 키우는 것이 더 자연스러운 것이므로 분유로 키우는 것보다 더 낫다고 말한다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "painstaking",
+      "meaning": "애쓰는",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "qualify",
+      "meaning": "자격을 주다, 간주하다, 완화하다",
+      "example_eng": "Chris has just qualified as a doctor.",
+      "example_kor": "크리스는 이제 막 의사 자격을 얻었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "vacuist",
+      "meaning": "진공론자",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "vacuole",
+      "meaning": "((생물))공포, 액포",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "widen",
+      "meaning": "넓히다",
+      "example_eng": "As it approaches the sea, the river begins to widen.",
+      "example_kor": "강은 바다에 가까와짐에 따라 넓어지기 시작한다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "zincify",
+      "meaning": "~에 아연 도금하다",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 4,
+      "source": "voca_10000",
+      "word": "zoo",
+      "meaning": "동물원",
+      "example_eng": "I think zoos should let their animals roam around as freely as possible, not keep them in cages.",
+      "example_kor": "동물원들은 동물들을 우리에 가두지 말고 가능한 한 자유롭게 돌아다니게 해야 한다고 나는 생각한다."
+    },
+    {
+      "type": "sentence",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "english_by_basic_sentence",
+      "kor_prompt": "한국 남편들에게 흔히 있는 일로써, 결혼기념일이 다가오면 그들은 특별한 선물을 하거나, 아내가 가고 싶어하는 곳으로 여행을 가서 어쩔 수 없이 아내를 즐겁게 해줘야 한다.",
+      "english": [
+        "As is often the case with them, when a wedding anniversary approaches, Korean husbands are forced to entertain their wives with special gifts or trips to destinations the wives want to visit."
+      ],
+      "lesson": "Lesson10",
+      "lesson_title": "to부정사 활용Ⅱ"
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "gain",
+      "meaning": "얻다, 이익",
+      "example_eng": "The Nationalist Party have gained a lot of support in the south of the country.",
+      "example_kor": "민족주의당은 남부 지방에서 많은 지지를 얻었다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "habile",
+      "meaning": "교묘한, 숙련된",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "handicraft",
+      "meaning": "수세공, 수공",
+      "example_eng": "Each village has its own traditional dress, cuisine, folklore and handicrafts.",
+      "example_kor": "마을마다 각자의 전통적 의상과 음식, 민속, 수공예품이 있다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "iconoclast",
+      "meaning": "우상 파괴주의자, 인습 타파론자",
+      "example_eng": "Rogers, an iconoclast in architecture, is sometimes described as putting the insides of buildings on the outside.",
+      "example_kor": "건축계의 인습타파자인 로저스는 때로 건물 내부를 외부에 붙여 놓았다고 묘사된다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "iconolatry",
+      "meaning": "우상 숭배",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "idiopathic",
+      "meaning": "특발성 질환의",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "laboratory",
+      "meaning": "실험(실), 어학 실습실, 실험의",
+      "example_eng": "Laboratory tests suggest that the new drug may be used to treat cancer.",
+      "example_kor": "실험실 테스트는 그 신약이 암을 치료하는 데 쓰일 수 있다는 것을 암시했다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "natatorium",
+      "meaning": "(옥내의) 수영장",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "nation",
+      "meaning": "국민, 국가",
+      "example_eng": "Practically the whole nation watched the ceremony on television.",
+      "example_kor": "실제로 그 나라 전체가 텔레비전으로 그 의식을 지켜보았다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "nature",
+      "meaning": "자연, 본성, 특질, 활력",
+      "example_eng": "He is by nature inclined to be rather lazy.",
+      "example_kor": "그는 천성적으로 좀 게으른 편이다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "obligation",
+      "meaning": "의무",
+      "example_eng": "If you have not signed a contract, you are under no obligation to pay them any money.",
+      "example_kor": "계약에 아직 서명하지 않았다면, 그들에게 돈을 지불할 어떤 의무도 없다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "palatogram",
+      "meaning": "구개도",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "quadrangle",
+      "meaning": "4각형, 4변형",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "radioscope",
+      "meaning": "방사선 물질 탐지기",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "raid",
+      "meaning": "수색, 급습(하다), 침입(하다)",
+      "example_eng": "The commandos made a daring raid.",
+      "example_kor": "그 특별 공격대원들은 대담하게 습격을 감행했다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "vacate",
+      "meaning": "~을 비우다, 떠나다, 사임하다",
+      "example_eng": "Hotel guests are requested to vacate their rooms by noon.",
+      "example_kor": "호텔 손님들은 정오까지 방을 비워달라고 요청받는다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "vacual",
+      "meaning": "진공의",
+      "example_eng": "",
+      "example_kor": ""
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "vacuum",
+      "meaning": "진공, 공허, 공백, 진공 청소기",
+      "example_eng": "Sound waves cannot travel through a vacuum.",
+      "example_kor": "음파는 진공을 통과할 수 없다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "wisdom",
+      "meaning": "현명함, 지혜, 명언, 지식, 학식",
+      "example_eng": "One certainly hopes to gain a little wisdom as one grows older.",
+      "example_kor": "사람은 나이를 먹으면서 조금이라도 지혜를 얻게 되기를 정말로 바란다."
+    },
+    {
+      "type": "vocabulary",
+      "sublevel": 1,
+      "original_level": 5,
+      "source": "voca_10000",
+      "word": "true",
+      "meaning": "진실의, 충실의",
+      "example_eng": "It is certainly true that the risks associated with pregnancy increase with age.",
+      "example_kor": "임신과 관련된 위험이 나이를 먹음에 따라 늘어난다는 것은 확실한 사실이다."
+    }
+  ]
+}

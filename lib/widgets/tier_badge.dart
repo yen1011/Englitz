@@ -15,19 +15,19 @@ class TierBadge extends StatelessWidget {
   Color _getTierColor() {
     switch (tierColor) {
       case 'B':
-        return const Color(0xFFAC865F); // 브론즈
+        return const Color(0xFFCD7F32); // 브론즈 (더 진한 브론즈)
       case 'S':
-        return const Color(0xFFC6C6C6); // 실버
+        return const Color(0xFFC0C0C0); // 실버 (더 밝은 실버)
       case 'G':
-        return const Color(0xFFF4C135); // 골드
+        return const Color(0xFFD6B534); // 골드 (홈페이지와 동일한 색상)
       case 'P':
-        return const Color(0xFF5CDAC0); // 플래티넘
+        return const Color(0xFF00CED1); // 플래티넘 (민트색)
       case 'D':
-        return const Color(0xFF66CCFF); // 다이아
+        return const Color(0xFFB9F2FF); // 다이아 (더 밝은 다이아)
       case 'M':
         return const Color(0xFFFF4949); // 마스터 (그라데이션으로 처리)
       default:
-        return const Color(0xFFAC865F);
+        return const Color(0xFFCD7F32);
     }
   }
 

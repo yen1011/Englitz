@@ -1,3 +1,5 @@
+import '../services/user_service.dart';
+
 class RecentMatch {
   final String opponentName;
   final String opponentTier;
@@ -24,6 +26,12 @@ class RecentMatch {
 
 // 더미 데이터 생성 함수
 List<RecentMatch> generateDummyMatches() {
+  // UserService에서 현재 사용자 정보 가져오기
+  final userInfo = UserService.getCurrentUserInfo();
+  final currentUserName = userInfo['name'] as String;
+  final currentUserOrg = userInfo['organization'] as String;
+  final currentUserTier = userInfo['tier'] as String;
+  
   return [
     RecentMatch(
       opponentName: '김영희',

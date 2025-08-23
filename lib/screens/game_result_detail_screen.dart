@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/game_result.dart';
 import '../models/game_question.dart';
+import '../services/user_service.dart';
 import 'main_screen.dart';
 
 class GameResultDetailScreen extends StatefulWidget {

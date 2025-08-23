@@ -8,9 +8,11 @@ class GameModeButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // 일반 모드 버튼
-        Expanded(
+        SizedBox(
+          width: 140,
           child: GestureDetector(
             onTap: () {
               // 일반 게임 시작
@@ -22,12 +24,12 @@ class GameModeButtons extends StatelessWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Color(0xFF7B8BC4), Color(0xFF6A7BB8)],
+                  colors: [Color(0xFF788CC3), Color(0xFF6A7BB8)],
                 ),
                 borderRadius: BorderRadius.circular(32),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF7B8BC4).withOpacity(0.3),
+                    color: const Color(0xFF788CC3).withOpacity(0.3),
                     blurRadius: 12,
                     offset: const Offset(0, 6),
                   ),
@@ -66,7 +68,8 @@ class GameModeButtons extends StatelessWidget {
         const SizedBox(width: 16),
 
         // 랭크 모드 버튼
-        Expanded(
+        SizedBox(
+          width: 140,
           child: GestureDetector(
             onTap: () {
               // 랭크 게임 시작

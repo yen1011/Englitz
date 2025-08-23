@@ -3,16 +3,19 @@ import '../widgets/user_profile_header.dart';
 import '../widgets/game_mode_buttons.dart';
 import '../widgets/stats_card.dart';
 import '../models/recent_match.dart';
+import '../services/user_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   final List<RecentMatch> _recentMatches = generateDummyMatches();
+  final GlobalKey<UserProfileHeaderState> _profileHeaderKey = GlobalKey<UserProfileHeaderState>();
+  final GlobalKey<StatsCardState> _statsCardKey = GlobalKey<StatsCardState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,45 +26,55 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 상단 배경 이미지가 있는 영역
+              // 상단 배경 사각형 영역
               Stack(
                 children: [
-                  // 배경 이미지
+                  // 배경 사각형 (최상단부터 프로필 이미지 중간까지)
                   Container(
-                    height: 200, // 프로필 중간 지점까지의 높이
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/default_avatar.png',
-                        ), // 배경 이미지 경로
-                        fit: BoxFit.cover,
-                        opacity: 0.3, // 투명도 조절
-                      ),
-                    ),
-                  ),
-                  // 그라데이션 오버레이 (선택사항)
-                  Container(
-                    height: 200,
+                    height: 280, // 높이를 늘려서 상단까지 확장
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.1),
-                          Colors.transparent,
-                        ],
+                      color: const Color(0xFF788CC3), // 기본 배경색
+                      image: const DecorationImage(
+                        image: AssetImage(
+                          'assets/images/default_avatar.png', // 배경 이미지 경로
+                        ),
+                        fit: BoxFit.cover,
+                        opacity: 0.4, // 투명도 조절
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0x1A000000), // 10% 투명도의 검은색
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
+                          spreadRadius: 0,
+                        ),
+                      ],
                     ),
                   ),
+
                   // 상단 콘텐츠
                   Column(
                     children: [
-                      // 상단 설정 버튼
+                      // 상단 설정 버튼과 프로필 수정 버튼
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            // 프로필 수정 버튼
+                            IconButton(
+                              onPressed: () {
+                                _showProfileEditDialog();
+                              },
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Color(0xFF666666),
+                                size: 24,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            // 설정 버튼
                             IconButton(
                               onPressed: () {
                                 // 설정 화면으로 이동
@@ -76,8 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
 
-                      // 사용자 프로필 헤더
-                      const Center(child: UserProfileHeader()),
+                                          // 사용자 프로필 헤더
+                    Center(child: UserProfileHeader(key: _profileHeaderKey)),
                     ],
                   ),
                 ],
@@ -100,8 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color(0xFF788CC3),
-                      Color(0xFF9FA9D1),
+                      Color(0xFFAEB4D8),
+                      Color(0xFFB8BEDE),
                       Color(0xFFC8D0E5),
                       Color(0xFFE8ECF4),
                       Color(0xFFF8F9FF),
@@ -117,9 +130,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     // 승률 통계 카드
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24.0),
-                      child: StatsCard(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: StatsCard(key: _statsCardKey),
                     ),
 
                     const SizedBox(height: 40),
@@ -353,5 +366,110 @@ class _HomeScreenState extends State<HomeScreen> {
       default:
         return const Color(0xFF999999);
     }
+  }
+
+  // 프로필 수정 다이얼로그 표시
+  void _showProfileEditDialog() {
+    final currentName = UserService.userName;
+    final currentOrganization = UserService.userOrganization;
+    
+    final nameController = TextEditingController(text: currentName);
+    final organizationController = TextEditingController(text: currentOrganization);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            '프로필 수정',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2D3748),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 16),
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                  labelText: '이름',
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF788CC3), width: 2),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: organizationController,
+                decoration: const InputDecoration(
+                  labelText: '소속',
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF788CC3), width: 2),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                '취소',
+                style: TextStyle(color: Color(0xFF718096)),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final newName = nameController.text.trim();
+                final newOrganization = organizationController.text.trim();
+                
+                if (newName.isNotEmpty && newOrganization.isNotEmpty) {
+                  _profileHeaderKey.currentState?.updateUserInfo(newName, newOrganization);
+                  UserService.updateUserInfo(newName, newOrganization);
+                  Navigator.of(context).pop();
+                  
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('프로필이 수정되었습니다.'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('이름과 소속을 모두 입력해주세요.'),
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF788CC3),
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('저장'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // 티어 하락 테스트용 메서드 (개발 중에만 사용)
+  void _testTierDecrease() {
+    _profileHeaderKey.currentState?.decreaseTierProgress();
+  }
+
+  // 티어 진행률 업데이트를 위한 public 메서드
+  void updateTierProgress() {
+    _profileHeaderKey.currentState?.increaseTierProgress();
   }
 }

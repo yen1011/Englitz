@@ -4,31 +4,45 @@ import 'package:flutter/services.dart';
 import '../models/game_question.dart';
 
 class QuestionService {
-  static List<Map<String, dynamic>>? _wordData;
-  static List<Map<String, dynamic>>? _grammarData;
-  static List<Map<String, dynamic>>? _dialogData;
+  static Map<String, List<Map<String, dynamic>>>? _tierData;
+  static String _currentTier = 'GOLD1'; // 현재 사용자 티어
 
   static Future<void> initializeData() async {
-    if (_wordData == null) {
-      final wordJson = await rootBundle.loadString(
-        'assets/datas/voca_10000.json',
-      );
-      _wordData = List<Map<String, dynamic>>.from(json.decode(wordJson));
+    if (_tierData == null) {
+      _tierData = {};
+      
+      // 각 티어별 데이터 로드
+      final tiers = ['bronze', 'silver', 'gold', 'platinum', 'diamond', 'master'];
+      
+      for (final tier in tiers) {
+        try {
+          final jsonString = await rootBundle.loadString('assets/datas/$tier.json');
+          final data = json.decode(jsonString);
+          _tierData![tier] = List<Map<String, dynamic>>.from(data['items']);
+        } catch (e) {
+          print('Failed to load $tier.json: $e');
+        }
+      }
     }
+  }
 
-    if (_grammarData == null) {
-      final grammarJson = await rootBundle.loadString(
-        'assets/datas/english_by_basic_sentence.json',
-      );
-      _grammarData = List<Map<String, dynamic>>.from(json.decode(grammarJson));
-    }
+  // 현재 티어 설정
+  static void setCurrentTier(String tier) {
+    _currentTier = tier;
+  }
 
-    if (_dialogData == null) {
-      final dialogJson = await rootBundle.loadString(
-        'assets/datas/your_life_style.json',
-      );
-      _dialogData = List<Map<String, dynamic>>.from(json.decode(dialogJson));
-    }
+  // 현재 티어에 맞는 문제 난이도 범위 결정
+  static List<String> _getTierRange(String currentTier) {
+    final tierOrder = ['bronze', 'silver', 'gold', 'platinum', 'diamond', 'master'];
+    final currentTierBase = currentTier.replaceAll(RegExp(r'\d+'), '').toLowerCase();
+    
+    final currentIndex = tierOrder.indexOf(currentTierBase);
+    if (currentIndex == -1) return ['gold']; // 기본값
+    
+    final startIndex = (currentIndex - 1).clamp(0, tierOrder.length - 1);
+    final endIndex = (currentIndex + 1).clamp(0, tierOrder.length - 1);
+    
+    return tierOrder.sublist(startIndex, endIndex + 1);
   }
 
   static List<GameQuestion> generateQuestions({
@@ -80,18 +94,8 @@ class QuestionService {
     for (int i = 0; i < 3; i++) {
       String wrongAnswer;
       do {
-        // 간단한 오답 생성 로직
-        switch (originalQuestion.type) {
-          case QuestionType.word:
-            wrongAnswer = _generateWrongWordAnswer();
-            break;
-          case QuestionType.grammar:
-            wrongAnswer = _generateWrongGrammarAnswer();
-            break;
-          case QuestionType.dialog:
-            wrongAnswer = _generateWrongDialogAnswer();
-            break;
-        }
+        // 티어별 데이터에서 오답 생성
+        wrongAnswer = _generateWrongAnswerFromTierData(originalQuestion.type);
       } while (options.contains(wrongAnswer));
 
       options.add(wrongAnswer);
@@ -111,56 +115,93 @@ class QuestionService {
     );
   }
 
-  static String _generateWrongWordAnswer() {
-    final wrongAnswers = ['잘못된 뜻', '틀린 의미', '다른 뜻', '오답', '의미 없음'];
-    return wrongAnswers[Random().nextInt(wrongAnswers.length)];
+  static String _generateWrongAnswerFromTierData(QuestionType type) {
+    if (_tierData == null) {
+      return _generateFallbackWrongAnswer(type);
+    }
+
+    final tierRange = _getTierRange(_currentTier);
+    final random = Random();
+    
+    // 티어 범위에서 랜덤하게 선택
+    final selectedTier = tierRange[random.nextInt(tierRange.length)];
+    final tierItems = _tierData![selectedTier];
+    
+    if (tierItems == null || tierItems.isEmpty) {
+      return _generateFallbackWrongAnswer(type);
+    }
+
+    // 해당 티어의 아이템에서 랜덤 선택
+    final randomItem = tierItems[random.nextInt(tierItems.length)];
+    
+    switch (type) {
+      case QuestionType.word:
+        return randomItem['meaning']?.toString() ?? _generateFallbackWrongAnswer(type);
+      case QuestionType.grammar:
+        return randomItem['word']?.toString() ?? _generateFallbackWrongAnswer(type);
+      case QuestionType.dialog:
+        return randomItem['meaning']?.toString() ?? _generateFallbackWrongAnswer(type);
+    }
   }
 
-  static String _generateWrongGrammarAnswer() {
-    final wrongAnswers = [
-      'am',
-      'is',
-      'are',
-      'be',
-      'go',
-      'goes',
-      'going',
-      'went',
-    ];
-    return wrongAnswers[Random().nextInt(wrongAnswers.length)];
-  }
-
-  static String _generateWrongDialogAnswer() {
-    final wrongAnswers = ['잘못된 표현', '틀린 뜻', '다른 의미', '오답'];
-    return wrongAnswers[Random().nextInt(wrongAnswers.length)];
+  static String _generateFallbackWrongAnswer(QuestionType type) {
+    final random = Random();
+    
+    switch (type) {
+      case QuestionType.word:
+        // 실제 단어와 의미를 사용
+        final wordMeanings = [
+          '사과', '바나나', '오렌지', '포도', '딸기',
+          '컴퓨터', '책상', '의자', '창문', '문',
+          '자동차', '버스', '기차', '비행기', '배',
+          '고양이', '강아지', '새', '물고기', '토끼'
+        ];
+        return wordMeanings[random.nextInt(wordMeanings.length)];
+      case QuestionType.grammar:
+        final grammarWords = ['am', 'is', 'are', 'be', 'go', 'goes', 'going', 'went', 'have', 'has', 'had', 'do', 'does', 'did'];
+        return grammarWords[random.nextInt(grammarWords.length)];
+      case QuestionType.dialog:
+        // 실제 대화 표현을 사용
+        final dialogExpressions = [
+          '안녕하세요', '감사합니다', '죄송합니다', '안녕히 가세요',
+          '좋은 아침입니다', '좋은 저녁입니다', '만나서 반갑습니다',
+          '도와주세요', '괜찮습니다', '알겠습니다'
+        ];
+        return dialogExpressions[random.nextInt(dialogExpressions.length)];
+    }
   }
 
   static GameQuestion _generateWordQuestion(QuestionDifficulty difficulty) {
     final random = Random();
 
-    // 데이터가 초기화되지 않은 경우 기본 문제 생성
-    if (_wordData == null) {
+    // 티어별 데이터가 없는 경우 기본 문제 생성
+    if (_tierData == null) {
       return _generateSimpleWordQuestion(difficulty);
     }
 
-    final wordData = _wordData!;
-
-    // 난이도에 따라 필터링
-    List<Map<String, dynamic>> filteredWords = wordData.where((word) {
-      final level = word['level']?.toString().toLowerCase() ?? '';
-      return _isDifficultyMatch(level, difficulty);
-    }).toList();
-
-    if (filteredWords.isEmpty) {
-      filteredWords = wordData; // 필터링된 결과가 없으면 전체에서 선택
+    final tierRange = _getTierRange(_currentTier);
+    final selectedTier = tierRange[random.nextInt(tierRange.length)];
+    final tierItems = _tierData![selectedTier];
+    
+    if (tierItems == null || tierItems.isEmpty) {
+      return _generateSimpleWordQuestion(difficulty);
     }
 
-    final selectedWord = filteredWords[random.nextInt(filteredWords.length)];
-    final correctWord = selectedWord['word']?.toString() ?? '';
-    final correctMeaning = selectedWord['word_meaning']?.toString() ?? '';
+    // vocabulary 타입의 아이템만 필터링
+    final vocabularyItems = tierItems.where((item) => 
+      item['type'] == 'vocabulary'
+    ).toList();
 
-    // 간단한 단어만 선택 (긴 단어 제외)
-    if (correctWord.length > 12 || correctMeaning.length > 15) {
+    if (vocabularyItems.isEmpty) {
+      return _generateSimpleWordQuestion(difficulty);
+    }
+
+    final selectedItem = vocabularyItems[random.nextInt(vocabularyItems.length)];
+    final word = selectedItem['word']?.toString() ?? '';
+    final meaning = selectedItem['meaning']?.toString() ?? '';
+
+    // 단어가 너무 길거나 의미가 없는 경우 제외
+    if (word.isEmpty || meaning.isEmpty || word.length > 15 || meaning.length > 20) {
       return _generateSimpleWordQuestion(difficulty);
     }
 
@@ -169,30 +210,159 @@ class QuestionService {
     for (int i = 0; i < 3; i++) {
       String wrongMeaning;
       do {
-        final randomWord = wordData[random.nextInt(wordData.length)];
-        wrongMeaning = randomWord['word_meaning']?.toString() ?? '';
-        // 오답도 간단하게
-        if (wrongMeaning.length > 15) {
-          wrongMeaning = '의미 없음';
-        }
-      } while (wrongMeaning == correctMeaning ||
-          wrongMeanings.contains(wrongMeaning) ||
-          wrongMeaning == '의미 없음');
+        wrongMeaning = _generateWrongAnswerFromTierData(QuestionType.word);
+      } while (wrongMeaning == meaning || 
+               wrongMeanings.contains(wrongMeaning) ||
+               wrongMeaning.length > 20);
       wrongMeanings.add(wrongMeaning);
     }
 
     // 옵션 섞기
-    List<String> options = [correctMeaning, ...wrongMeanings];
+    List<String> options = [meaning, ...wrongMeanings];
     options.shuffle(random);
-    final correctIndex = options.indexOf(correctMeaning);
+    final correctIndex = options.indexOf(meaning);
 
     return GameQuestion(
-      question: '"$correctWord"의 뜻은?',
+      question: '"$word"의 뜻은?',
       options: options,
       correctAnswerIndex: correctIndex,
       type: QuestionType.word,
       difficulty: difficulty,
-      explanation: correctMeaning,
+      explanation: meaning,
+    );
+  }
+
+  static GameQuestion _generateGrammarQuestion(QuestionDifficulty difficulty) {
+    final random = Random();
+
+    // 티어별 데이터가 없는 경우 기본 문제 생성
+    if (_tierData == null) {
+      return _generateFallbackGrammarQuestion(difficulty);
+    }
+
+    final tierRange = _getTierRange(_currentTier);
+    final selectedTier = tierRange[random.nextInt(tierRange.length)];
+    final tierItems = _tierData![selectedTier];
+    
+    if (tierItems == null || tierItems.isEmpty) {
+      return _generateFallbackGrammarQuestion(difficulty);
+    }
+
+    // sentence 타입의 아이템만 필터링
+    final sentenceItems = tierItems.where((item) => 
+      item['type'] == 'sentence'
+    ).toList();
+
+    if (sentenceItems.isEmpty) {
+      return _generateFallbackGrammarQuestion(difficulty);
+    }
+
+    final selectedItem = sentenceItems[random.nextInt(sentenceItems.length)];
+    final englishSentences = selectedItem['english'] as List<dynamic>?;
+    
+    if (englishSentences == null || englishSentences.isEmpty) {
+      return _generateFallbackGrammarQuestion(difficulty);
+    }
+
+    final englishSentence = englishSentences[0].toString();
+    
+    // <b> 태그로 강조된 단어 찾기
+    final boldPattern = RegExp(r'<b>([^<]+)</b>');
+    final matches = boldPattern.allMatches(englishSentence);
+    
+    if (matches.isEmpty) {
+      return _generateFallbackGrammarQuestion(difficulty);
+    }
+
+    final selectedMatch = matches.elementAt(random.nextInt(matches.length));
+    final correctWord = selectedMatch.group(1) ?? '';
+    final questionSentence = englishSentence.replaceAll(boldPattern, '____');
+
+    // 오답 생성
+    List<String> wrongWords = [];
+    for (int i = 0; i < 3; i++) {
+      String wrongWord;
+      do {
+        wrongWord = _generateWrongAnswerFromTierData(QuestionType.grammar);
+      } while (wrongWord == correctWord || 
+               wrongWords.contains(wrongWord) ||
+               wrongWord.length > 15);
+      wrongWords.add(wrongWord);
+    }
+
+    // 옵션 섞기
+    List<String> options = [correctWord, ...wrongWords];
+    options.shuffle(random);
+    final correctIndex = options.indexOf(correctWord);
+
+    return GameQuestion(
+      question: '빈칸에 들어갈 단어는?\n$questionSentence',
+      options: options,
+      correctAnswerIndex: correctIndex,
+      type: QuestionType.grammar,
+      difficulty: difficulty,
+      explanation: correctWord,
+    );
+  }
+
+  static GameQuestion _generateDialogQuestion(QuestionDifficulty difficulty) {
+    final random = Random();
+
+    // 티어별 데이터가 없는 경우 기본 문제 생성
+    if (_tierData == null) {
+      return _generateFallbackDialogQuestion(difficulty);
+    }
+
+    final tierRange = _getTierRange(_currentTier);
+    final selectedTier = tierRange[random.nextInt(tierRange.length)];
+    final tierItems = _tierData![selectedTier];
+    
+    if (tierItems == null || tierItems.isEmpty) {
+      return _generateFallbackDialogQuestion(difficulty);
+    }
+
+    // vocabulary 타입에서 대화 표현 관련 단어 선택
+    final vocabularyItems = tierItems.where((item) => 
+      item['type'] == 'vocabulary'
+    ).toList();
+
+    if (vocabularyItems.isEmpty) {
+      return _generateFallbackDialogQuestion(difficulty);
+    }
+
+    final selectedItem = vocabularyItems[random.nextInt(vocabularyItems.length)];
+    final word = selectedItem['word']?.toString() ?? '';
+    final meaning = selectedItem['meaning']?.toString() ?? '';
+
+    // 단어가 너무 길거나 의미가 없는 경우 제외
+    if (word.isEmpty || meaning.isEmpty || word.length > 15 || meaning.length > 20) {
+      return _generateFallbackDialogQuestion(difficulty);
+    }
+
+    // 오답 생성
+    List<String> wrongMeanings = [];
+    for (int i = 0; i < 3; i++) {
+      String wrongMeaning;
+      do {
+        wrongMeaning = _generateWrongAnswerFromTierData(QuestionType.dialog);
+      } while (wrongMeaning == meaning || 
+               wrongMeanings.contains(wrongMeaning) ||
+               wrongMeaning.length > 20);
+      wrongMeanings.add(wrongMeaning);
+    }
+
+    // 옵션 섞기
+    List<String> options = [meaning, ...wrongMeanings];
+    options.shuffle(random);
+    final correctIndex = options.indexOf(meaning);
+
+    return GameQuestion(
+      question: '"$word"의 뜻은?',
+      options: options,
+      correctAnswerIndex: correctIndex,
+      type: QuestionType.dialog,
+      difficulty: difficulty,
+      explanation: meaning,
     );
   }
 
@@ -242,152 +412,6 @@ class QuestionService {
       type: QuestionType.word,
       difficulty: difficulty,
       explanation: correctMeaning,
-    );
-  }
-
-  static GameQuestion _generateGrammarQuestion(QuestionDifficulty difficulty) {
-    final random = Random();
-
-    // 데이터가 초기화되지 않은 경우 기본 문제 생성
-    if (_grammarData == null) {
-      return _generateFallbackGrammarQuestion(difficulty);
-    }
-
-    // 간단한 문법 문제들
-    final grammarQuestions = [
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'I ___ a student.',
-        'correct': 'am',
-        'wrong': ['is', 'are', 'be'],
-      },
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'She ___ beautiful.',
-        'correct': 'is',
-        'wrong': ['am', 'are', 'be'],
-      },
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'They ___ happy.',
-        'correct': 'are',
-        'wrong': ['is', 'am', 'be'],
-      },
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'I ___ to school.',
-        'correct': 'go',
-        'wrong': ['goes', 'going', 'went'],
-      },
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'He ___ to school.',
-        'correct': 'goes',
-        'wrong': ['go', 'going', 'went'],
-      },
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'I ___ a book.',
-        'correct': 'read',
-        'wrong': ['reads', 'reading', 'readed'],
-      },
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'She ___ a book.',
-        'correct': 'reads',
-        'wrong': ['read', 'reading', 'readed'],
-      },
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'I ___ yesterday.',
-        'correct': 'went',
-        'wrong': ['go', 'goes', 'going'],
-      },
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'I ___ a car.',
-        'correct': 'have',
-        'wrong': ['has', 'having', 'haves'],
-      },
-      {
-        'question': '빈칸에 들어갈 단어는?',
-        'sentence': 'She ___ a car.',
-        'correct': 'has',
-        'wrong': ['have', 'having', 'haves'],
-      },
-    ];
-
-    final selected = grammarQuestions[random.nextInt(grammarQuestions.length)];
-    final question = selected['question'] as String;
-    final sentence = selected['sentence'] as String;
-    final correct = selected['correct'] as String;
-    final wrong = selected['wrong'] as List<String>;
-
-    List<String> options = [correct, ...wrong];
-    options.shuffle(random);
-    final correctIndex = options.indexOf(correct);
-
-    return GameQuestion(
-      question: '$question\n$sentence',
-      options: options,
-      correctAnswerIndex: correctIndex,
-      type: QuestionType.grammar,
-      difficulty: difficulty,
-      explanation: correct,
-    );
-  }
-
-  static GameQuestion _generateDialogQuestion(QuestionDifficulty difficulty) {
-    final random = Random();
-
-    // 데이터가 초기화되지 않은 경우 기본 문제 생성
-    if (_dialogData == null) {
-      return _generateFallbackDialogQuestion(difficulty);
-    }
-
-    // 간단한 대화 표현들
-    final dialogExpressions = [
-      {'word': 'Hello', 'meaning': '안녕하세요'},
-      {'word': 'Goodbye', 'meaning': '안녕히 가세요'},
-      {'word': 'Thank you', 'meaning': '감사합니다'},
-      {'word': 'Sorry', 'meaning': '죄송합니다'},
-      {'word': 'Please', 'meaning': '부탁합니다'},
-      {'word': 'Excuse me', 'meaning': '실례합니다'},
-      {'word': 'Nice to meet you', 'meaning': '만나서 반갑습니다'},
-      {'word': 'How are you?', 'meaning': '어떻게 지내세요?'},
-      {'word': 'I\'m fine', 'meaning': '잘 지내요'},
-      {'word': 'What\'s your name?', 'meaning': '이름이 뭐예요?'},
-      {'word': 'My name is', 'meaning': '제 이름은'},
-      {'word': 'Where are you from?', 'meaning': '어디서 왔어요?'},
-      {'word': 'I\'m from', 'meaning': '저는 ~에서 왔어요'},
-      {'word': 'How old are you?', 'meaning': '몇 살이에요?'},
-      {'word': 'I\'m ~ years old', 'meaning': '저는 ~살이에요'},
-      {'word': 'What time is it?', 'meaning': '몇 시예요?'},
-      {'word': 'It\'s time to', 'meaning': '~할 시간이에요'},
-      {'word': 'I like', 'meaning': '저는 ~을 좋아해요'},
-      {'word': 'I don\'t like', 'meaning': '저는 ~을 싫어해요'},
-      {'word': 'Do you like?', 'meaning': '~을 좋아하세요?'},
-    ];
-
-    final selected =
-        dialogExpressions[random.nextInt(dialogExpressions.length)];
-    final word = selected['word']!;
-    final meaning = selected['meaning']!;
-
-    // 간단한 오답들
-    final wrongMeanings = ['잘못된 표현', '틀린 뜻', '다른 의미'];
-
-    List<String> options = [meaning, ...wrongMeanings];
-    options.shuffle(random);
-    final correctIndex = options.indexOf(meaning);
-
-    return GameQuestion(
-      question: '"$word"의 뜻은?',
-      options: options,
-      correctAnswerIndex: correctIndex,
-      type: QuestionType.dialog,
-      difficulty: difficulty,
-      explanation: meaning,
     );
   }
 
