@@ -233,12 +233,19 @@ class _RankScreenState extends State<RankScreen> {
                               ? const Color(0xFF788CC3)
                               : Colors.white,
                           borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
                         child: Center(
                           child: Text(
                             '개인',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: _selectedTabIndex == 0
                                   ? Colors.white
@@ -260,12 +267,19 @@ class _RankScreenState extends State<RankScreen> {
                               ? const Color(0xFF788CC3)
                               : Colors.white,
                           borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
                         child: Center(
                           child: Text(
                             '팀',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: _selectedTabIndex == 1
                                   ? Colors.white

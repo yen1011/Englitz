@@ -73,13 +73,20 @@ class TopRankers extends StatelessWidget {
                         fit: BoxFit.cover,
                       )
                     : null,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.15),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: user.avatarUrl.isEmpty
                   ? Center(
                       child: Text(
                         user.name.isNotEmpty ? user.name[0] : '?',
                         style: const TextStyle(
-                          fontSize: 32,
+                          fontSize: 34,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -98,13 +105,20 @@ class TopRankers extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const Color(0xFF788CC3),
                   shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
                 child: Center(
                   child: Text(
                     '$rank',
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -120,7 +134,7 @@ class TopRankers extends StatelessWidget {
         Text(
           user.name,
           style: const TextStyle(
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
@@ -132,7 +146,7 @@ class TopRankers extends StatelessWidget {
         // 소속
         Text(
           user.affiliation,
-          style: const TextStyle(fontSize: 10, color: Colors.grey),
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
           textAlign: TextAlign.center,
         ),
       ],
