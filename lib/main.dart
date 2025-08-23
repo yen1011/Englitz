@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
 import 'screens/rank_screen.dart';
 
 void main() {
@@ -17,7 +18,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Pretendard',
       ),
-      home: const RankScreen(),
+      home: const HomeScreen(),
+      routes: {
+        '/home': (context) => const HomeScreen(),
+        '/rank': (context) => const RankScreen(),
+        // '/review': (context) => const ReviewScreen(), // 추후 구현
+      },
     );
   }
 }

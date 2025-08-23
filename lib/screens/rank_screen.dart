@@ -472,7 +472,14 @@ class _RankScreenState extends State<RankScreen> {
           setState(() {
             _currentNavIndex = index;
           });
-          // 여기서 실제 네비게이션 처리
+          // 네비게이션 처리
+          if (index == 1) {
+            // 홈으로 이동
+            Navigator.pushReplacementNamed(context, '/home');
+          } else if (index == 2) {
+            // 리뷰로 이동 (추후 구현)
+            // Navigator.pushReplacementNamed(context, '/review');
+          }
         },
       ),
     );
