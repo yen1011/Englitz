@@ -101,7 +101,7 @@ class UserProfileHeaderState extends State<UserProfileHeader> with TickerProvide
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          '축하합니다! $_currentTier로 승급했습니다! 🎉',
+          '축하합니다! ${UserService.formatTier(_currentTier)}로 승급했습니다! 🎉',
           style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -444,7 +444,7 @@ class UserProfileHeaderState extends State<UserProfileHeader> with TickerProvide
           children: [
             // 현재 티어 텍스트
             Text(
-              _currentTier,
+              UserService.formatTier(_currentTier),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

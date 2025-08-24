@@ -32,12 +32,31 @@ class UserService {
     _currentTier = tier;
   }
 
+  // 티어 포맷팅 (띄어쓰기 추가)
+  static String formatTier(String tier) {
+    // GOLD1 -> GOLD 1, SILVER2 -> SILVER 2 등으로 변환
+    final RegExp regex = RegExp(r'^([A-Z]+)(\d+)$');
+    final Match? match = regex.firstMatch(tier);
+    
+    if (match != null) {
+      final String tierName = match.group(1)!;
+      final String tierNumber = match.group(2)!;
+      return '$tierName $tierNumber';
+    }
+    
+    // 패턴이 맞지 않으면 원본 반환
+    return tier;
+  }
+
+  // 현재 티어를 포맷팅해서 반환
+  static String get formattedCurrentTier => formatTier(_currentTier);
+
   // 현재 사용자 정보를 RecentMatch에서 사용할 수 있도록 제공
   static Map<String, dynamic> getCurrentUserInfo() {
     return {
       'name': _userName,
       'organization': _userOrganization,
-      'tier': _currentTier,
+      'tier': formatTier(_currentTier), // 포맷팅된 티어 반환
     };
   }
 

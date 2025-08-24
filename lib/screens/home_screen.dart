@@ -36,7 +36,7 @@ class HomeScreenState extends State<HomeScreen> {
               children: [
                 // 배경 사각형 (최상단부터 프로필 이미지 중간까지)
                 Container(
-                  height: 280 + MediaQuery.of(context).padding.top, // 상태바 영역까지 포함
+                  height: 230 + MediaQuery.of(context).padding.top, // 상태바 영역까지 포함
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white, // 흰색 배경
@@ -54,11 +54,11 @@ class HomeScreenState extends State<HomeScreen> {
                 // 상단 콘텐츠
                 Column(
                   children: [
-                    // 상태바 영역을 위한 패딩
-                    SizedBox(height: MediaQuery.of(context).padding.top),
+                    // 상태바 영역을 위한 패딩 (줄임)
+                    SizedBox(height: MediaQuery.of(context).padding.top - 20),
                     // 상단 설정 버튼과 프로필 수정 버튼
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 16.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [

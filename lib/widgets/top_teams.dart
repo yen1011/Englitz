@@ -23,16 +23,16 @@ class TopTeams extends StatelessWidget {
             child: Center(child: _buildTeam(topTeams[0], 1, isFirst: true)),
           ),
 
-          // 2위 (1등 기준 왼쪽 일정 간격)
+          // 2위 (1등 중심에서 왼쪽으로 130px)
           Positioned(
-            left: 40, // 1등 중앙에서 왼쪽으로 190px
+            left: MediaQuery.of(context).size.width / 2 - 130 - 37, // 화면 중앙에서 왼쪽으로 130px (아바타 너비의 절반 고려)
             top: 60,
             child: _buildTeam(topTeams[1], 2, isSecond: true),
           ),
 
-          // 3위 (1등 기준 오른쪽 일정 간격)
+          // 3위 (1등 중심에서 오른쪽으로 120px)
           Positioned(
-            left: 283, // 1등 중앙에서 오른쪽으로 190px
+            left: MediaQuery.of(context).size.width / 2 + 105 - 37, // 화면 중앙에서 오른쪽으로 120px (아바타 너비의 절반 고려)
             top: 60,
             child: _buildTeam(topTeams[2], 3, isThird: true),
           ),

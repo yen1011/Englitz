@@ -62,8 +62,8 @@ class _GameResultPopupState extends State<GameResultPopup>
     _fadeController.forward();
     _scaleController.forward();
 
-    // 5초 후 자동으로 사라지기
-    Future.delayed(const Duration(seconds: 5), () {
+    // 3.5초 후 자동으로 사라지기
+    Future.delayed(const Duration(seconds: 3, milliseconds: 500), () {
       if (mounted) {
         _hidePopup();
       }

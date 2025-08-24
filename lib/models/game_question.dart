@@ -43,9 +43,9 @@ class GameQuestion {
       case QuestionType.word:
         return 3; // 3초
       case QuestionType.grammar:
-        return 5; // 5초
+        return 8; // 8초 (3초 증가)
       case QuestionType.dialog:
-        return 5; // 5초
+        return 8; // 8초 (3초 증가)
     }
   }
 

@@ -23,16 +23,16 @@ class TopRankers extends StatelessWidget {
             child: Center(child: _buildRanker(topUsers[0], 1, isFirst: true)),
           ),
 
-          // 2위 (1등 기준 왼쪽 일정 간격)
+          // 2위 (1등 중심에서 왼쪽으로 140px)
           Positioned(
-            left: 23, // 1등 중앙에서 왼쪽으로 190px
+            left: MediaQuery.of(context).size.width / 2 - 138 - 37, // 화면 중앙에서 왼쪽으로 140px (아바타 너비의 절반 고려)
             top: 60,
             child: _buildRanker(topUsers[1], 2, isSecond: true),
           ),
 
-          // 3위 (1등 기준 오른쪽 일정 간격)
+          // 3위 (1등 중심에서 오른쪽으로 105px)
           Positioned(
-            left: 275, // 1등 중앙에서 오른쪽으로 190px
+            left: MediaQuery.of(context).size.width / 2 + 105 - 37, // 화면 중앙에서 오른쪽으로 105px (아바타 너비의 절반 고려)
             top: 60,
             child: _buildRanker(topUsers[2], 3, isThird: true),
           ),

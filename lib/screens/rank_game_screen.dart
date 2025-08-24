@@ -704,46 +704,53 @@ class _RankGameScreenState extends State<RankGameScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        _player.name,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: _isPlayerTurn
-                              ? const Color(0xFF333333)
-                              : Colors.grey[600],
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                      // 이름과 티어를 한 줄에 배치
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              _player.name,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: _isPlayerTurn
+                                    ? const Color(0xFF333333)
+                                    : Colors.grey[600],
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            _player.tier,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF999999),
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        _player.tier,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF999999),
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                      const SizedBox(height: 4),
+                      // 목숨 표시를 아래쪽에 배치
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: List.generate(3, (index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.favorite,
+                              color: index < _playerLives
+                                  ? (_isPlayerTurn
+                                  ? const Color(0xFFFF6B6B)
+                                        : Colors.grey[600])
+                                  : Colors.grey[300],
+                              size: 16,
+                            ),
+                          );
+                        }),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(width: 8),
-                // 목숨 표시
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(3, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 2),
-                      child: Icon(
-                        Icons.favorite,
-                        color: index < _playerLives
-                            ? (_isPlayerTurn
-                            ? const Color(0xFFFF6B6B)
-                                  : Colors.grey[600])
-                            : Colors.grey[300],
-                        size: 18,
-                      ),
-                    );
-                  }),
                 ),
               ],
             ),
@@ -755,47 +762,57 @@ class _RankGameScreenState extends State<RankGameScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // 목숨 표시
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(3, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 2),
-                      child: Icon(
-                        Icons.favorite,
-                        color: index < _opponentLives
-                            ? (!_isPlayerTurn
-                            ? const Color(0xFFFF6B6B)
-                                  : Colors.grey[600])
-                            : Colors.grey[300],
-                        size: 18,
-                      ),
-                    );
-                  }),
-                ),
-                const SizedBox(width: 8),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        _opponent.name,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: !_isPlayerTurn
-                              ? const Color(0xFF333333)
-                              : Colors.grey[600],
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                      // 이름과 티어를 한 줄에 배치 (오른쪽 정렬)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            _opponent.tier,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF999999),
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Flexible(
+                            child: Text(
+                              _opponent.name,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: !_isPlayerTurn
+                                    ? const Color(0xFF333333)
+                                    : Colors.grey[600],
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        _opponent.tier,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF999999),
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                      const SizedBox(height: 4),
+                      // 목숨 표시를 아래쪽에 배치 (오른쪽 정렬)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: List.generate(3, (index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 2),
+                            child: Icon(
+                              Icons.favorite,
+                              color: index < _opponentLives
+                                  ? (!_isPlayerTurn
+                                  ? const Color(0xFFFF6B6B)
+                                        : Colors.grey[600])
+                                  : Colors.grey[300],
+                              size: 16,
+                            ),
+                          );
+                        }),
                       ),
                     ],
                   ),
