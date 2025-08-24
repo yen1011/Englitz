@@ -126,58 +126,20 @@ class GameModeButtons extends StatelessWidget {
   }
 
   void _startNormalGame(BuildContext context) {
-    // 일반 게임 시작 로직
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('일반 게임'),
-        content: const Text('일반 게임을 시작하시겠습니까?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('취소'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NormalGameScreen(),
-                ),
-              );
-            },
-            child: const Text('시작'),
-          ),
-        ],
+    // 일반 게임 바로 시작
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const NormalGameScreen(),
       ),
     );
   }
 
   void _startRankGame(BuildContext context) {
-    // 랭크 게임 시작 로직
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('랭크 게임'),
-        content: const Text('랭크 게임을 시작하시겠습니까?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('취소'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const RankGameScreen()),
-              );
-            },
-            child: const Text('시작'),
-          ),
-        ],
-      ),
+    // 랭크 게임 바로 시작
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const RankGameScreen()),
     );
   }
 }
