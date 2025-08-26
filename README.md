@@ -1,32 +1,27 @@
-# englitz
+# Englitz  
 
-A new Flutter project.
+**Compete. Improve. Prove Your English.**  
 
-## Getting Started
+Englitz는 **영어(English) + 번개같은 성장(Blitz)** 를 결합한 이름으로,  
+바쁜 일상 속에서도 **실시간 경쟁**과 **게임적 시스템**을 통해 영어 실력을 기를 수 있는 학습 플랫폼입니다.
+</br> </br>
+Developed by. @[pzxcvasd](https://github.com/pzxcvasd) and @[yen1011](https://github.com/yen1011)
 
-This project is a starting point for a Flutter application.
+## 🚀 주요 기능 
 
-A few resources to get you started if this is your first Flutter project:
+### 스킬 기반 티어 시스템 
+<img width="1920" height="1080" alt="Slide 16_9 - 6" src="https://github.com/user-attachments/assets/d4b19603-94a7-47ec-a53c-425cbb10328a" />
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 실시간 경쟁 학습
+<img width="1920" height="1080" alt="Slide 16_9 - 7" src="https://github.com/user-attachments/assets/c858241e-fa34-44ec-be27-99cab7ceb04f" />
 
-## 개발 가이드라인
+### 랭킹 시스템
+<img width="1920" height="1080" alt="Slide 16_9 - 9" src="https://github.com/user-attachments/assets/1cd21b51-4c7b-40b7-a00b-fe16966f1207" />
 
-### 코딩 스타일
-- **생성자 key 파라미터**: `{Key? key, required this.gameResult}) : super(key: key)` 방식 사용
-- **자동 포맷팅**: IDE의 자동 포맷팅 기능을 비활성화하여 팀 컨벤션 유지
-- **코드 변경**: 다른 팀원의 코드 스타일을 자동으로 변경하지 말 것
-
-### IDE 설정
-- VS Code 사용 시 `.vscode/settings.json` 설정 적용
-- 자동 포맷팅 기능 비활성화
-- 팀 컨벤션에 맞는 코딩 스타일 유지
-
-### 주의사항
-- 코드를 수정할 때는 기존 스타일을 유지하세요
-- 자동 포맷팅으로 인한 불필요한 변경을 피하세요
+---
+본 프로젝트는 JUNCTION ASIA 2025의 YBM 트랙 제출작품이며, </br>
+앱 제작에 사용된 영어 단어,문법 데이터는 YBM으로부터 제공받았습니다.
+</br> </br>
+This project was submitted to the **YBM Track of JUNCTION ASIA 2025**,  
+and the vocabulary and grammar data used in the app were provided by **YBM**.
